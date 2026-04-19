@@ -44,10 +44,9 @@ export async function buildContext(
       and ar.operator_id = ${operatorId}
       and ar.created_at  > now() - interval '5 minutes'
       and ar.decision->>'outcome' = 'APPROVE'
-      and not exists (
-        select 1 from approval_requests ap
-        where ap.audit_record_id = ar.id
-          and ap.status = 'denied'
+      and ar.id not in (
+        select audit_record_id from approval_requests ap
+        where ap.status = 'denied'
       )
   `;
 

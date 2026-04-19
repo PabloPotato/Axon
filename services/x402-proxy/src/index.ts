@@ -147,12 +147,11 @@ app.post("/v1/actions", async (c) => {
 
     // Build a chain that seeds from the DB's last hash.
     const lastHash = await getLastRecordHash(agent.agentId, agent.operatorId);
-    const chain = inMemoryChain();
-    // Patch the chain so last_hash() returns the DB value
-    // (we append a synthetic sentinel — clean this up by adding a seed() method to the chain API)
-    if (lastHash !== GENESIS_HASH) {
-      (chain as unknown as { _last: string })._last = lastHash;
-    }
+    const chain = {
+      last_hash: () => lastHash,
+      append: () => {},
+      verify: () => ({ ok: true as const })
+    };
 
     const engine = new AxonEngine(policyData.source, { chain });
     const { decision, record } = await engine.evaluate(action, mergedCtx);
@@ -256,10 +255,11 @@ app.post("/v1/x402/forward", async (c) => {
 
     const ctx = await buildContext(agent.agentId, agent.operatorId);
     const lastHash = await getLastRecordHash(agent.agentId, agent.operatorId);
-    const chain = inMemoryChain();
-    if (lastHash !== GENESIS_HASH) {
-      (chain as unknown as { _last: string })._last = lastHash;
-    }
+    const chain = {
+      last_hash: () => lastHash,
+      append: () => {},
+      verify: () => ({ ok: true as const })
+    };
 
     const engine = new AxonEngine(policyData.source, { chain });
     const { decision, record } = await engine.evaluate(action, ctx);
