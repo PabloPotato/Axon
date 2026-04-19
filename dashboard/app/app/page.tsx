@@ -1,5 +1,5 @@
 // dashboard/app/app/page.tsx
-// Dashboard home — 4 KPI cards + recent activity table (last 20 audit records).
+// Dashboard home — 4 KPI cards + recent activity table.
 // Server Component. No client-side data fetching.
 
 import { createClient } from "@/lib/supabase/server";
@@ -8,15 +8,13 @@ import type { Metadata } from "next";
 import { Activity, Ban, Clock, Hash } from "lucide-react";
 
 export const metadata: Metadata = { title: "Dashboard" };
-
-export const revalidate = 30; // ISR: revalidate every 30s
+export const revalidate = 30;
 
 export default async function DashboardPage() {
   const supabase = await createClient();
   const { data: { session } } = await supabase.auth.getSession();
   if (!session) return null;
 
-  // Resolve operator (same as layout, cached by Next.js deduplication).
   const { data: membership } = await supabase
     .from("operator_members")
     .select("operator_id")
@@ -30,17 +28,14 @@ export default async function DashboardPage() {
 
   const since24h = new Date(Date.now() - 86_400_000).toISOString();
 
-  // Parallel data fetches.
   const [actionsRes, deniesRes, pendingRes, recentRes, chainHeadRes] =
     await Promise.all([
-      // Actions in last 24h
       supabase
         .from("audit_records")
         .select("id", { count: "exact", head: true })
         .eq("operator_id", operatorId)
         .gte("created_at", since24h),
 
-      // Denies in last 24h
       supabase
         .from("audit_records")
         .select("id", { count: "exact", head: true })
@@ -48,14 +43,12 @@ export default async function DashboardPage() {
         .contains("decision", { outcome: "DENY" })
         .gte("created_at", since24h),
 
-      // Pending approvals
       supabase
         .from("approval_requests")
         .select("id", { count: "exact", head: true })
         .eq("operator_id", operatorId)
         .eq("status", "pending"),
 
-      // Recent 20 audit records
       supabase
         .from("audit_records")
         .select("id, agent_id, decision, self_hash, created_at, agents(slug, display_name)")
@@ -63,7 +56,6 @@ export default async function DashboardPage() {
         .order("created_at", { ascending: false })
         .limit(20),
 
-      // Chain head
       supabase
         .from("audit_records")
         .select("self_hash")
@@ -90,10 +82,10 @@ export default async function DashboardPage() {
     },
     {
       id: "kpi-pending",
-      label: "Pending Approvals",
+      label: "Pending",
       value: pendingRes.count ?? 0,
       icon: Clock,
-      color: "text-amber-400",
+      color: "text-warning",
     },
     {
       id: "kpi-chain",
@@ -110,97 +102,93 @@ export default async function DashboardPage() {
   type AuditRow = NonNullable<typeof recentRes.data>[number];
 
   return (
-    <div className="p-6 space-y-6">
-      <div>
-        <h1 className="text-xl font-semibold tracking-tight">Dashboard</h1>
-        <p className="text-sm text-muted-foreground mt-0.5">
-          Overview of your agent fleet activity.
+    <div className="ax-page">
+      <div className="ax-page-header">
+        <h1 className="ax-page-title">Dashboard</h1>
+        <p className="ax-page-subtitle">
+          Real-time overview of your agent fleet.
         </p>
       </div>
 
-      {/* KPI cards */}
-      <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
+      {/* ── KPI cards ────────────────────────────────────────────────── */}
+      <div className="ax-kpi-grid" style={{ marginBottom: 28 }}>
         {kpis.map((kpi) => (
-          <div
-            key={kpi.id}
-            id={kpi.id}
-            className="rounded-xl border border-border bg-card p-4"
-          >
-            <div className="flex items-center justify-between mb-3">
-              <span className="text-xs text-muted-foreground">{kpi.label}</span>
-              <kpi.icon className={`w-4 h-4 ${kpi.color}`} />
+          <div key={kpi.id} id={kpi.id} className="ax-kpi">
+            <div className="ax-kpi-header">
+              <span className="ax-kpi-label">{kpi.label}</span>
+              <kpi.icon className={`ax-kpi-icon ${kpi.color}`} />
             </div>
-            <p
-              className={`text-2xl font-bold tracking-tight ${kpi.mono ? "font-mono text-base" : ""}`}
-            >
+            <p className={kpi.mono ? "ax-kpi-value--mono" : "ax-kpi-value"}>
               {kpi.value}
             </p>
           </div>
         ))}
       </div>
 
-      {/* Recent activity */}
-      <div>
-        <h2 className="text-sm font-semibold mb-3">Recent Activity</h2>
-        <div className="rounded-xl border border-border bg-card overflow-hidden">
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="border-b border-border">
-                <th className="px-4 py-3 text-left text-xs text-muted-foreground font-medium">Agent</th>
-                <th className="px-4 py-3 text-left text-xs text-muted-foreground font-medium">Decision</th>
-                <th className="px-4 py-3 text-left text-xs text-muted-foreground font-medium">Hash</th>
-                <th className="px-4 py-3 text-left text-xs text-muted-foreground font-medium">When</th>
-              </tr>
-            </thead>
-            <tbody>
-              {(recentRes.data ?? []).map((row: AuditRow) => {
-                const decision = row.decision as { outcome: string; reason?: string };
-                const agent = row.agents as { slug: string; display_name: string } | null;
-                return (
-                  <tr
-                    key={row.id}
-                    className="border-b border-border/50 last:border-0 hover:bg-secondary/30 transition-colors"
-                  >
-                    <td className="px-4 py-3 font-mono text-xs">
+      {/* ── Recent activity ──────────────────────────────────────────── */}
+      <div className="ax-table-card">
+        <div className="ax-table-card-header">
+          <span className="ax-table-card-title">Recent Activity</span>
+          <span className="ax-muted" style={{ fontSize: 12 }}>
+            Last 20 records
+          </span>
+        </div>
+        <table className="ax-table">
+          <thead>
+            <tr>
+              <th>Agent</th>
+              <th>Decision</th>
+              <th>Hash</th>
+              <th>When</th>
+            </tr>
+          </thead>
+          <tbody>
+            {(recentRes.data ?? []).map((row: AuditRow) => {
+              const decision = row.decision as { outcome: string; reason?: string };
+              const agent = row.agents as { slug: string; display_name: string } | null;
+              return (
+                <tr key={row.id}>
+                  <td>
+                    <span className="ax-mono" style={{ fontSize: 12 }}>
                       {agent?.display_name ?? row.agent_id.slice(0, 8)}
-                    </td>
-                    <td className="px-4 py-3">
-                      <OutcomeBadge outcome={decision.outcome} />
-                    </td>
-                    <td className="px-4 py-3 font-mono text-xs text-muted-foreground">
+                    </span>
+                  </td>
+                  <td>
+                    <OutcomeBadge outcome={decision.outcome} />
+                  </td>
+                  <td>
+                    <span className="ax-mono ax-muted" style={{ fontSize: 12 }}>
                       {truncateHash(row.self_hash)}
-                    </td>
-                    <td className="px-4 py-3 text-xs text-muted-foreground">
+                    </span>
+                  </td>
+                  <td>
+                    <span className="ax-muted" style={{ fontSize: 12 }}>
                       {formatRelativeTime(row.created_at)}
-                    </td>
-                  </tr>
-                );
-              })}
-              {(recentRes.data ?? []).length === 0 && (
-                <tr>
-                  <td colSpan={4} className="px-4 py-8 text-center text-sm text-muted-foreground">
-                    No activity yet.
+                    </span>
                   </td>
                 </tr>
-              )}
-            </tbody>
-          </table>
-        </div>
+              );
+            })}
+            {(recentRes.data ?? []).length === 0 && (
+              <tr>
+                <td colSpan={4} className="ax-table-empty">
+                  No activity yet. Deploy your first agent to start.
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
       </div>
     </div>
   );
 }
 
 function OutcomeBadge({ outcome }: { outcome: string }) {
-  const map: Record<string, { label: string; class: string }> = {
-    APPROVE: { label: "Approved", class: "bg-green-500/10 text-green-400" },
-    DENY: { label: "Denied", class: "bg-red-500/10 text-red-400" },
-    REQUIRE_APPROVAL: { label: "Pending", class: "bg-amber-500/10 text-amber-400" },
+  const map: Record<string, { label: string; cls: string }> = {
+    APPROVE: { label: "Approved", cls: "ax-badge--approve" },
+    DENY: { label: "Denied", cls: "ax-badge--deny" },
+    REQUIRE_APPROVAL: { label: "Pending", cls: "ax-badge--pending" },
   };
-  const style = map[outcome] ?? { label: outcome, class: "bg-secondary text-muted-foreground" };
-  return (
-    <span className={`inline-flex items-center rounded-md px-2 py-0.5 text-xs font-medium ${style.class}`}>
-      {style.label}
-    </span>
-  );
+  const style = map[outcome] ?? { label: outcome, cls: "" };
+  return <span className={`ax-badge ${style.cls}`}>{style.label}</span>;
 }

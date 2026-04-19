@@ -5,7 +5,6 @@
 import { createClient } from "@/lib/supabase/server";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { formatRelativeTime, truncateHash } from "@/lib/utils";
 import AgentTabs from "./AgentTabs";
 
 interface Props {
@@ -36,7 +35,6 @@ export default async function AgentDetailPage({ params }: Props) {
   const operatorId = membership?.operator_id;
   if (!operatorId) return null;
 
-  // Fetch agent
   const { data: agent } = await supabase
     .from("agents")
     .select("id, slug, display_name, identity_ref, created_at")
@@ -46,7 +44,6 @@ export default async function AgentDetailPage({ params }: Props) {
 
   if (!agent) notFound();
 
-  // Parallel fetches
   const [policiesRes, auditRes, approvalsRes] = await Promise.all([
     supabase
       .from("policies")
@@ -72,23 +69,23 @@ export default async function AgentDetailPage({ params }: Props) {
       .order("created_at", { ascending: false }),
   ]);
 
-  const activePolicy =
-    (policiesRes.data ?? []).find((p) => p.active) ?? null;
+  type PolicyRow = NonNullable<typeof policiesRes.data>[number];
+  const activePolicy: PolicyRow | null =
+    (policiesRes.data ?? []).find((p: PolicyRow) => p.active) ?? null;
 
   return (
-    <div className="p-6 space-y-6">
+    <div className="ax-page">
       {/* Header */}
-      <div>
-        <p className="text-xs text-muted-foreground font-mono mb-1">{agent.slug}</p>
-        <h1 className="text-xl font-semibold">{agent.display_name}</h1>
+      <div className="ax-page-header">
+        <p className="ax-mono ax-muted" style={{ fontSize: 12, marginBottom: 4 }}>{agent.slug}</p>
+        <h1 className="ax-page-title">{agent.display_name}</h1>
         {agent.identity_ref && (
-          <p className="text-xs text-muted-foreground mt-1 font-mono">
+          <p className="ax-mono ax-muted" style={{ fontSize: 12, marginTop: 4 }}>
             {agent.identity_ref}
           </p>
         )}
       </div>
 
-      {/* Tabs — Client Component wrapping the tab switching */}
       <AgentTabs
         agent={agent}
         policies={policiesRes.data ?? []}

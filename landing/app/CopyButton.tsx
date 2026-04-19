@@ -16,22 +16,7 @@ export default function CopyButton({ code }: { code: string }) {
     <button
       id="hero-npm-install"
       onClick={handleCopy}
-      style={{
-        display: "inline-flex",
-        alignItems: "center",
-        gap: 10,
-        padding: "10px 16px",
-        background: "var(--violet-muted)",
-        border: "1px solid rgba(124,92,255,0.25)",
-        borderRadius: 8,
-        cursor: "pointer",
-        fontFamily: "monospace",
-        fontSize: 14,
-        color: "var(--violet)",
-        transition: "background 0.15s",
-      }}
-      onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(124,92,255,0.2)")}
-      onMouseLeave={(e) => (e.currentTarget.style.background = "var(--violet-muted)")}
+      className="ax-btn-copy"
     >
       <span>{code}</span>
       <svg

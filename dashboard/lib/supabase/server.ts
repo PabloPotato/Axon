@@ -2,7 +2,7 @@
 // Cookie-bound Supabase client for Server Components and Route Handlers.
 // NEVER exposes the service-role key to the browser.
 
-import { createServerClient } from "@supabase/ssr";
+import { createServerClient, type CookieOptions } from "@supabase/ssr";
 import { cookies } from "next/headers";
 import type { Database } from "@/lib/supabase/types";
 
@@ -21,7 +21,7 @@ export async function createClient() {
   return createServerClient<Database>(url, key, {
     cookies: {
       getAll: () => cookieStore.getAll(),
-      setAll: (cookiesToSet) => {
+      setAll: (cookiesToSet: Array<{ name: string; value: string; options: CookieOptions }>) => {
         try {
           cookiesToSet.forEach(({ name, value, options }) =>
             cookieStore.set(name, value, options)

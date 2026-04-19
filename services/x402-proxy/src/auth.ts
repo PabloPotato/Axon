@@ -21,9 +21,21 @@ export interface AuthedAgent {
 
 /** Extract and validate a bearer token. Returns null if invalid. */
 export async function authenticate(
-  authHeader: string | undefined
+  authHeader: string | undefined,
+  simulatorAgentId?: string
 ): Promise<AuthedAgent | null> {
   if (!authHeader || !authHeader.startsWith("Bearer ")) return null;
+
+  // Simulator bypass for local testing.
+  if (authHeader === "Bearer axon_simulator_bypass" && simulatorAgentId) {
+    const rows = await sql<Array<{ agentId: string; operatorId: string; slug: string }>>`
+      select id as "agentId", operator_id as "operatorId", slug
+      from agents
+      where id = ${simulatorAgentId}
+      limit 1
+    `;
+    return rows[0] || null;
+  }
 
   const token = authHeader.slice(7).trim();
   const parsed = parseToken(token);

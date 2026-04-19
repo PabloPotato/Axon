@@ -15,6 +15,7 @@
 //   - Idempotency-Key honored
 
 import { Hono } from "hono";
+import { cors } from "hono/cors";
 import { authenticate } from "./auth.js";
 import { buildContext } from "./context.js";
 import {
@@ -37,6 +38,7 @@ import {
 import type { AgentAction, EvaluationContext } from "@axon/engine";
 
 const app = new Hono();
+app.use("/*", cors());
 
 // ─── Idempotency store (in-memory, v0.1 — use Redis in production) ───────────
 const idempotencyCache = new Map<string, unknown>();
@@ -44,7 +46,9 @@ const idempotencyCache = new Map<string, unknown>();
 // ─── Middleware: resolve agent from bearer ────────────────────────────────────
 
 async function resolveAgent(c: import("hono").Context) {
-  const agent = await authenticate(c.req.header("Authorization")).catch(() => null);
+  const authHeader = c.req.header("Authorization");
+  const simAgent = c.req.header("X-Simulator-Agent-Id");
+  const agent = await authenticate(authHeader, simAgent).catch(() => null);
   if (!agent) {
     return c.json({ error: "Unauthorized" }, 401);
   }

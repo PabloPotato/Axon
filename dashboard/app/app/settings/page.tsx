@@ -31,7 +31,6 @@ export default async function SettingsPage() {
 
   if (!operatorId || !operator) return null;
 
-  // All members for this operator
   const { data: members } = await supabase
     .from("operator_members")
     .select("user_id, role, created_at")
@@ -41,68 +40,85 @@ export default async function SettingsPage() {
   const isAdmin = ["owner", "admin"].includes(membership.role);
 
   return (
-    <div className="p-6 max-w-2xl space-y-8">
-      <div>
-        <h1 className="text-xl font-semibold tracking-tight">Settings</h1>
-        <p className="text-sm text-muted-foreground mt-0.5">Operator configuration</p>
+    <div className="ax-page" style={{ maxWidth: 640 }}>
+      <div className="ax-page-header">
+        <h1 className="ax-page-title">Settings</h1>
+        <p className="ax-page-subtitle">Operator configuration</p>
       </div>
 
-      {/* Operator info */}
-      <section>
-        <h2 className="text-sm font-semibold mb-4">Operator</h2>
-        <div className="rounded-xl border border-border bg-card p-4 space-y-3">
-          <div className="grid grid-cols-2 gap-3">
-            <Field label="Name" value={operator.name} />
-            <Field label="Legal entity" value={operator.legal_entity} />
-            <Field label="Country" value={operator.country_code} />
-            <Field label="Billing email" value={operator.billing_email} />
+      {/* ── Operator info ────────────────────────────────────────────── */}
+      <div style={{ marginBottom: 32 }}>
+        <p className="ax-section-label">Operator</p>
+        <div className="ax-card">
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+            <div>
+              <p className="ax-label">Name</p>
+              <p style={{ fontSize: 13 }}>{operator.name}</p>
+            </div>
+            <div>
+              <p className="ax-label">Legal entity</p>
+              <p style={{ fontSize: 13 }}>{operator.legal_entity}</p>
+            </div>
+            <div>
+              <p className="ax-label">Country</p>
+              <p style={{ fontSize: 13 }}>{operator.country_code}</p>
+            </div>
+            <div>
+              <p className="ax-label">Billing email</p>
+              <p style={{ fontSize: 13 }}>{operator.billing_email}</p>
+            </div>
           </div>
           {isAdmin && (
-            <p className="text-xs text-muted-foreground">
+            <p className="ax-muted" style={{ fontSize: 12, marginTop: 16 }}>
               Editing operator details coming in v0.2.
             </p>
           )}
         </div>
-      </section>
+      </div>
 
-      {/* Members */}
-      <section>
-        <h2 className="text-sm font-semibold mb-4">Members</h2>
-        <div className="rounded-xl border border-border bg-card overflow-hidden">
-          <table className="w-full text-sm">
+      {/* ── Members ──────────────────────────────────────────────────── */}
+      <div>
+        <p className="ax-section-label">Members</p>
+        <div className="ax-table-card">
+          <table className="ax-table">
             <thead>
-              <tr className="border-b border-border">
-                <th className="px-4 py-3 text-left text-xs text-muted-foreground font-medium">User ID</th>
-                <th className="px-4 py-3 text-left text-xs text-muted-foreground font-medium">Role</th>
-                <th className="px-4 py-3 text-left text-xs text-muted-foreground font-medium">Joined</th>
+              <tr>
+                <th>User ID</th>
+                <th>Role</th>
+                <th>Joined</th>
               </tr>
             </thead>
             <tbody>
-              {(members ?? []).map((m) => (
-                <tr key={m.user_id} className="border-b border-border/50 last:border-0">
-                  <td className="px-4 py-3 font-mono text-xs text-muted-foreground">
-                    {m.user_id.slice(0, 16)}…
-                    {m.user_id === session.user.id && (
-                      <span className="ml-1.5 text-primary">(you)</span>
-                    )}
+              {(members ?? []).map((m: { user_id: string; role: string; created_at: string }) => (
+                <tr key={m.user_id}>
+                  <td>
+                    <span className="ax-mono ax-muted" style={{ fontSize: 12 }}>
+                      {m.user_id.slice(0, 16)}…
+                      {m.user_id === session.user.id && (
+                        <span style={{ marginLeft: 6, color: "var(--color-primary)" }}>(you)</span>
+                      )}
+                    </span>
                   </td>
-                  <td className="px-4 py-3">
+                  <td>
                     {isAdmin && m.role !== "owner" ? (
                       <select
                         id={`role-select-${m.user_id}`}
                         defaultValue={m.role}
-                        className="rounded-md border border-input bg-background px-2 py-1 text-xs focus:outline-none focus:ring-1 focus:ring-ring"
+                        className="ax-input"
+                        style={{ width: "auto", padding: "4px 8px", fontSize: 12 }}
                       >
                         <option value="admin">admin</option>
                         <option value="member">member</option>
                         <option value="viewer">viewer</option>
                       </select>
                     ) : (
-                      <span className="text-xs font-mono">{m.role}</span>
+                      <span className="ax-mono" style={{ fontSize: 12 }}>{m.role}</span>
                     )}
                   </td>
-                  <td className="px-4 py-3 text-xs text-muted-foreground">
-                    {new Date(m.created_at).toLocaleDateString()}
+                  <td>
+                    <span className="ax-muted" style={{ fontSize: 12 }}>
+                      {new Date(m.created_at).toLocaleDateString()}
+                    </span>
                   </td>
                 </tr>
               ))}
@@ -110,20 +126,11 @@ export default async function SettingsPage() {
           </table>
         </div>
         {isAdmin && (
-          <p className="text-xs text-muted-foreground mt-3">
+          <p className="ax-muted" style={{ fontSize: 12, marginTop: 12 }}>
             Role changes take effect on next login. Member invitation coming in v0.2.
           </p>
         )}
-      </section>
-    </div>
-  );
-}
-
-function Field({ label, value }: { label: string; value: string }) {
-  return (
-    <div>
-      <p className="text-xs text-muted-foreground mb-0.5">{label}</p>
-      <p className="text-sm">{value}</p>
+      </div>
     </div>
   );
 }

@@ -1,6 +1,12 @@
 // dashboard/lib/supabase/types.ts
 // Minimal typed Database interface for Axon tables.
-// Run `supabase gen types typescript` to regenerate from live schema.
+//
+// IMPORTANT: Every table needs a `Relationships` array (even if empty) to
+// satisfy @supabase/supabase-js v2.100+ GenericTable constraint. Without it
+// the client's type machinery falls through to `never` for all queries.
+//
+// Run `supabase gen types typescript --project-id wrbaygxtqrtvpzxnrkni` to
+// regenerate from the live schema and replace this file.
 
 export interface Database {
   public: {
@@ -23,6 +29,7 @@ export interface Database {
           created_at?: string;
         };
         Update: Partial<Database["public"]["Tables"]["operators"]["Insert"]>;
+        Relationships: [];
       };
       operator_members: {
         Row: {
@@ -31,10 +38,22 @@ export interface Database {
           role: "owner" | "admin" | "member" | "viewer";
           created_at: string;
         };
-        Insert: Omit<Database["public"]["Tables"]["operator_members"]["Row"], "created_at"> & {
+        Insert: {
+          operator_id: string;
+          user_id: string;
+          role?: "owner" | "admin" | "member" | "viewer";
           created_at?: string;
         };
         Update: Partial<Database["public"]["Tables"]["operator_members"]["Insert"]>;
+        Relationships: [
+          {
+            foreignKeyName: "operator_members_operator_id_fkey";
+            columns: ["operator_id"];
+            isOneToOne: false;
+            referencedRelation: "operators";
+            referencedColumns: ["id"];
+          },
+        ];
       };
       agents: {
         Row: {
@@ -45,11 +64,24 @@ export interface Database {
           identity_ref: string | null;
           created_at: string;
         };
-        Insert: Omit<Database["public"]["Tables"]["agents"]["Row"], "id" | "created_at"> & {
+        Insert: {
           id?: string;
+          operator_id: string;
+          slug: string;
+          display_name: string;
+          identity_ref?: string | null;
           created_at?: string;
         };
         Update: Partial<Database["public"]["Tables"]["agents"]["Insert"]>;
+        Relationships: [
+          {
+            foreignKeyName: "agents_operator_id_fkey";
+            columns: ["operator_id"];
+            isOneToOne: false;
+            referencedRelation: "operators";
+            referencedColumns: ["id"];
+          },
+        ];
       };
       policies: {
         Row: {
@@ -62,11 +94,33 @@ export interface Database {
           active: boolean;
           created_at: string;
         };
-        Insert: Omit<Database["public"]["Tables"]["policies"]["Row"], "id" | "created_at"> & {
+        Insert: {
           id?: string;
+          operator_id: string;
+          agent_id: string;
+          version: string;
+          source: string;
+          hash: string;
+          active?: boolean;
           created_at?: string;
         };
         Update: Partial<Database["public"]["Tables"]["policies"]["Insert"]>;
+        Relationships: [
+          {
+            foreignKeyName: "policies_operator_id_fkey";
+            columns: ["operator_id"];
+            isOneToOne: false;
+            referencedRelation: "operators";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "policies_agent_id_fkey";
+            columns: ["agent_id"];
+            isOneToOne: false;
+            referencedRelation: "agents";
+            referencedColumns: ["id"];
+          },
+        ];
       };
       audit_records: {
         Row: {
@@ -83,11 +137,37 @@ export interface Database {
           self_hash: string;
           created_at: string;
         };
-        Insert: Omit<Database["public"]["Tables"]["audit_records"]["Row"], "id" | "created_at"> & {
+        Insert: {
           id?: string;
+          operator_id: string;
+          agent_id: string;
+          policy_id: string;
+          policy_hash: string;
+          record_uuid: string;
+          action: Record<string, unknown>;
+          decision: Record<string, unknown>;
+          obligations_emitted?: string[];
+          prev_record_hash: string;
+          self_hash: string;
           created_at?: string;
         };
         Update: never; // append-only
+        Relationships: [
+          {
+            foreignKeyName: "audit_records_operator_id_fkey";
+            columns: ["operator_id"];
+            isOneToOne: false;
+            referencedRelation: "operators";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "audit_records_agent_id_fkey";
+            columns: ["agent_id"];
+            isOneToOne: false;
+            referencedRelation: "agents";
+            referencedColumns: ["id"];
+          },
+        ];
       };
       approval_requests: {
         Row: {
@@ -102,15 +182,35 @@ export interface Database {
           timeout_at: string | null;
           created_at: string;
         };
-        Insert: Omit<
-          Database["public"]["Tables"]["approval_requests"]["Row"],
-          "id" | "created_at" | "responded_at"
-        > & {
+        Insert: {
           id?: string;
-          created_at?: string;
+          operator_id: string;
+          agent_id: string;
+          audit_record_id: string;
+          requested_approver?: string | null;
+          status?: "pending" | "approved" | "denied" | "timed_out";
+          approved_by?: string | null;
           responded_at?: string | null;
+          timeout_at?: string | null;
+          created_at?: string;
         };
         Update: Partial<Database["public"]["Tables"]["approval_requests"]["Insert"]>;
+        Relationships: [
+          {
+            foreignKeyName: "approval_requests_operator_id_fkey";
+            columns: ["operator_id"];
+            isOneToOne: false;
+            referencedRelation: "operators";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "approval_requests_agent_id_fkey";
+            columns: ["agent_id"];
+            isOneToOne: false;
+            referencedRelation: "agents";
+            referencedColumns: ["id"];
+          },
+        ];
       };
     };
     Views: Record<string, never>;

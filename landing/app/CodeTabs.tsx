@@ -56,21 +56,9 @@ export default function CodeTabs() {
   const [active, setActive] = useState<"policy" | "eval">("policy");
 
   return (
-    <div
-      style={{
-        borderRadius: 12,
-        border: "1px solid var(--border)",
-        background: "var(--bg-surface)",
-        overflow: "hidden",
-      }}
-    >
+    <div className="ax-code-block">
       {/* Tab bar */}
-      <div
-        style={{
-          display: "flex",
-          borderBottom: "1px solid var(--border)",
-        }}
-      >
+      <div className="ax-codetabs-bar">
         {[
           { id: "policy" as const, label: "Policy (.apl)" },
           { id: "eval" as const, label: "Evaluation (TypeScript)" },
@@ -79,17 +67,7 @@ export default function CodeTabs() {
             key={id}
             id={`code-tab-${id}`}
             onClick={() => setActive(id)}
-            style={{
-              padding: "12px 20px",
-              fontSize: 13,
-              fontWeight: 500,
-              background: "transparent",
-              border: "none",
-              borderBottom: `2px solid ${active === id ? "var(--violet)" : "transparent"}`,
-              color: active === id ? "var(--foreground)" : "var(--muted)",
-              cursor: "pointer",
-              transition: "color 0.15s",
-            }}
+            className={`ax-codetab ${active === id ? "ax-codetab--active" : ""}`}
           >
             {label}
           </button>
@@ -97,18 +75,7 @@ export default function CodeTabs() {
       </div>
 
       {/* Code */}
-      <pre
-        style={{
-          padding: "24px 20px",
-          fontSize: 13,
-          lineHeight: 1.7,
-          color: "var(--foreground)",
-          overflowX: "auto",
-          fontFamily: "monospace",
-          margin: 0,
-          minHeight: 260,
-        }}
-      >
+      <pre className="ax-code-pre" style={{ minHeight: 260 }}>
         {active === "policy" ? POLICY_TAB : EVAL_TAB}
       </pre>
     </div>

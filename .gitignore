@@ -31,3 +31,10 @@ pnpm-debug.log*
 *.key
 *.pem
 service-account*.json
+
+# Local Environment / Sandboxing
+.node22/
+.npm-cache/
+.bun/
+.claude/
+.agents/

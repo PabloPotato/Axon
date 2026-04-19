@@ -1,7 +1,11 @@
 {
   "permissions": {
     "allow": [
-      "WebSearch"
+      "WebSearch",
+      "Bash(cp /Users/Sari/.claude/projects/-Users-Sari-Desktop-Axon/d19518d7-6d9f-4412-9d8a-e6f7d0b5841c/tool-results/webfetch-1776622795096-70jnh1.bin /tmp/design.tar.gz)",
+      "Bash(mkdir -p /tmp/design)",
+      "Bash(tar -xzf /tmp/design.tar.gz -C /tmp/design)",
+      "Read(//tmp/**)"
     ]
   }
 }

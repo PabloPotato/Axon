@@ -1,17 +1,12 @@
 // dashboard/app/app/layout.tsx
-// Auth guard + operator resolver.
+// Auth guard + operator resolver + sidebar.
 // Server Component — runs on every /app/* request.
-//
-// SECURITY:
-//   - Reads operator from operator_members, keyed on auth.uid().
-//   - operator_id is NEVER trusted from the client — it comes from this server component.
-//   - RLS enforces per-operator isolation at the DB layer.
 
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import type { Metadata } from "next";
 import Link from "next/link";
-import { LogOut, LayoutDashboard, Bot, Settings, ChevronRight } from "lucide-react";
+import { LogOut, LayoutDashboard, Bot, Settings, Shield } from "lucide-react";
 
 export const metadata: Metadata = {
   title: {
@@ -27,14 +22,11 @@ export default async function AppLayout({
 }) {
   const supabase = await createClient();
 
-  // 1. Check session.
   const { data: { session } } = await supabase.auth.getSession();
   if (!session) {
     redirect("/login");
   }
 
-  // 2. Resolve operator from session user's memberships.
-  //    We pick the first operator (by created_at) — multi-operator switching is a future feature.
   const { data: membership } = await supabase
     .from("operator_members")
     .select("operator_id, role, operators(id, name)")
@@ -44,7 +36,6 @@ export default async function AppLayout({
     .single();
 
   if (!membership) {
-    // Authenticated but no operator — show onboarding (future)
     redirect("/onboarding");
   }
 
@@ -52,36 +43,40 @@ export default async function AppLayout({
     (membership.operators as unknown as { name: string } | null)?.name ?? "Unknown";
 
   return (
-    <div className="flex min-h-screen bg-background">
-      {/* Sidebar */}
-      <aside className="w-60 shrink-0 border-r border-border flex flex-col">
+    <div className="flex min-h-screen">
+      {/* ── Sidebar ────────────────────────────────────────────────────── */}
+      <aside className="ax-sidebar">
         {/* Brand */}
-        <div className="px-4 py-5 border-b border-border">
-          <div className="flex items-center gap-2">
-            <span className="text-primary font-bold text-lg">Axon</span>
-            <span className="text-muted-foreground text-xs font-mono">v0.1</span>
+        <div className="ax-sidebar-brand">
+          <div className="ax-sidebar-logo">
+            <Shield className="w-5 h-5 text-primary" strokeWidth={2.5} />
+            <span className="ax-sidebar-logo-text">Axon</span>
+            <span className="ax-sidebar-version">v0.1</span>
           </div>
-          <p className="text-xs text-muted-foreground mt-1 truncate">{operatorName}</p>
+          <p className="ax-sidebar-operator">{operatorName}</p>
         </div>
 
         {/* Nav */}
-        <nav className="flex-1 px-2 py-4 space-y-1">
-          <NavItem href="/app" icon={LayoutDashboard} label="Dashboard" exact />
-          <NavItem href="/app/agents" icon={Bot} label="Agents" />
-          <NavItem href="/app/settings" icon={Settings} label="Settings" />
+        <nav className="ax-sidebar-nav">
+          <Link href="/app" className="ax-sidebar-link ax-sidebar-link--active">
+            <LayoutDashboard className="ax-sidebar-link-icon" />
+            Dashboard
+          </Link>
+          <Link href="/app/agents" className="ax-sidebar-link">
+            <Bot className="ax-sidebar-link-icon" />
+            Agents
+          </Link>
+          <Link href="/app/settings" className="ax-sidebar-link">
+            <Settings className="ax-sidebar-link-icon" />
+            Settings
+          </Link>
         </nav>
 
         {/* User */}
-        <div className="px-4 py-4 border-t border-border">
-          <p className="text-xs text-muted-foreground truncate mb-2">
-            {session.user.email}
-          </p>
+        <div className="ax-sidebar-footer">
+          <p className="ax-sidebar-email">{session.user.email}</p>
           <form action="/api/auth/signout" method="POST">
-            <button
-              id="sidebar-signout"
-              type="submit"
-              className="flex items-center gap-2 text-xs text-muted-foreground hover:text-foreground transition-colors"
-            >
+            <button id="sidebar-signout" type="submit" className="ax-sidebar-signout">
               <LogOut className="w-3.5 h-3.5" />
               Sign out
             </button>
@@ -89,32 +84,10 @@ export default async function AppLayout({
         </div>
       </aside>
 
-      {/* Main */}
+      {/* ── Main ───────────────────────────────────────────────────────── */}
       <main className="flex-1 overflow-auto">
         {children}
       </main>
     </div>
-  );
-}
-
-function NavItem({
-  href,
-  icon: Icon,
-  label,
-  exact = false,
-}: {
-  href: string;
-  icon: React.ComponentType<{ className?: string }>;
-  label: string;
-  exact?: boolean;
-}) {
-  return (
-    <Link
-      href={href}
-      className="flex items-center gap-2.5 rounded-md px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors"
-    >
-      <Icon className="w-4 h-4 shrink-0" />
-      {label}
-    </Link>
   );
 }
