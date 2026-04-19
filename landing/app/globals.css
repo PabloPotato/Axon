@@ -1,0 +1,33 @@
+@import "tailwindcss";
+
+:root {
+  --violet: #7C5CFF;
+  --violet-muted: rgba(124, 92, 255, 0.12);
+  --foreground: #f4f4f5;
+  --muted: #71717a;
+  --border: rgba(255, 255, 255, 0.08);
+  --bg: #09090b;
+  --bg-surface: #111113;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  background: var(--bg);
+  color: var(--foreground);
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+}
+
+code, pre, .mono {
+  font-family: "JetBrains Mono", "Fira Code", "Cascadia Code", ui-monospace, monospace;
+}
