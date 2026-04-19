@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@axon/engine": "file:../../axon-engine",
+    "@solana/web3.js": "^1.95.0",
     "hono": "^4.4.0",
     "postgres": "^3.4.4"
   },
