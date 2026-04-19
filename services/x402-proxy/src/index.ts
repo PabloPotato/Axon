@@ -38,7 +38,19 @@ import {
 import type { AgentAction, EvaluationContext } from "@axon/engine";
 
 const app = new Hono();
-app.use("/*", cors());
+
+// CORS: allowlist only. Comma-separated origins in AXON_CORS_ORIGINS
+// (e.g. "https://dashboard.axon.dev,http://localhost:3000"). If unset,
+// CORS is disabled — agents call this proxy server-to-server, not from
+// browsers, so a wide-open `cors()` would only benefit attackers trying
+// to ride a victim's bearer token from a malicious site.
+const corsOrigins = (process.env["AXON_CORS_ORIGINS"] ?? "")
+  .split(",")
+  .map((o) => o.trim())
+  .filter(Boolean);
+if (corsOrigins.length > 0) {
+  app.use("/*", cors({ origin: corsOrigins }));
+}
 
 // ─── Idempotency store (in-memory, v0.1 — use Redis in production) ───────────
 const idempotencyCache = new Map<string, unknown>();

@@ -26,8 +26,15 @@ export async function authenticate(
 ): Promise<AuthedAgent | null> {
   if (!authHeader || !authHeader.startsWith("Bearer ")) return null;
 
-  // Simulator bypass for local testing.
-  if (authHeader === "Bearer axon_simulator_bypass" && simulatorAgentId) {
+  // Simulator bypass for local testing. Gated behind AXON_SIMULATOR_BYPASS=1
+  // so it is impossible to enable in any environment where the env var is not
+  // explicitly set (never set in prod). Without this guard, anyone who knows
+  // a valid agent UUID could impersonate that agent.
+  if (
+    process.env["AXON_SIMULATOR_BYPASS"] === "1" &&
+    authHeader === "Bearer axon_simulator_bypass" &&
+    simulatorAgentId
+  ) {
     const rows = await sql<Array<{ agentId: string; operatorId: string; slug: string }>>`
       select id as "agentId", operator_id as "operatorId", slug
       from agents
