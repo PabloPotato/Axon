@@ -64,25 +64,27 @@ Microsoft's business model forbids them from adopting an open standard as their 
 - Never charge for conformance.
 - Donate the spec to a neutral standards body at v1.0 (target 2027).
 
-## What is built right now (as of 2026-04-19)
+## What is built right now (as of 2026-04-20)
 
 - ✅ APL v0.1 SPEC + 4 compliance fixtures (parse + evaluate + audit)
-- ✅ axon-engine (TypeScript, 49 tests pass, CI on Node 20+22)
-- ✅ Supabase schema + RLS (append-only audit, hash-chain trigger)
-- ✅ x402 enforcement proxy (Hono + Bun, typechecks clean)
-- ✅ **Auditor-signable PDF exporter** (axon-audit — PDFKit, 6 sections, signature block)
-- ✅ Dashboard (Next.js — auth, onboarding, agents, policies, approvals, audit + PDF download)
-- ✅ Landing page (Next.js — responsive, all 7 spec sections)
-- ✅ Dashboard ↔ axon-audit wired via `/api/audit/pdf` endpoint
-- ✅ Auth callback route + onboarding flow
-- ✅ Public GitHub repo: github.com/PabloPotato/Axon
-- ✅ Root README + LICENSE (MIT + CC-BY-4.0 split)
+- ✅ axon-engine (TypeScript, 49 tests pass)
+- ✅ axon-audit — PDF exporter, 12 tests, wired into `/api/audit/pdf`
+- ✅ Supabase schema + RLS **deployed** to project `wrbaygxtqrtvpzxnrkni`
+- ✅ x402 enforcement proxy (Hono + Bun, auth hardened, Solana devnet sink)
+- ✅ Dashboard (Next.js 15 — auth, onboarding, agents, policy editor, approvals, audit)
+- ✅ Dashboard design: Apple-light, dark sidebar, JetBrains Mono, hash chain ledger
+- ✅ Landing page (Next.js — responsive)
+- ✅ Proxy e2e tests (2 pass), axon-audit tests (12 pass)
+- ✅ docs/ — API ref, SDK wrapper, PDF audit runbook
+- ✅ CLAUDE.md + AGENTS.md + memory/HANDOFF.md
+- ✅ 4 gstack OpenClaw skills installed (.claude/skills/, .agents/skills/)
+- ✅ Public GitHub: github.com/PabloPotato/Axon
 
 ## What is NOT built (stay disciplined)
 
-- ❌ **Supabase project provisioned** ← this is THE next priority (schema exists, not deployed)
-- ❌ End-to-end smoke test (dashboard → Supabase → proxy → audit PDF)
-- ❌ Solana on-chain audit anchoring (stubbed in SPEC)
+- ❌ **Seed data + public deployment** ← THE next priority for Demo Day
+- ❌ Sari logged into live dashboard (needs fresh magic link — stale JWT)
+- ❌ Solana devnet anchoring live (stub exists, `// @ts-nocheck` must be fixed)
 - ❌ Real approval adapters (Slack/email/PagerDuty)
 - ❌ Multi-currency oracle
 - ❌ Any paying customer
@@ -101,11 +103,14 @@ Per the 60-day plan, these waste runway:
 
 ## The priority order (do not reorder)
 
-1. ~~**Ship the PDF exporter.**~~ ✅ Done (axon-audit + /api/audit/pdf).
-2. **Deploy Supabase.** The schema is written; it does nothing until provisioned.
-3. **Wire dashboard → Supabase → proxy end-to-end** so one real action produces one real audit record.
-4. **Land the first EU design partner conversation.** One named compliance officer using this weekly beats five hackathon demos.
-5. **Everything else.**
+1. ~~**Ship the PDF exporter.**~~ ✅ Done.
+2. ~~**Deploy Supabase.**~~ ✅ Done — schema + RLS live on `wrbaygxtqrtvpzxnrkni`.
+3. **Seed demo data + get Sari logged in.** Fresh magic link → onboarding → 20 seeded audit records → working dashboard.
+4. **Deploy publicly.** Proxy → Railway. Dashboard → Vercel. Public URL for Demo Day (2026-05-12).
+5. **Land the first EU design partner conversation.** One named compliance officer using this weekly beats five hackathon demos.
+6. **Everything else.**
+
+Last updated: 2026-04-20
 
 ## The operator (Sari)
 
