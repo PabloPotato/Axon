@@ -490,7 +490,7 @@ export default function LandingPage() {
           <p className="ax-footer-cta-title">
             Building an agent that moves money in the EU?
           </p>
-          <a id="footer-cta-mailto" href="mailto:sari@axon.dev" className="ax-btn-primary">
+          <a id="footer-cta-mailto" href="mailto:hello@axon.dev" className="ax-btn-primary">
             Talk to us
           </a>
         </section>

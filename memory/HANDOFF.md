@@ -104,8 +104,8 @@ Total this window: 3 delegations (30 limit). Next reset: 2026-04-27 00:54 UTC.
 ### Session: 2026-04-26 (Hermes orchestrator + Qwen3-Coder subagent)
 **Task 1 — Privacy scan**
 - Grep'd all .md/.ts/.tsx/.json for PII across the repo
-- Found: 24 instances of PII ([OPERATOR_NAME] Salman name, email [OPERATOR_EMAIL])
-- Found: 9 instances of INFRA (Supabase project ID [SUPABASE_PROJECT_ID])
+- Found: 24 instances of PII (operator name, email)
+- Found: 9 instances of INFRA (Supabase project ID)
 - Found: 0 instances of SECRET (no API keys leaked in code)
 - Status: Files contain real PII/INFRA — need placeholder replacement before any public commit. No automated changes made (prevent conflict with concurrent file edits).
 
@@ -136,7 +136,7 @@ Total this window: 3 delegations (30 limit). Next reset: 2026-04-27 00:54 UTC.
 - SECURITY.md uses [SECURITY_EMAIL] placeholder — no real contact exposed
 
 **Task 6 — PII scrubbed from 12 files**
-- `Sari Salman` → `[OPERATOR_NAME]`, `abuahmadsari2@gmail.com` → `[OPERATOR_EMAIL]`, Supabase project ID → `[SUPABASE_PROJECT_ID]`
+- `Sari Salman` → `[OPERATOR_NAME]`, email → `[OPERATOR_EMAIL]`, Supabase project ID → `[SUPABASE_PROJECT_ID]`
 - Files: CONTEXT.md, AGENTS.md, HANDOFF.md, AXON_CLAUDE_CODE_HANDOFF.md, AXON_THESIS.md, AXON_60_DAY_BUILD_PLAN.md, AXON_CUSTOMER_DISCOVERY_PLAN.md, AXON_ORACLE_NOTE.md, apl/README.md, apl/SPEC.md, CLAUDE.md, dashboard/lib/supabase/types.ts, .claude/settings.local.json
 - GitHub remote configured: github.com/PabloPotato/Axon (credential stored in git credential store, not in remote URL)
 - Hourly auto-commit cron job created (every 60 minutes)

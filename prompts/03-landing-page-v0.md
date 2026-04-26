@@ -41,7 +41,7 @@ Design the landing page for **Axon** — the open policy and audit layer for aut
 
 6. **Roadmap** — horizontal timeline, four dots: v0.1 (today), v0.2 (May 2026 — Solana anchoring + PDF export), v0.3 (Q3 2026 — multi-rail + DORA templates), v1.0 (2027 — standards donation).
 
-7. **Footer CTA** — "Building an agent that moves money in the EU? Talk to us." → button mailto:sari@axon.dev.
+7. **Footer CTA** — "Building an agent that moves money in the EU? Talk to us." → button mailto:hello@axon.dev.
 
 8. **Footer** — two columns: links (Spec, Engine, GitHub, Discord) and meta (MIT + CC-BY-4.0, Berlin, © 2026 Axon Labs).
 

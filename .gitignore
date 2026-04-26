@@ -38,3 +38,4 @@ service-account*.json
 .bun/
 .claude/
 .agents/
+.vercel
