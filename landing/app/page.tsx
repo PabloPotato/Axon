@@ -7,7 +7,6 @@
 import React from "react";
 
 import { Lock, Zap, Globe } from "lucide-react";
-import CopyButton from "./CopyButton";
 import CodeTabs from "./CodeTabs";
 
 const HELLO_WORLD_APL = `policy marketing-agent v1.0.0

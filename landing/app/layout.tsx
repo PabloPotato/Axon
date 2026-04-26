@@ -48,7 +48,14 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${GeistSansFont.variable} ${GeistMonoFont.variable}`}>
-      <body className={GeistSansFont.className}>{children}</body>
+      <body className={GeistSansFont.className}>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `document.addEventListener("scroll",()=>{document.body.dataset.scrolled=window.scrollY>10?"true":"false"},{passive:true})`,
+          }}
+        />
+        {children}
+      </body>
     </html>
   );
 }
