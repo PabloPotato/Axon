@@ -2,17 +2,27 @@
 
 /* ── Tailwind v4 theme ────────────────────────────────────────────────── */
 @theme {
+  /* Color tokens from DESIGN_V2.md */
   --color-violet: #7C5CFF;
+  --color-violet-hover: #6b4cf0;
   --color-violet-muted: rgba(124, 92, 255, 0.12);
   --color-foreground: #f4f4f5;
   --color-muted: #71717a;
   --color-border: rgba(255, 255, 255, 0.08);
   --color-bg: #09090b;
   --color-bg-surface: #111113;
+  --color-surface: #111113;
+  --color-fg: #f4f4f5;
   --color-good: #22c55e;
+  --color-bad: #ef4444;
+  --color-warn: #f59e0b;
 
-  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
-  --font-mono: "JetBrains Mono", "Fira Code", ui-monospace, monospace;
+  /* Gradient */
+  --gradient-violet: linear-gradient(135deg, #7C5CFF, #4F46E5);
+
+  /* Typography - Geist from Vercel */
+  --font-sans: "Geist Sans", system-ui, -apple-system, sans-serif;
+  --font-mono: "Geist Mono", "JetBrains Mono", "Fira Code", ui-monospace, monospace;
 }
 
 /* ── Reset ────────────────────────────────────────────────────────────── */
