@@ -6,7 +6,7 @@
 
 ## 1. OPERATOR PROFILE
 
-**Name:** Sari Salman
+**Name:** [OPERATOR_NAME]
 **Age:** 22
 **Base:** Berlin, Germany
 **Background:** Ex-Meta Marketing Pro at Concentrix Berlin (Jan 2025–Jan 2026). Managed 100+ advertisers, $5–6M annual spend, 40% above targets. ROAS 1.5→8 case study. Founded S.N.A Digital (2023), shut down post-Oct 7 / burnout. Accepted to Tetr College of Business, Sep 2026 (Finance + AI, $75K scholarship, funding gap pending).
@@ -110,7 +110,7 @@ All Tier 1 and Tier 2 players are competing on the payment rail / wallet layer. 
 - **Regulatory forcing function:** Gartner predicts $1B compliance spend by 2030 driven by fragmented AI regulation
 
 ### Strategic asset
-**Sari has a Solana Superteam Germany operator contact** who has verbally indicated willingness to back the project if thesis + execution are strong. This is worth $100-300K of soft capital (grants, intros, distribution) and is the single biggest asymmetric advantage. The operator wants "consistent builders, not talkers."
+**[OPERATOR_NAME] has a Solana Superteam Germany operator contact** who has verbally indicated willingness to back the project if thesis + execution are strong. This is worth $100-300K of soft capital (grants, intros, distribution) and is the single biggest asymmetric advantage. The operator wants "consistent builders, not talkers."
 
 ### Financial constraints
 - €80 liquid cash
@@ -194,11 +194,11 @@ Create the following files in the working directory:
 
 ## 7. RULES OF ENGAGEMENT FOR THIS SESSION
 
-1. **Do not ask permission to proceed.** Sari has delegated. Start researching.
+1. **Do not ask permission to proceed.** [OPERATOR_NAME] has delegated. Start researching.
 2. **Use the web_search tool aggressively.** Skyfire, Coinbase AgentKit, Crossmint, and the EU AI Act all have 2026 developments that matter.
 3. **Be skeptical of your own findings.** If research contradicts the current thesis, say so. Do not protect the thesis out of momentum.
 4. **Flag uncertainty.** When a confidence level drops, explain why with cited sources.
-5. **Work in Oracle mode the entire session.** Sari needs the hidden insights, not validation.
+5. **Work in Oracle mode the entire session.** [OPERATOR_NAME] needs the hidden insights, not validation.
 6. **At the end, produce all 6 deliverables.** Do not skip.
 7. **No flattery. No "great idea!" No "let me help you think about this!"** Just work.
 
@@ -208,7 +208,7 @@ Create the following files in the working directory:
 
 After producing all 6 deliverables, do ONE MORE thing:
 
-**Write a short file called `AXON_ORACLE_NOTE.md` containing the single most important insight you discovered during research — the thing Sari didn't know they didn't know. One page maximum. This is the most valuable output of the session.**
+**Write a short file called `AXON_ORACLE_NOTE.md` containing the single most important insight you discovered during research — the thing [OPERATOR_NAME] didn't know they didn't know. One page maximum. This is the most valuable output of the session.**
 
 Then stop and summarize what was produced in 3 bullets.
 

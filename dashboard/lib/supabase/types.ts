@@ -5,7 +5,7 @@
 // satisfy @supabase/supabase-js v2.100+ GenericTable constraint. Without it
 // the client's type machinery falls through to `never` for all queries.
 //
-// Run `supabase gen types typescript --project-id wrbaygxtqrtvpzxnrkni` to
+// Run `supabase gen types typescript --project-id [SUPABASE_PROJECT_ID]` to
 // regenerate from the live schema and replace this file.
 
 export interface Database {

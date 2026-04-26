@@ -66,7 +66,7 @@ Solana-first, because the Solana Foundation / Superteam Germany is the distribut
 
 ## Who is building this
 
-Sari Salman. Ex-Meta / Concentrix advertiser of record, $5-6M annual spend under management, ROAS 1.5 → 8 case study. Built and shut down one company (S.N.A Digital). Ships software. Berlin-based. Backed-intro to Solana Superteam Germany operator. 22 years old. Runway: short. Conviction: high.
+[OPERATOR_NAME]. Ex-Meta / Concentrix advertiser of record, $5-6M annual spend under management, ROAS 1.5 → 8 case study. Built and shut down one company (S.N.A Digital). Ships software. Berlin-based. Backed-intro to Solana Superteam Germany operator. 22 years old. Runway: short. Conviction: high.
 
 ---
 

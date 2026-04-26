@@ -72,12 +72,12 @@ Rank by: (a) likelihood they're already running agents that spend money, (b) cry
 
 ### 14. A mid-sized EU e-commerce shop running agentic procurement (Zalando, About You, MyProtein, any DACH brand)
 - **Why:** EU exposure = MiCA + AI Act pressure. Likely pilot target.
-- **Approach:** Sari's Concentrix / Meta network. Warmer than cold.
+- **Approach:** [OPERATOR_NAME]'s Concentrix / Meta network. Warmer than cold.
 - **Talking points:** If your procurement agent spends €50K/quarter on ads APIs + shipping, who signs off policy, and how do you prove compliance on an audit?
 - **Ask:** 60-day paid pilot (€3K/month) in Q3 2026.
 
 ### 15. George Hanna (existing Meta ads client) + 2 similar SMB agencies
-- **Why:** Sari has the relationship. Smallest fish but zero-friction entry.
+- **Why:** [OPERATOR_NAME] has the relationship. Smallest fish but zero-friction entry.
 - **Angle:** They run Meta/Google agents for their clients today. Can Axon govern those agents' spend and audit their client-facing reports?
 - **Ask:** Free alpha in exchange for weekly feedback + referrals.
 
@@ -85,7 +85,7 @@ Rank by: (a) likelihood they're already running agents that spend money, (b) cry
 
 ## Call script (90 seconds, adapt per call)
 
-> "I'm Sari, building Axon — the treasury control plane for companies running AI agents that spend money. Your Browserbase/Devin/Sierra/Natural deployment already handles identity and payments. Nobody handles the layer where your finance team caps per-agent spend, enforces policy in real-time, and exports one audit package that passes EU AI Act Article 12. I'm not asking you to buy anything. I'm asking if that pain is in your top 5, how you solve it today, and whether you'd look at an alpha in 60 days."
+> "I'm [OPERATOR_NAME], building Axon — the treasury control plane for companies running AI agents that spend money. Your Browserbase/Devin/Sierra/Natural deployment already handles identity and payments. Nobody handles the layer where your finance team caps per-agent spend, enforces policy in real-time, and exports one audit package that passes EU AI Act Article 12. I'm not asking you to buy anything. I'm asking if that pain is in your top 5, how you solve it today, and whether you'd look at an alpha in 60 days."
 
 ## Target outcomes by call type
 

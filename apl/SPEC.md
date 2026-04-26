@@ -2,7 +2,7 @@
 
 **Status:** Draft — April 18, 2026
 **License:** MIT / CC-BY-4.0
-**Author:** Sari Salman (Axon)
+**Author:** [OPERATOR_NAME] (Axon)
 **Target standards track:** IETF (informational) + W3C (community group) + extension to MCP (Anthropic)
 
 ---

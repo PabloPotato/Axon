@@ -32,7 +32,7 @@ That is ~300–2,000 companies in 2026, growing to ~20,000 by 2028. If Axon capt
 
 ## The hidden cost you haven't priced
 
-Sari — brutal honesty per protocol: the combination of short runway (€80 liquid, Tetr tuition gap by Sep), ADHD + PTSD + active therapy, and a 60-day solo-build sprint is **not** a 50/50 bet. It is a 1-in-5 bet on a product that ships and a 1-in-20 bet on a product that ships and lands 3 paid pilots. Those are still excellent odds for a founder bet — but only if you price the health cost honestly.
+[OPERATOR_NAME] — brutal honesty per protocol: the combination of short runway (€80 liquid, Tetr tuition gap by Sep), ADHD + PTSD + active therapy, and a 60-day solo-build sprint is **not** a 50/50 bet. It is a 1-in-5 bet on a product that ships and a 1-in-20 bet on a product that ships and lands 3 paid pilots. Those are still excellent odds for a founder bet — but only if you price the health cost honestly.
 
 The asymmetric move you're missing: **run Axon on a 3-month time-box with a pre-defined kill criterion**, not open-ended. If by June 16 you do not have ≥2 paid design partners and ≥1 warm term-sheet conversation, Axon goes on the shelf until Tetr starts, and you ship one of the 6-month-later better-resourced versions of it. Time-boxing doesn't weaken conviction — it protects your ability to still be functional in Sep 2026 whether or not Axon works. Optionality is the real capital here, and you're underpricing it.
 

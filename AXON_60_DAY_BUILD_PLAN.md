@@ -1,7 +1,7 @@
 # AXON — 60-Day Build Plan (Apr 17 → Jun 16, 2026)
 
 ## Guiding constraints
-- Solo operator (Sari). Co-founder TBD via Superteam intro — assumed not yet onboard for this plan.
+- Solo operator ([OPERATOR_NAME]). Co-founder TBD via Superteam intro — assumed not yet onboard for this plan.
 - €80 liquid + Meta-ads client income. Claude Code subscription is the primary labor multiplier.
 - Solana x402 Hackathon runs April 6 → May 11; Buildstation Berlin Apr 27 → May 11; Demo Day **May 12**. This is the fixed external deadline.
 - All infra on managed services (Supabase, Vercel, Privy/Turnkey) — no self-hosted anything.

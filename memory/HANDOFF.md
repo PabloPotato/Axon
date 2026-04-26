@@ -15,8 +15,8 @@ One-time codebase audit completed. 5 tasks shipped. No security holes found in a
 ### Session: 2026-04-26 (Hermes orchestrator + Qwen3-Coder subagent)
 **Task 1 — Privacy scan**
 - Grep'd all .md/.ts/.tsx/.json for PII across the repo
-- Found: 24 instances of PII (Sari Salman name, email abuahmadsari2@gmail.com)
-- Found: 9 instances of INFRA (Supabase project ID wrbaygxtqrtvpzxnrkni)
+- Found: 24 instances of PII ([OPERATOR_NAME] Salman name, email [OPERATOR_EMAIL])
+- Found: 9 instances of INFRA (Supabase project ID [SUPABASE_PROJECT_ID])
 - Found: 0 instances of SECRET (no API keys leaked in code)
 - Status: Files contain real PII/INFRA — need placeholder replacement before any public commit. No automated changes made (prevent conflict with concurrent file edits).
 
@@ -56,10 +56,10 @@ One-time codebase audit completed. 5 tasks shipped. No security holes found in a
 
 ## Immediate next actions (in order)
 
-### 1. Get Sari logged in (URGENT — blocks everything else)
+### 1. Get [OPERATOR_NAME] logged in (URGENT — blocks everything else)
 ```
 http://localhost:3000/login
-→ Enter abuahmadsari2@gmail.com
+→ Enter [OPERATOR_EMAIL]
 → Click magic link in email
 → Complete /onboarding (org name, legal entity, country DE, billing email)
 → Land on /app
@@ -99,11 +99,11 @@ Issue: `@solana/web3.js` proxy typing conflicts. Fix the types, remove the noche
 | Dashboard | http://localhost:3000 | TBD (Vercel) | Next.js 15, `.env.local` required |
 | Proxy | http://localhost:3005 | TBD (Railway) | Requires `AXON_SIMULATOR_BYPASS=1` for simulator |
 | Landing | http://localhost:3002 | TBD | Static |
-| Supabase | — | wrbaygxtqrtvpzxnrkni | Schema + RLS deployed |
+| Supabase | — | [SUPABASE_PROJECT_ID] | Schema + RLS deployed |
 
 ### Required env vars for dashboard (`dashboard/.env.local`)
 ```
-NEXT_PUBLIC_SUPABASE_URL=https://wrbaygxtqrtvpzxnrkni.supabase.co
+NEXT_PUBLIC_SUPABASE_URL=https://[SUPABASE_PROJECT_ID].supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY=<from Supabase dashboard>
 NEXT_PUBLIC_SITE_URL=http://localhost:3000
 ```
@@ -146,7 +146,7 @@ Frankfurt compliance officer at a company with 5-50 AI agents spending USDC/USDT
 ## People and assets
 
 - **GitHub**: github.com/PabloPotato/Axon (public)
-- **Supabase project**: wrbaygxtqrtvpzxnrkni
-- **Sari's email**: abuahmadsari2@gmail.com
+- **Supabase project**: [SUPABASE_PROJECT_ID]
+- **[OPERATOR_NAME]'s email**: [OPERATOR_EMAIL]
 - **Distribution target**: Solana Superteam Germany (Demo Day: 2026-05-12)
 - **Potential acquirer**: Ramp (design every artifact so their corp-dev can find us)

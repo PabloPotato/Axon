@@ -129,4 +129,4 @@ The language is bigger than the company.
 
 ---
 
-*APL v0.1 — April 18, 2026. Sari Salman, Axon Labs, Berlin.*
+*APL v0.1 — April 18, 2026. [OPERATOR_NAME], Axon Labs, Berlin.*

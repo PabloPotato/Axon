@@ -42,6 +42,6 @@ axon-audit/      — PDF exporter (MIT)
 dashboard/       — Next.js 15 app (Supabase SSR)
 landing/         — Marketing page
 services/x402-proxy/ — Hono enforcement proxy (Bun)
-infra/supabase/  — schema.sql + policies.sql (deployed to wrbaygxtqrtvpzxnrkni)
+infra/supabase/  — schema.sql + policies.sql (deployed to [SUPABASE_PROJECT_ID])
 apl/             — APL spec + compliance fixtures
 ```

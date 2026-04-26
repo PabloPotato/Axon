@@ -47,7 +47,7 @@ Every public artifact (README, landing page, blog post, design-partner logo) sho
 | **2026-06-16** | Kill-criterion review: ≥2 paid design partners or Axon pauses until Sep |
 | **2026-07-01** | MiCA CASP compliance deadline (market forcing function) |
 | **2026-08** | EU AI Act Article 12 compliance deadline for agents (market forcing function) |
-| **2026-09** | Tetr College starts — Sari's fallback. Non-negotiable optionality. |
+| **2026-09** | Tetr College starts — [OPERATOR_NAME]'s fallback. Non-negotiable optionality. |
 
 ## The moat (why Microsoft can't copy us)
 
@@ -69,7 +69,7 @@ Microsoft's business model forbids them from adopting an open standard as their 
 - ✅ APL v0.1 SPEC + 4 compliance fixtures (parse + evaluate + audit)
 - ✅ axon-engine (TypeScript, 49 tests pass)
 - ✅ axon-audit — PDF exporter, 12 tests, wired into `/api/audit/pdf`
-- ✅ Supabase schema + RLS **deployed** to project `wrbaygxtqrtvpzxnrkni`
+- ✅ Supabase schema + RLS **deployed** to project `[SUPABASE_PROJECT_ID]`
 - ✅ x402 enforcement proxy (Hono + Bun, auth hardened, Solana devnet sink)
 - ✅ Dashboard (Next.js 15 — auth, onboarding, agents, policy editor, approvals, audit)
 - ✅ Dashboard design: Apple-light, dark sidebar, JetBrains Mono, hash chain ledger
@@ -83,7 +83,7 @@ Microsoft's business model forbids them from adopting an open standard as their 
 ## What is NOT built (stay disciplined)
 
 - ❌ **Seed data + public deployment** ← THE next priority for Demo Day
-- ❌ Sari logged into live dashboard (needs fresh magic link — stale JWT)
+- ❌ [OPERATOR_NAME] logged into live dashboard (needs fresh magic link — stale JWT)
 - ❌ Solana devnet anchoring live (stub exists, `// @ts-nocheck` must be fixed)
 - ❌ Real approval adapters (Slack/email/PagerDuty)
 - ❌ Multi-currency oracle
@@ -104,32 +104,32 @@ Per the 60-day plan, these waste runway:
 ## The priority order (do not reorder)
 
 1. ~~**Ship the PDF exporter.**~~ ✅ Done.
-2. ~~**Deploy Supabase.**~~ ✅ Done — schema + RLS live on `wrbaygxtqrtvpzxnrkni`.
-3. **Seed demo data + get Sari logged in.** Fresh magic link → onboarding → 20 seeded audit records → working dashboard.
+2. ~~**Deploy Supabase.**~~ ✅ Done — schema + RLS live on `[SUPABASE_PROJECT_ID]`.
+3. **Seed demo data + get [OPERATOR_NAME] logged in.** Fresh magic link → onboarding → 20 seeded audit records → working dashboard.
 4. **Deploy publicly.** Proxy → Railway. Dashboard → Vercel. Public URL for Demo Day (2026-05-12).
 5. **Land the first EU design partner conversation.** One named compliance officer using this weekly beats five hackathon demos.
 6. **Everything else.**
 
 Last updated: 2026-04-20
 
-## The operator (Sari)
+## The operator ([OPERATOR_NAME])
 
 22, Berlin, ex-Meta ads, ships software, short runway (€80 liquid + Meta freelance client), ADHD/PTSD (active therapy), accepted Tetr College Sep 2026. Talks to Claude as a peer, not as an assistant.
 
-**Do not treat Sari as fragile. Do not validate. Do not pep-talk.**
+**Do not treat [OPERATOR_NAME] as fragile. Do not validate. Do not pep-talk.**
 
-The highest-value thing Claude can produce for Sari is friction that reveals what's wrong, not support for what's visibly right.
+The highest-value thing Claude can produce for [OPERATOR_NAME] is friction that reveals what's wrong, not support for what's visibly right.
 
 ## Communication protocol (locked)
 
 - **ALWAYS:** peer-level, brutal honesty, confidence labels on strategic claims (HIGH/MED/LOW), minimum tokens unless depth is required, step-by-step reasoning.
-- **NEVER:** flattery openers, context restating, unprompted lectures, disclaimers, hallucinated facts about Sari's life or clients.
+- **NEVER:** flattery openers, context restating, unprompted lectures, disclaimers, hallucinated facts about [OPERATOR_NAME]'s life or clients.
 - **Format:** simple Q → 2–5 sentences; code tasks → code first, explain after; strategy → DIAGNOSIS → LOGIC → RECOMMENDATION → ACTION.
 - **Oracle mode:** answer the question that *should* have been asked. Every response contains one non-obvious insight or it didn't earn its tokens.
 
 ## The anti-drift rules (caveman mode)
 
-Before building anything, Claude and Sari both answer these out loud:
+Before building anything, Claude and [OPERATOR_NAME] both answer these out loud:
 
 1. **Does this ship the PDF?** If no — why are we touching it right now?
 2. **Does this narrow us or widen us?** Narrow is good. Widen is banned until v1.0.
