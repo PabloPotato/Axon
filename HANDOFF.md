@@ -17,29 +17,45 @@
 
 ### ✅ Priority One — Push & PR
 - Git push of `feature/rename-intaglio` (commit `4d73647`) to GitHub — succeeded
-- PR #1 opened at https://github.com/PabloPotato/Axon/pull/1
+- PR #1 opened at https://github.com/PabloPotato/Intaglio/pull/1
 - PR title: "rename: Axon to Intaglio across codebase"
+- Note: The operator already renamed the GitHub repo from PabloPotato/Axon to PabloPotato/Intaglio. Remote updated locally.
 - Status: **Awaiting operator merge from GitHub UI**
 
-### ✅ Priority Two — Deploy Gap Fix
-- **Landing**: Redeployed successfully. Live at https://landing-gules-phi.vercel.app
-  - Verified: serves "Intaglio" brand, "Policy and audit" hero, templates grid, comparison table
-  - GitHub nav links to PabloPotato/Axon preserved intentionally
-- **Dashboard**: Blocked by Vercel project configuration
-  - Root directory issue: project was configured with `rootDirectory: dashboard` which creates path `dashboard/dashboard/`
-  - Fixed `rootDirectory` to `null` via API
-  - Build fails on Vercel because `@intaglio/engine` and `@intaglio/audit` are `file:../` workspace deps — Vercel's build environment doesn't have access to sibling directories when deploying a subdirectory project
-  - **Operator action needed from phone:**
+### ✅ Priority Two — Vercel Deploy Gap (Round 2 — April 26)
+- **Landing**: Redeployed twice. First deploy served rename + Design v2. Second deploy serves OpenClaw structural improvements (updated hero copy + "Why Intaglio is different" cards). Live at https://landing-gules-phi.vercel.app
+  - Verified: hero reads "The policy layer for the autonomous economy." with subhead "Open standard · Deterministic compliance · Multi-rail ready"
+  - "Why Intaglio is different" section added with 3 icon cards (Lock, Zap, Globe)
+  - All existing sections preserved (hash chain, templates, institutional, regulatory table, comparison table, policy editor)
+- **Dashboard**: Fixed by inlining engine and audit source into dashboard/lib/
+  - Engine source (5 files, 648 lines) copied to dashboard/lib/intaglio-engine/
+  - Audit source (5 files, 866 lines) copied to dashboard/lib/intaglio-audit/
+  - All @intaglio/* imports replaced with relative paths to lib/
+  - file: deps removed from package.json
+  - tsconfig paths for @intaglio/* removed
+  - next.config.ts updated to trace local lib/ files
+  - Local build passes clean
+  - Branch: feature/dashboard-deploy-fix (pushed)
+  - **Vercel deploy blocked** by CLI bug: Vercel project has rootDirectory="dashboard" but CLI resolves path as dashboard/dashboard/ when deploying from that subdirectory. API deploy with gitSource needs repoId (no git integration connected).
+  - **Operator action needed tomorrow:**
     1. Open https://vercel.com/axons-projects-61010da5/dashboard/settings
-    2. Go to Git → Connected Git Repository → make sure it's linked to `PabloPotato/Axon` with Production Branch `master`
-    3. Go to Deployments → hit "Redeploy" on the latest successful deployment
-    4. OR: Set up Git integration so Vercel auto-deploys on push to master
+    2. Set Root Directory to "dashboard"
+    3. Go to Deployments → click "..." on latest → "Redeploy"
+    4. OR: during demo, run `cd dashboard && npm run dev` on localhost and share screen
 
-### ✅ Priority Three — Metaphor Update
-- DESIGN_V2.md: Updated with engraving/incision metaphor
-- INSTITUTIONAL.md: Added Intaglio name etymology sentence
-- ROADMAP.md: Updated header to Intaglio
-- Committed as `4d73647` (included in rename commit)
+### ✅ Priority Three — Metaphor Update (done in previous run)
+- DESIGN_V2.md, INSTITUTIONAL.md, ROADMAP.md updated with Intaglio engraving metaphor
+- Committed as part of `4d73647` rename
+
+### ✅ Priority Three (Round 2) — OpenClaw Merge
+- Hero copy updated: "The policy layer for the autonomous economy." with breadcrumb subhead
+- New "Why Intaglio is different" section with 3 icon cards using lucide-react
+- Policy editor verified working
+- All existing untouched sections preserved
+- globals.css: no color token changes, only new class additions
+- Build clean: 7.56 kB, 0 errors
+- Branch: feature/dashboard-deploy-fix (contains both dashboard fix + landing OpenClaw merge)
+- Landing live at https://landing-gules-phi.vercel.app
 
 ---
 
