@@ -46,6 +46,24 @@ One-time codebase audit completed. 5 tasks shipped. No security holes found in a
 - RLS policies verified: operators/agents/policies/audit_records all protected
 - SECURITY.md uses [SECURITY_EMAIL] placeholder — no real contact exposed
 
+**Task 6 — PII scrubbed from 12 files**
+- `Sari Salman` → `[OPERATOR_NAME]`, `abuahmadsari2@gmail.com` → `[OPERATOR_EMAIL]`, Supabase project ID → `[SUPABASE_PROJECT_ID]`
+- Files: CONTEXT.md, AGENTS.md, HANDOFF.md, AXON_CLAUDE_CODE_HANDOFF.md, AXON_THESIS.md, AXON_60_DAY_BUILD_PLAN.md, AXON_CUSTOMER_DISCOVERY_PLAN.md, AXON_ORACLE_NOTE.md, apl/README.md, apl/SPEC.md, CLAUDE.md, dashboard/lib/supabase/types.ts, .claude/settings.local.json
+- GitHub remote configured: github.com/PabloPotato/Axon (credential stored in git credential store, not in remote URL)
+- Hourly auto-commit cron job created (every 60 minutes)
+
+**Task 7 — Supabase seeded with demo data**
+- Created `infra/supabase/seed.ts`
+- Seeded live Supabase project [SUPABASE_PROJECT_ID]:
+  - 1 operator (Acme GmbH, DE)
+  - 1 agent (purchase-agent-v1)
+  - 1 policy (acme-purchase-policy v1.0.0, from level3-audit.apl)
+  - 20 audit records with valid hash chain (12 APPROVE, 5 DENY, 3 REQUIRE_APPROVAL)
+  - Timestamps spread chronologically over 14 days
+  - Genesis hash used as per APL spec: `sha256:0000000000000000000000000000000000000000000000000000000000000000`
+  - All 20 records inserted successfully — hash chain trigger verified automatically by Postgres
+- Seed uses env vars for credentials (no hardcoded secrets in committed file)
+
 **Key findings for operator attention:**
 1. PII/INFRA in 4 core files (CONTEXT.md, AGENTS.md, memory/HANDOFF.md, .claude/settings.local.json) — needs placeholder cleanup before making repo public
 2. Next.js 15.3.0 has critical CVEs — upgrade to 15.5.15+ (post-audit)

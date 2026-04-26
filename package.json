@@ -1,4 +1,7 @@
 {
   "name": "axon-monorepo",
-  "private": true
+  "private": true,
+  "dependencies": {
+    "@supabase/supabase-js": "^2.104.1"
+  }
 }
