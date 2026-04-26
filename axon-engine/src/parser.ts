@@ -25,7 +25,7 @@ function tokenize(src: string): Token[] {
   let i = 0;
   let line = 1;
   while (i < src.length) {
-    const c = src[i];
+    const c = src[i]!;
     if (c === "#") {
       while (i < src.length && src[i] !== "\n") i++;
       continue;
@@ -41,18 +41,18 @@ function tokenize(src: string): Token[] {
     }
     if (c === '"') {
       let j = i + 1;
-      while (j < src.length && src[j] !== '"') {
-        if (src[j] === "\\" && j + 1 < src.length) j += 2;
+      while (j < src.length && src[j]! !== '"') {
+        if (src[j]! === "\\" && j + 1 < src.length) j += 2;
         else j++;
       }
       tokens.push({ kind: "string", value: src.slice(i + 1, j), line });
       i = j + 1;
       continue;
     }
-    if (c === "/" && src[i + 1] === "/") {
+    if (c === "/" && src[i + 1]! === "/") {
       // inline regex literal — wrapped in //
       let j = i + 2;
-      while (j < src.length && !(src[j] === "/" && src[j - 1] !== "\\")) j++;
+      while (j < src.length && !(src[j]! === "/" && src[j - 1]! !== "\\")) j++;
       tokens.push({ kind: "string", value: src.slice(i + 2, j), line });
       i = j + 1;
       continue;
@@ -64,15 +64,15 @@ function tokenize(src: string): Token[] {
     }
     if (/[0-9]/.test(c) || (c === "-" && /[0-9]/.test(src[i + 1] ?? ""))) {
       let j = i;
-      if (src[j] === "-") j++;
-      while (j < src.length && /[0-9.]/.test(src[j])) j++;
+      if (src[j]! === "-") j++;
+      while (j < src.length && /[0-9.]/.test(src[j]!)) j++;
       tokens.push({ kind: "number", value: parseFloat(src.slice(i, j)), line });
       i = j;
       continue;
     }
     if (/[A-Za-z_]/.test(c)) {
       let j = i;
-      while (j < src.length && /[A-Za-z0-9_.:\-]/.test(src[j])) j++;
+      while (j < src.length && /[A-Za-z0-9_.:\-]/.test(src[j]!)) j++;
       const ident = src.slice(i, j);
       if (ident === "true") tokens.push({ kind: "bool", value: true, line });
       else if (ident === "false") tokens.push({ kind: "bool", value: false, line });

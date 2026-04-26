@@ -125,8 +125,8 @@ function withinHours(now: Date, spec: string): boolean {
   if (!m) return true;
   const [, sh, sm, eh, em, tz] = m;
   try {
-    const fmt = new Intl.DateTimeFormat("en-GB", {
-      timeZone: tz,
+    const fmt = new Intl.DateTimeFormat("en-US", {
+      timeZone: tz!,
       hour: "2-digit",
       minute: "2-digit",
       hour12: false,
@@ -135,8 +135,8 @@ function withinHours(now: Date, spec: string): boolean {
     const hh = parseInt(parts.find((p) => p.type === "hour")?.value ?? "0", 10);
     const mm = parseInt(parts.find((p) => p.type === "minute")?.value ?? "0", 10);
     const cur = hh * 60 + mm;
-    const start = parseInt(sh, 10) * 60 + parseInt(sm, 10);
-    const end = parseInt(eh, 10) * 60 + parseInt(em, 10);
+    const start = parseInt(sh!, 10) * 60 + parseInt(sm!, 10);
+    const end = parseInt(eh!, 10) * 60 + parseInt(em!, 10);
     return start <= cur && cur <= end;
   } catch {
     return true;

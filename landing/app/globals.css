@@ -660,3 +660,324 @@ body {
 .ax-delay-1 { animation-delay: 0.1s; }
 .ax-delay-2 { animation-delay: 0.2s; }
 .ax-delay-3 { animation-delay: 0.3s; }
+
+/* ── Hash Chain section ─────────────────────────────────────────────────── */
+.ax-hashchain {
+  border-radius: 12px;
+  border: 1px solid var(--color-border);
+  background: var(--color-bg-surface);
+  overflow: hidden;
+}
+
+.ax-hashchain-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.ax-hashchain-table thead tr {
+  border-bottom: 1px solid var(--color-border);
+}
+
+.ax-hashchain-table th {
+  padding: 14px 16px;
+  text-align: left;
+  color: var(--color-muted);
+  font-weight: 500;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.ax-hashchain-table tbody tr {
+  border-bottom: 1px solid var(--color-border);
+  position: relative;
+  transition: background 0.15s;
+}
+
+.ax-hashchain-table tbody tr:hover {
+  background: rgba(124, 92, 255, 0.04);
+}
+
+.ax-hashchain-table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.ax-hashchain-table td {
+  padding: 14px 16px;
+  vertical-align: middle;
+}
+
+/* Timestamp column */
+.ax-hashchain-time {
+  font-family: var(--font-mono);
+  color: var(--color-muted);
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+/* Decision pill */
+.ax-hashchain-decision {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.ax-hashchain-decision--approve {
+  background: rgba(34, 197, 94, 0.12);
+  color: #22c55e;
+}
+
+.ax-hashchain-decision--deny {
+  background: rgba(239, 68, 68, 0.12);
+  color: #ef4444;
+}
+
+.ax-hashchain-decision--require {
+  background: rgba(245, 158, 11, 0.12);
+  color: #f59e0b;
+}
+
+/* Amount column */
+.ax-hashchain-amount {
+  font-family: var(--font-mono);
+  color: var(--color-foreground);
+  font-weight: 500;
+}
+
+/* Agent name */
+.ax-hashchain-agent {
+  color: var(--color-muted);
+  font-size: 12px;
+  max-width: 140px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Hash transition column */
+.ax-hashchain-hash {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--color-muted);
+  position: relative;
+  padding-left: 20px;
+}
+
+/* Violet vertical chain line */
+.ax-hashchain-hash::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 2px;
+  height: 24px;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    var(--color-violet) 20%,
+    var(--color-violet) 80%,
+    transparent 100%
+  );
+  opacity: 0.5;
+}
+
+.ax-hashchain-hash-prev,
+.ax-hashchain-hash-curr {
+  color: var(--color-violet);
+  cursor: help;
+}
+
+.ax-hashchain-arrow {
+  color: var(--color-muted);
+  opacity: 0.5;
+}
+
+/* Tooltip */
+.ax-hashchain-tooltip {
+  position: fixed;
+  background: var(--color-bg);
+  border: 1px solid var(--color-violet);
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--color-foreground);
+  z-index: 1000;
+  pointer-events: none;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  max-width: 320px;
+  word-break: break-all;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+
+.ax-hashchain-tooltip.visible {
+  opacity: 1;
+}
+
+.ax-hashchain-tooltip-label {
+  color: var(--color-muted);
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 4px;
+}
+
+/* ── Policy Editor section ─────────────────────────────────────────────── */
+.ax-policy-editor {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+@media (max-width: 768px) {
+  .ax-policy-editor {
+    grid-template-columns: 1fr;
+  }
+}
+
+.ax-policy-editor-left,
+.ax-policy-editor-right {
+  border-radius: 12px;
+  border: 1px solid var(--color-border);
+  background: var(--color-bg-surface);
+  overflow: hidden;
+}
+
+.ax-policy-editor-header {
+  border-bottom: 1px solid var(--color-border);
+  padding: 12px 16px;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.ax-policy-editor-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--color-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.ax-policy-editor-content {
+  padding: 20px 16px;
+}
+
+.ax-policy-editor-code {
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  line-height: 1.7;
+  color: var(--color-foreground);
+  background: var(--color-bg);
+  padding: 16px;
+  border-radius: 8px;
+  border: 1px solid var(--color-border);
+  margin: 0 0 16px 0;
+  overflow-x: auto;
+}
+
+.ax-policy-editor-input-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.ax-policy-editor-input-label {
+  font-size: 13px;
+  color: var(--color-muted);
+}
+
+.ax-policy-editor-input {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--color-border);
+  background: var(--color-bg);
+  color: var(--color-foreground);
+  width: 100px;
+  transition: border-color 0.2s;
+}
+
+.ax-policy-editor-input:focus {
+  outline: none;
+  border-color: var(--color-violet);
+}
+
+/* Decision display */
+.ax-policy-editor-action {
+  font-size: 14px;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.ax-policy-editor-agent {
+  font-family: var(--font-mono);
+  color: var(--color-violet);
+}
+
+.ax-policy-editor-verb {
+  color: var(--color-muted);
+  margin: 0 6px;
+}
+
+.ax-policy-editor-amount {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  color: var(--color-foreground);
+}
+
+.ax-policy-editor-target {
+  color: var(--color-muted);
+  margin-left: 6px;
+}
+
+.ax-policy-editor-decision {
+  font-family: var(--font-mono);
+  font-size: 18px;
+  font-weight: 700;
+  padding: 16px 24px;
+  border-radius: 8px;
+  text-align: center;
+  margin-bottom: 12px;
+  letter-spacing: 0.05em;
+}
+
+.ax-policy-editor-decision--approve {
+  background: rgba(34, 197, 94, 0.12);
+  color: #22c55e;
+}
+
+.ax-policy-editor-decision--deny {
+  background: rgba(239, 68, 68, 0.12);
+  color: #ef4444;
+}
+
+.ax-policy-editor-reason {
+  font-size: 13px;
+  color: var(--color-muted);
+  line-height: 1.5;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .ax-hashchain-table th:nth-child(4),
+  .ax-hashchain-table td:nth-child(4) {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .ax-hashchain-table th:nth-child(5),
+  .ax-hashchain-table td:nth-child(5) {
+    display: none;
+  }
+}

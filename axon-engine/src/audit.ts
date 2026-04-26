@@ -62,7 +62,7 @@ export function inMemoryChain(): AuditChain {
     verify(records) {
       let prev = GENESIS_HASH;
       for (let i = 0; i < records.length; i++) {
-        const r = records[i];
+        const r = records[i]!;
         if (r.prev_record_hash !== prev) {
           return { ok: false, broken_at: i, reason: "prev_record_hash mismatch" };
         }
