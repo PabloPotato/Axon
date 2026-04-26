@@ -6,6 +6,7 @@
 
 import React from "react";
 
+import { Lock, Zap, Globe } from "lucide-react";
 import CopyButton from "./CopyButton";
 import CodeTabs from "./CodeTabs";
 
@@ -59,6 +60,24 @@ const WHY_ITEMS = [
     ),
     heading: "Closed platforms will not be accepted.",
     body: "Microsoft Agent 365 and the rest will not become the regulatory standard. Enterprises and regulators need an auditable open standard they can inspect and fork.",
+  },
+];
+
+const DIFFERENT_CARDS = [
+  {
+    icon: <Lock size={20} />,
+    title: "Open Standard",
+    body: "The APL specification is CC-BY-4.0, the reference engine is MIT. Any company, competitor, or regulator can inspect, fork, and contribute. MIT licensed engine, CC-BY-4.0 specification, donated to a foundation at v1.0.",
+  },
+  {
+    icon: <Zap size={20} />,
+    title: "Deterministic Compliance",
+    body: "Given the same policy, action, and context, every compliant implementation returns the same decision and the same record hash. Every audit record is reproducible from the same inputs.",
+  },
+  {
+    icon: <Globe size={20} />,
+    title: "Regulator-Shaped",
+    body: "The AuditRecord format maps directly to the fields regulators expect to see. No translation layer. No post-hoc justification. AuditRecord format maps directly to EU AI Act Article 12, MiCA Articles 68 and 70, DORA Article 17, NIST AI RMF, and ISO 42001.",
   },
 ];
 
@@ -381,11 +400,12 @@ export default function LandingPage() {
         {/* ─── Hero ──────────────────────────────────────────────────────── */}
         <section id="hero" className="ax-hero">
           <div className="ax-hero-content">
-            <h1 className="ax-hero-title">
-              <span className="ax-hero-title-line">Policy and audit</span>
-              <span className="ax-hero-title-line">for autonomous</span>
-              <span className="ax-hero-title-line">agents.</span>
+            <h1 className="ax-hero-title ax-hero-title--single">
+              The policy layer for the autonomous economy.
             </h1>
+            <p className="ax-hero-breadcrumb">
+              Open standard · Deterministic compliance · Multi-rail ready
+            </p>
             <p className="ax-hero-sub">
               The open standard EU compliance officers accept as evidence under AI Act Article 12, MiCA, and DORA.
             </p>
@@ -408,6 +428,23 @@ export default function LandingPage() {
             <div className="ax-hero-code-block">
               <pre className="ax-hero-code-pre">{HELLO_WORLD_APL}</pre>
             </div>
+          </div>
+        </section>
+
+        {/* ─── Why Intaglio is different ─────────────────────────────────── */}
+        <section id="different" className="ax-section">
+          <h2 className="ax-section-title">Why Intaglio is different</h2>
+          <p className="ax-section-subtitle">
+            We are building an open standard, not another closed product.
+          </p>
+          <div className="ax-different-grid">
+            {DIFFERENT_CARDS.map((card) => (
+              <div key={card.title} className="ax-different-card">
+                <div className="ax-different-icon">{card.icon}</div>
+                <h3 className="ax-different-title">{card.title}</h3>
+                <p className="ax-different-body">{card.body}</p>
+              </div>
+            ))}
           </div>
         </section>
 
@@ -442,21 +479,13 @@ export default function LandingPage() {
             ))}
           </div>
         </section>
-
-        {/* ─── Hash Chain ──────────────────────────────────────────────── */}
-        <section id="hash-chain" className="ax-section">
+        {/* ─── Hash chain visualization ────────────────────────────────── */}
+        <section id="hashchain" className="ax-section">
           <h2 className="ax-section-title">Live audit chain</h2>
-          <p style={{
-            textAlign: "center",
-            fontSize: "14px",
-            color: "var(--color-muted)",
-            marginBottom: "28px",
-            lineHeight: 1.6,
-          }}>
-            Every agent action produces a tamper-evident record hash-chained
-            to the one before it. No gaps. No retroactive edits.
+          <p style={{ textAlign: "center", fontSize: "14px", color: "var(--color-muted)", marginBottom: "28px", lineHeight: 1.6 }}>
+            Every agent action produces a tamper-evident record hash-chained to the one before it. No gaps. No retroactive edits.
           </p>
-          <div className="ax-hashchain">
+          <div className="ax-hashchain-wrap">
             <table className="ax-hashchain-table">
               <thead>
                 <tr>
@@ -468,15 +497,15 @@ export default function LandingPage() {
                 </tr>
               </thead>
               <tbody>
-                {HASH_CHAIN_DATA.map((row, i) => (
-                  <HashChainRow key={i} row={row} />
+                {HASH_CHAIN_DATA.map((row) => (
+                  <HashChainRow key={row.ts} row={row} />
                 ))}
               </tbody>
             </table>
           </div>
         </section>
 
-        {/* ─── Policy Editor ────────────────────────────────────────────── */}
+        {/* ─── Policy Editor ─────────────────────────────────────────────── */}
         <PolicyEditor />
 
         {/* ─── Ten Templates Grid ─────────────────────────────────────────── */}
@@ -548,7 +577,6 @@ export default function LandingPage() {
           </div>
         </section>
 
-        {/* ─── Positioning table ─────────────────────────────────────────── */}
         {/* ─── How Intaglio compares ──────────────────────────────────────────── */}
         <section id="positioning" className="ax-section">
           <h2 className="ax-section-title">How Intaglio compares</h2>
@@ -645,3 +673,4 @@ export default function LandingPage() {
     </>
   );
 }
+
