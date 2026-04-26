@@ -2,19 +2,19 @@
 // GET /api/audit/pdf?agent_id=<uuid>[&from=ISO][&to=ISO]
 //
 // Fetches all audit records for the agent, reconstructs AuditRecord[],
-// calls @axon/audit generateAuditPDF, and returns the binary PDF.
+// calls @intaglio/audit generateAuditPDF, and returns the binary PDF.
 //
 // Runs in Node.js runtime (not edge) — required for pdfkit + crypto.
-// serverExternalPackages includes pdfkit + @axon/* in next.config.ts.
+// serverExternalPackages includes pdfkit + @intaglio/* in next.config.ts.
 
 export const runtime = "nodejs";
 
 import { NextRequest, NextResponse } from "next/server";
 import { PassThrough } from "node:stream";
 import { createClient } from "@/lib/supabase/server";
-import { parse } from "@axon/engine";
-import type { AuditRecord } from "@axon/engine";
-import { generateAuditPDF } from "@axon/audit";
+import { parse } from "@intaglio/engine";
+import type { AuditRecord } from "@intaglio/engine";
+import { generateAuditPDF } from "@intaglio/audit";
 
 export async function GET(req: NextRequest) {
   const supabase = await createClient();
@@ -88,7 +88,7 @@ export async function GET(req: NextRequest) {
 
   // Reconstruct AuditRecord[] from DB rows.
   const records: AuditRecord[] = (rows ?? []).map((r) => ({
-    axon_version: "0.1",
+    intaglio_version: "0.1",
     record_id: r.record_uuid as string,
     timestamp: r.created_at as string,
     policy_id: r.policy_id as string,
@@ -150,7 +150,7 @@ export async function GET(req: NextRequest) {
 
   const pdfBuffer = await pdfPromise;
 
-  const filename = `axon-audit-${agent.slug}-${toTs.slice(0, 10)}.pdf`;
+  const filename = `intaglio-audit-${agent.slug}-${toTs.slice(0, 10)}.pdf`;
 
   // Next.js 15 Response body: cast through unknown to satisfy TS lib's BodyInit.
   const body = new Uint8Array(pdfBuffer.buffer, pdfBuffer.byteOffset, pdfBuffer.byteLength);

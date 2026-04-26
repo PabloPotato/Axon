@@ -28,4 +28,4 @@ APL-FS primitives map to:
 
 ## Implementation
 
-The Axon Engine parser will be extended in the v0.2 development cycle to support APL-FS primitives. These templates exist as forward-looking specimens to guide design partner conversations.
+The Intaglio Engine parser will be extended in the v0.2 development cycle to support APL-FS primitives. These templates exist as forward-looking specimens to guide design partner conversations.

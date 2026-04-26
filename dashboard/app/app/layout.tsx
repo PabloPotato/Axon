@@ -10,8 +10,8 @@ import { LogOut, LayoutDashboard, Bot, Settings, Shield } from "lucide-react";
 
 export const metadata: Metadata = {
   title: {
-    template: "%s — Axon Dashboard",
-    default: "Dashboard — Axon",
+    template: "%s — Intaglio Dashboard",
+    default: "Dashboard — Intaglio",
   },
 };
 
@@ -50,7 +50,7 @@ export default async function AppLayout({
         <div className="ax-sidebar-brand">
           <div className="ax-sidebar-logo">
             <Shield className="w-5 h-5 text-primary" strokeWidth={2.5} />
-            <span className="ax-sidebar-logo-text">Axon</span>
+            <span className="ax-sidebar-logo-text">Intaglio</span>
             <span className="ax-sidebar-version">v0.1</span>
           </div>
           <p className="ax-sidebar-operator">{operatorName}</p>

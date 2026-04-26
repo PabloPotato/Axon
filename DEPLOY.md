@@ -32,14 +32,14 @@ npx vercel env add NEXT_PUBLIC_SUPABASE_ANON_KEY
 # Paste: (from Supabase Dashboard → Settings → API → anon public key)
 
 npx vercel env add NEXT_PUBLIC_SITE_URL
-# Paste: https://axon-dashboard.vercel.app
+# Paste: https://intaglio-dashboard.vercel.app
 # (or whatever Vercel assigns after first deploy — update this after deploy)
 
 # Deploy
 npx vercel --prod
 ```
 
-**Expected output:** deployment URL (e.g., `https://axon-dashboard-xxxx.vercel.app`)
+**Expected output:** deployment URL (e.g., `https://intaglio-dashboard-xxxx.vercel.app`)
 
 ---
 
@@ -53,7 +53,7 @@ cd landing
 npx vercel --prod
 ```
 
-**Expected output:** deployment URL (e.g., `https://axon-landing-xxxx.vercel.app`)
+**Expected output:** deployment URL (e.g., `https://intaglio-landing-xxxx.vercel.app`)
 
 ---
 
@@ -72,9 +72,9 @@ npx railway variables set DATABASE_URL="REPLACE_ME_IN_RAILWAY"
 # Get from: Supabase Dashboard → Project Settings → Database → Connection string (PSQL)
 # Format: postgresql://postgres:[PASSWORD]@db.[PROJECT_ID].supabase.co:6543/postgres
 
-npx railway variables set AXON_SIMULATOR_BYPASS=1
+npx railway variables set INTA_SIMULATOR_BYPASS=1
 
-npx railway variables set AXON_CORS_ORIGINS="https://axon-dashboard.vercel.app"
+npx railway variables set INTA_CORS_ORIGINS="https://intaglio-dashboard.vercel.app"
 
 npx railway variables set SOLANA_RPC_URL="https://api.devnet.solana.com"
 
@@ -82,7 +82,7 @@ npx railway variables set SOLANA_RPC_URL="https://api.devnet.solana.com"
 npx railway up
 ```
 
-**Expected output:** deployment URL (e.g., `https://axon-proxy.up.railway.app`)
+**Expected output:** deployment URL (e.g., `https://intaglio-proxy.up.railway.app`)
 
 ---
 
@@ -90,15 +90,15 @@ npx railway up
 
 ```bash
 # Check dashboard loads
-curl -s https://axon-dashboard-xxxx.vercel.app | head -5
-# Should contain "<title>Axon" or similar
+curl -s https://intaglio-dashboard-xxxx.vercel.app | head -5
+# Should contain "<title>Intaglio" or similar
 
 # Check proxy health
-curl -s https://axon-proxy.up.railway.app/healthz
+curl -s https://intaglio-proxy.up.railway.app/healthz
 # Should return: {"ok":true,"chain_head":"sha256:..."}
 
 # Check landing page loads
-curl -s https://axon-landing-xxxx.vercel.app | head -5
+curl -s https://intaglio-landing-xxxx.vercel.app | head -5
 # Should contain HTML
 ```
 
@@ -110,7 +110,7 @@ After you know the Vercel dashboard URL, update the proxy's CORS origins:
 
 ```bash
 cd services/x402-proxy
-npx railway variables set AXON_CORS_ORIGINS="https://axon-dashboard-xxxx.vercel.app"
+npx railway variables set INTA_CORS_ORIGINS="https://intaglio-dashboard-xxxx.vercel.app"
 ```
 
 And update the landing page's site URL if it's used for any redirects:
@@ -118,7 +118,7 @@ And update the landing page's site URL if it's used for any redirects:
 ```bash
 cd landing
 npx vercel env add NEXT_PUBLIC_SITE_URL
-# Paste: https://axon-landing-xxxx.vercel.app
+# Paste: https://intaglio-landing-xxxx.vercel.app
 ```
 
 ---
@@ -127,6 +127,6 @@ npx vercel env add NEXT_PUBLIC_SITE_URL
 
 | Problem | Likely fix |
 |---|---|
-| Railway build fails on `@axon/engine` import | Railway doesn't support workspace `file:` deps natively. Solution: copy `axon-engine/` into `services/x402-proxy/` or publish `@axon/engine` to npm, or use a Dockerfile that runs `bun install` at the monorepo root |
-| Vercel build fails on `@axon/engine` or `@axon/audit` | Same issue — workspace deps. Solution: configure `vercel.json` build command to run `bun install` from root, or inline the dependencies |
+| Railway build fails on `@intaglio/engine` import | Railway doesn't support workspace `file:` deps natively. Solution: copy `axon-engine/` into `services/x402-proxy/` or publish `@intaglio/engine` to npm, or use a Dockerfile that runs `bun install` at the monorepo root |
+| Vercel build fails on `@intaglio/engine` or `@intaglio/audit` | Same issue — workspace deps. Solution: configure `vercel.json` build command to run `bun install` from root, or inline the dependencies |
 | Proxy health returns `503` | Supabase DB is not reachable from Railway. Check `DATABASE_URL` is correct and Railway's IP isn't blocked by Supabase's IP restrictions |

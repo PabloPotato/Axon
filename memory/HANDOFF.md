@@ -83,7 +83,7 @@ Total this window: 5 delegations (30 limit). Next reset: 2026-04-27 00:54 UTC.
 - **Fix**: Run the commands in `DEPLOY.md` at the repo root after authenticating via browser
 
 ### Phase 1 deployed artifact
-- Created `/root/axon/Axon-main/DEPLOY.md` — manual deployment instructions for all 3 services
+- Created `/root/axon/Intaglio-main/DEPLOY.md` — manual deployment instructions for all 3 services
 - Includes env vars (Supabase URL, anon key, connection string placeholder, CORS origins, Solana RPC)
 - Includes troubleshooting section for workspace dep resolution on Railway/Vercel build runners
 
@@ -128,7 +128,7 @@ Total this window: 3 delegations (30 limit). Next reset: 2026-04-27 00:54 UTC.
 - Note: Next.js critical CVEs fixed in 15.5.15+; upgrade deferred to avoid scope creep in audit
 
 **Task 5 — SECURITY.md created + .gitignore verified**
-- Created `/root/axon/Axon-main/SECURITY.md` (93 lines, 7 sections)
+- Created `/root/axon/Intaglio-main/SECURITY.md` (93 lines, 7 sections)
 - Threat model, invariants, dependency policy, disclosure, scope, hash chain integrity, known limitations
 - .gitignore already had `.env*`, `*.key`, `*.pem` patterns — no changes needed
 - Auth code (auth.ts) verified: constant-time comparison, timingSafeEqual, opaque errors — clean
@@ -138,7 +138,7 @@ Total this window: 3 delegations (30 limit). Next reset: 2026-04-27 00:54 UTC.
 **Task 6 — PII scrubbed from 12 files**
 - `Sari Salman` → `[OPERATOR_NAME]`, email → `[OPERATOR_EMAIL]`, Supabase project ID → `[SUPABASE_PROJECT_ID]`
 - Files: CONTEXT.md, AGENTS.md, HANDOFF.md, AXON_CLAUDE_CODE_HANDOFF.md, AXON_THESIS.md, AXON_60_DAY_BUILD_PLAN.md, AXON_CUSTOMER_DISCOVERY_PLAN.md, AXON_ORACLE_NOTE.md, apl/README.md, apl/SPEC.md, CLAUDE.md, dashboard/lib/supabase/types.ts, .claude/settings.local.json
-- GitHub remote configured: github.com/PabloPotato/Axon (credential stored in git credential store, not in remote URL)
+- GitHub remote configured: github.com/PabloPotato/Intaglio (credential stored in git credential store, not in remote URL)
 - Hourly auto-commit cron job created (every 60 minutes)
 
 **Task 7 — Supabase seeded with demo data**
@@ -216,7 +216,7 @@ SOLANA_PAYER_KEYPAIR_PATH=<path to keypair json>  # optional, dry-run if absent
 ## Business context: where we are vs where we need to be
 
 ### The pitch (30 seconds)
-EU companies running AI agents that spend stablecoins are about to be hit by three simultaneous compliance deadlines: MiCA CASP (Jul 2026), EU AI Act Article 12 (Aug 2026), DORA (ongoing). Zero tooling exists that handles all three for agent payments. Axon is the audit layer: one `.apl` policy file governs every agent action, and every action produces a tamper-evident record that exports as a regulator-ready PDF. Open-source core (APL spec CC-BY-4.0, engine MIT), SaaS dashboard paid.
+EU companies running AI agents that spend stablecoins are about to be hit by three simultaneous compliance deadlines: MiCA CASP (Jul 2026), EU AI Act Article 12 (Aug 2026), DORA (ongoing). Zero tooling exists that handles all three for agent payments. Intaglio is the audit layer: one `.apl` policy file governs every agent action, and every action produces a tamper-evident record that exports as a regulator-ready PDF. Open-source core (APL spec CC-BY-4.0, engine MIT), SaaS dashboard paid.
 
 ### The moat
 APL is an open standard. Microsoft can't adopt it as their governance layer — their business model forbids it. Ramp has no DSL team. We can out-compete their bundle by *being the standard*.
@@ -239,7 +239,7 @@ Frankfurt compliance officer at a company with 5-50 AI agents spending USDC/USDT
 
 ## People and assets
 
-- **GitHub**: github.com/PabloPotato/Axon (public)
+- **GitHub**: github.com/PabloPotato/Intaglio (public)
 - **Supabase project**: [SUPABASE_PROJECT_ID]
 - **[OPERATOR_NAME]'s email**: [OPERATOR_EMAIL]
 - **Distribution target**: Solana Superteam Germany (Demo Day: 2026-05-12)

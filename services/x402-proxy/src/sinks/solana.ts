@@ -1,6 +1,6 @@
 import { Connection, Keypair, Transaction, TransactionInstruction, PublicKey } from "@solana/web3.js";
 import { readFileSync } from "node:fs";
-import type { AuditRecord } from "@axon/engine";
+import type { AuditRecord } from "@intaglio/engine";
 import { sql } from "../db.js";
 
 const MEMO_PROGRAM_ID = new PublicKey("MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr");
@@ -15,7 +15,7 @@ function initSolana() {
 
   const keypairPath = process.env.SOLANA_PAYER_KEYPAIR_PATH;
   if (!keypairPath) {
-    console.warn("[axon] SOLANA_PAYER_KEYPAIR_PATH not set, Solana sink will operate in dry-run mode.");
+    console.warn("[intaglio] SOLANA_PAYER_KEYPAIR_PATH not set, Solana sink will operate in dry-run mode.");
     return;
   }
 
@@ -23,9 +23,9 @@ function initSolana() {
     const rawData = readFileSync(keypairPath, "utf-8");
     const secretKey = Uint8Array.from(JSON.parse(rawData));
     payer = Keypair.fromSecretKey(secretKey);
-    console.log(`[axon] Solana sink active. Payer: ${payer.publicKey.toBase58()} (RPC: ${rpcUrl})`);
+    console.log(`[intaglio] Solana sink active. Payer: ${payer.publicKey.toBase58()} (RPC: ${rpcUrl})`);
   } catch (err) {
-    console.error(`[axon] Failed to load Solana keypair from ${keypairPath}:`, err);
+    console.error(`[intaglio] Failed to load Solana keypair from ${keypairPath}:`, err);
   }
 }
 
@@ -52,7 +52,7 @@ export async function bulkAnchor(records: AuditRecord[]): Promise<boolean> {
   initSolana();
 
   const payloads = pendingRecords.map((r) => ({
-    axon: "0.1",
+    intaglio: "0.1",
     record_id: r.record_id,
     self_hash: r.self_hash,
   }));
@@ -60,7 +60,7 @@ export async function bulkAnchor(records: AuditRecord[]): Promise<boolean> {
   const memoString = JSON.stringify(payloads);
 
   if (!payer || !connection) {
-    console.log(`[axon] (dry-run) Solana Memo Anchor: ${memoString}`);
+    console.log(`[intaglio] (dry-run) Solana Memo Anchor: ${memoString}`);
     await markAnchored(pendingRecords);
     return true;
   }
@@ -76,12 +76,12 @@ export async function bulkAnchor(records: AuditRecord[]): Promise<boolean> {
 
     const signature = await connection.sendTransaction(tx, [payer]);
     await connection.confirmTransaction(signature, "confirmed");
-    console.log(`[axon] Solana anchor successful: ${signature}`);
+    console.log(`[intaglio] Solana anchor successful: ${signature}`);
 
     await markAnchored(pendingRecords);
     return true;
   } catch (err) {
-    console.error("[axon] Solana anchor failed:", err);
+    console.error("[intaglio] Solana anchor failed:", err);
     return false;
   }
 }
@@ -106,6 +106,6 @@ async function markAnchored(records: AuditRecord[]): Promise<void> {
       }
     }
   } catch (dbErr) {
-    console.error("[axon] Failed to mark records as obligations_emitted in DB:", dbErr);
+    console.error("[intaglio] Failed to mark records as obligations_emitted in DB:", dbErr);
   }
 }

@@ -98,7 +98,7 @@ describe("POST /v1/actions", () => {
     amount: { value: 50, currency: "USDC" },
     timestamp: new Date().toISOString(),
   };
-  const token = `axon_agent_${testAgentId}.${TEST_SECRET_RAW}`;
+  const token = `intaglio_agent_${testAgentId}.${TEST_SECRET_RAW}`;
 
   test("returns 401 with no auth", async () => {
     const res = await post("/v1/actions", { action: validAction });

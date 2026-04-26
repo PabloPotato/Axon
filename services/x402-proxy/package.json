@@ -1,7 +1,7 @@
 {
   "name": "x402-proxy",
   "version": "0.1.0",
-  "description": "Axon x402 enforcement proxy — evaluates agent actions against APL policy before forwarding.",
+  "description": "Intaglio x402 enforcement proxy — evaluates agent actions against APL policy before forwarding.",
   "license": "MIT",
   "type": "module",
   "scripts": {
@@ -12,7 +12,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@axon/engine": "file:../../axon-engine",
+    "@intaglio/engine": "file:../../intaglio-engine",
     "@solana/web3.js": "^1.95.0",
     "hono": "^4.4.0",
     "postgres": "^3.4.4"

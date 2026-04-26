@@ -1,5 +1,5 @@
 {
-  "name": "axon-dashboard",
+  "name": "intaglio-dashboard",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -10,8 +10,8 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@axon/audit": "file:../axon-audit",
-    "@axon/engine": "file:../axon-engine",
+    "@intaglio/audit": "file:../intaglio-audit",
+    "@intaglio/engine": "file:../intaglio-engine",
     "@monaco-editor/react": "^4.6.0",
     "@supabase/ssr": "^0.10.2",
     "@supabase/supabase-js": "^2.103.3",

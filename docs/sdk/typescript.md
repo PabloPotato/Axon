@@ -1,31 +1,31 @@
-# Axon Typescript Integration SDK
+# Intaglio Typescript Integration SDK
 
-Axon enforces compliance entirely out-of-band by proxying your requests. Integrating an agent securely is easily achieved by wrapping your native API requests.
+Intaglio enforces compliance entirely out-of-band by proxying your requests. Integrating an agent securely is easily achieved by wrapping your native API requests.
 
 The enforcement boundary guarantees that if the `x402-proxy` rejects the action, the request will systematically short-circuit, preventing non-compliant actions.
 
 ## 1. Native Fetch Wrapper
 
-Using a simple wrapper to intercept downstream agent requests and tunnel them safely through the Axon enforcement node.
+Using a simple wrapper to intercept downstream agent requests and tunnel them safely through the Intaglio enforcement node.
 
 ```typescript
-// axonFetcher.ts
+// intaglioFetcher.ts
 import { randomUUID } from "crypto";
 
-const AXON_PROXY_URL = process.env.AXON_PROXY_URL || "http://localhost:3001";
-const AXON_AGENT_SECRET = process.env.AXON_AGENT_SECRET;
+const INTA_PROXY_URL = process.env.INTA_PROXY_URL || "http://localhost:3001";
+const INTA_AGENT_SECRET = process.env.INTA_AGENT_SECRET;
 
 /**
- * Evaluates an action through the local Axon Proxy Node limit enforcements
+ * Evaluates an action through the local Intaglio Proxy Node limit enforcements
  * before directly tunneling to the endpoint.
  */
-export async function axonFetch(actionObj: any, upstreamUrl: string, fetchOptions: RequestInit = {}) {
+export async function intaglioFetch(actionObj: any, upstreamUrl: string, fetchOptions: RequestInit = {}) {
   const idempotencyKey = randomUUID();
 
-  const response = await fetch(`${AXON_PROXY_URL}/v1/x402/forward`, {
+  const response = await fetch(`${INTA_PROXY_URL}/v1/x402/forward`, {
     method: "POST",
     headers: {
-      "Authorization": `Bearer ${AXON_AGENT_SECRET}`,
+      "Authorization": `Bearer ${INTA_AGENT_SECRET}`,
       "Idempotency-Key": idempotencyKey,
       "Content-Type": "application/json",
     },
@@ -39,7 +39,7 @@ export async function axonFetch(actionObj: any, upstreamUrl: string, fetchOption
   });
 
   if (!response.ok) {
-    throw new Error(`[Axon] Enforced short-circuit: ${response.statusText}`);
+    throw new Error(`[Intaglio] Enforced short-circuit: ${response.statusText}`);
   }
 
   return response;
@@ -49,7 +49,7 @@ export async function axonFetch(actionObj: any, upstreamUrl: string, fetchOption
 ## 2. Usage
 
 ```typescript
-import { axonFetch } from "./axonFetcher";
+import { intaglioFetch } from "./intaglioFetcher";
 
 export async function submitTransfer(amount: number) {
   const action = {
@@ -59,7 +59,7 @@ export async function submitTransfer(amount: number) {
   };
 
   try {
-    const res = await axonFetch(action, "https://api.yourbank.com/transfer", {
+    const res = await intaglioFetch(action, "https://api.yourbank.com/transfer", {
       method: "POST",
       body: JSON.stringify({ recipient: "uuid", amount })
     });

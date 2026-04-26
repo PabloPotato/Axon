@@ -89,7 +89,7 @@ export default function OnboardingPage() {
         {/* Brand */}
         <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
           <Shield className="w-6 h-6" style={{ color: "var(--color-primary)" }} strokeWidth={2.5} />
-          <span style={{ fontWeight: 700, fontSize: 20, color: "var(--color-primary)", letterSpacing: "-0.02em" }}>Axon</span>
+          <span style={{ fontWeight: 700, fontSize: 20, color: "var(--color-primary)", letterSpacing: "-0.02em" }}>Intaglio</span>
         </div>
 
         {/* Header */}

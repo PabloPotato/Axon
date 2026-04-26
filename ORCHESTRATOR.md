@@ -1,4 +1,4 @@
-# Axon Orchestrator Protocol
+# Intaglio Orchestrator Protocol
 
 ## Role Split (NON-NEGOTIABLE)
 - **Hermes (DeepSeek)** = Orchestrator — plan, decide, delegate, QA, memory. Never writes code.
@@ -12,7 +12,7 @@ If any file missing = STOP and report.
 ## The 5 Gears
 1. CEO REVIEW — Does it ship the PDF? Does it narrow? Can Ramp understand it?
 2. ENGINEERING MANAGER — Decompose into atomic tasks (max 2 files, 200 lines each)
-3. DELEGATION — Spawn Qwen3-Coder with 1 task. Must read Axon-Coder-system.md first.
+3. DELEGATION — Spawn Qwen3-Coder with 1 task. Must read Intaglio-Coder-system.md first.
 4. QA REVIEWER — Verify files match spec, typecheck+build pass, no forbidden patterns
 5. MEMORY KEEPER — Update HANDOFF.md, commit, announce next priority
 

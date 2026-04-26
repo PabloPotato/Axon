@@ -3,7 +3,7 @@
 // Only called AFTER evaluation produces APPROVE.
 // Streams the upstream response back to the caller.
 
-import type { AgentAction } from "@axon/engine";
+import type { AgentAction } from "@intaglio/engine";
 import type { Context } from "hono";
 
 export interface ForwardResult {

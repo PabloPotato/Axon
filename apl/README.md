@@ -4,7 +4,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Spec: v0.1](https://img.shields.io/badge/Spec-v0.1-blue.svg)](./SPEC.md)
-[![Reference: Axon Engine](https://img.shields.io/badge/Reference-axon--engine-green.svg)](../axon-engine)
+[![Reference: Intaglio Engine](https://img.shields.io/badge/Reference-intaglio--engine-green.svg)](../intaglio-engine)
 
 ---
 
@@ -95,13 +95,13 @@ Ten lines. Your agent now has hard spend caps, immutable logging on Solana, and 
 ## What APL is not
 
 - Not a chain, wallet, or rail. Those exist; APL governs them.
-- Not a fraud-detection ML model. Axon ships one; APL does not specify it.
+- Not a fraud-detection ML model. Intaglio ships one; APL does not specify it.
 - Not a KYC/identity protocol. APL references identity claims; World ID, Civic, and KYAPay provide them.
 - Not an agent framework. Works with any agent.
 
 ## Reference implementations
 
-- **Axon Engine** (TypeScript, Rust) — `../axon-engine` — Level 4 conformance. MIT licensed.
+- **Intaglio Engine** (TypeScript, Rust) — `../intaglio-engine` — Level 4 conformance. MIT licensed.
 - Additional implementations welcome. File a PR to list yours.
 
 ## Specification
@@ -117,7 +117,7 @@ Proposals for new primitives, regulatory mappings, or conformance test cases are
 
 ## Governance
 
-APL is maintained by Axon Labs, a Berlin-based team building the Axon Engine (the reference implementation and the enterprise SaaS).
+APL is maintained by Intaglio Labs, a Berlin-based team building the Intaglio Engine (the reference implementation and the enterprise SaaS).
 
 We have committed to:
 
@@ -129,4 +129,4 @@ The language is bigger than the company.
 
 ---
 
-*APL v0.1 — April 18, 2026. [OPERATOR_NAME], Axon Labs, Berlin.*
+*APL v0.1 — April 18, 2026. [OPERATOR_NAME], Intaglio Labs, Berlin.*

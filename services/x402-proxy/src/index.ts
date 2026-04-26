@@ -1,5 +1,5 @@
 // services/x402-proxy/src/index.ts
-// Axon x402 enforcement proxy — Hono app.
+// Intaglio x402 enforcement proxy — Hono app.
 //
 // Routes:
 //   POST   /v1/actions           — evaluate action against APL policy
@@ -30,21 +30,21 @@ import {
 import { forwardX402Request } from "./forward.js";
 import { sql } from "./db.js";
 import {
-  AxonEngine,
+  IntaglioEngine,
   inMemoryChain,
   GENESIS_HASH,
   buildAuditRecord,
-} from "@axon/engine";
-import type { AgentAction, EvaluationContext } from "@axon/engine";
+} from "@intaglio/engine";
+import type { AgentAction, EvaluationContext } from "@intaglio/engine";
 
 const app = new Hono();
 
-// CORS: allowlist only. Comma-separated origins in AXON_CORS_ORIGINS
-// (e.g. "https://dashboard.axon.dev,http://localhost:3000"). If unset,
+// CORS: allowlist only. Comma-separated origins in INTA_CORS_ORIGINS
+// (e.g. "https://dashboard.intaglio.dev,http://localhost:3000"). If unset,
 // CORS is disabled — agents call this proxy server-to-server, not from
 // browsers, so a wide-open `cors()` would only benefit attackers trying
 // to ride a victim's bearer token from a malicious site.
-const corsOrigins = (process.env["AXON_CORS_ORIGINS"] ?? "")
+const corsOrigins = (process.env["INTA_CORS_ORIGINS"] ?? "")
   .split(",")
   .map((o) => o.trim())
   .filter(Boolean);
@@ -153,7 +153,7 @@ app.post("/v1/actions", async (c) => {
       verify: () => ({ ok: true as const })
     };
 
-    const engine = new AxonEngine(policyData.source, { chain });
+    const engine = new IntaglioEngine(policyData.source, { chain });
     const { decision, record } = await engine.evaluate(action, mergedCtx);
 
     // Insert audit record (with advisory lock to protect chain integrity).
@@ -165,7 +165,7 @@ app.post("/v1/actions", async (c) => {
     );
 
     // Log: record_id + outcome only. No action body.
-    console.log(`[axon] record=${record.record_id} outcome=${decision.outcome}`);
+    console.log(`[intaglio] record=${record.record_id} outcome=${decision.outcome}`);
 
     let approvalId: string | undefined;
 
@@ -190,7 +190,7 @@ app.post("/v1/actions", async (c) => {
 
     return c.json(response, 200);
   } catch (err: unknown) {
-    console.error(`[axon] enforcement_error: ${err instanceof Error ? err.message : String(err)}`);
+    console.error(`[intaglio] enforcement_error: ${err instanceof Error ? err.message : String(err)}`);
     return c.json(
       { decision: { outcome: "DENY", reason: "enforcement_error" }, record: null },
       200
@@ -219,7 +219,7 @@ app.get("/v1/approvals/:id", async (c) => {
     if (!row) return c.json({ error: "Not found" }, 404);
     return c.json(row);
   } catch (err) {
-    console.error(`[axon] approval_fetch_error: ${err instanceof Error ? err.message : String(err)}`);
+    console.error(`[intaglio] approval_fetch_error: ${err instanceof Error ? err.message : String(err)}`);
     return c.json({ error: "enforcement_error" }, 500);
   }
 });
@@ -261,7 +261,7 @@ app.post("/v1/x402/forward", async (c) => {
       verify: () => ({ ok: true as const })
     };
 
-    const engine = new AxonEngine(policyData.source, { chain });
+    const engine = new IntaglioEngine(policyData.source, { chain });
     const { decision, record } = await engine.evaluate(action, ctx);
 
     // Write audit record BEFORE forwarding.
@@ -272,7 +272,7 @@ app.post("/v1/x402/forward", async (c) => {
       agent.operatorId
     );
 
-    console.log(`[axon] forward record=${record.record_id} outcome=${decision.outcome}`);
+    console.log(`[intaglio] forward record=${record.record_id} outcome=${decision.outcome}`);
 
     if (decision.outcome !== "APPROVE") {
       let approvalId: string | undefined;
@@ -295,7 +295,7 @@ app.post("/v1/x402/forward", async (c) => {
     const fwd = await forwardX402Request(action, x402_request);
     return c.json({ decision, record, upstream: fwd }, fwd.ok ? 200 : 502);
   } catch (err) {
-    console.error(`[axon] forward_error: ${err instanceof Error ? err.message : String(err)}`);
+    console.error(`[intaglio] forward_error: ${err instanceof Error ? err.message : String(err)}`);
     return c.json({ decision: { outcome: "DENY", reason: "enforcement_error" }, record: null }, 200);
   }
 });
@@ -335,7 +335,7 @@ function parseDuration(s: string): number {
 // ─── Start ────────────────────────────────────────────────────────────────────
 
 const port = parseInt(process.env["PORT"] ?? "3001", 10);
-console.log(`[axon] x402-proxy listening on :${port}`);
+console.log(`[intaglio] x402-proxy listening on :${port}`);
 
 export default {
   port,

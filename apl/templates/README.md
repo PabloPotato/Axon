@@ -1,6 +1,6 @@
-# Axon Policy Templates
+# Intaglio Policy Templates
 
-Ten curated policy templates covering common compliance and treasury scenarios. Each file parses cleanly with the Axon Engine. Use these as starting points for your own agent policies.
+Ten curated policy templates covering common compliance and treasury scenarios. Each file parses cleanly with the Intaglio Engine. Use these as starting points for your own agent policies.
 
 ## Template catalog
 
@@ -20,7 +20,7 @@ Ten curated policy templates covering common compliance and treasury scenarios. 
 ## Verification
 
 ```bash
-npx tsx axon-engine/examples/verify-templates.ts
+npx tsx intaglio-engine/examples/verify-templates.ts
 ```
 
 All templates must exit zero.

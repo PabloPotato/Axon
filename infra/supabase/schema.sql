@@ -132,7 +132,7 @@ create index if not exists idx_operator_members_user
 create or replace function audit_records_immutable()
 returns trigger language plpgsql as $$
 begin
-  raise exception 'audit_records rows are immutable (axon policy)';
+  raise exception 'audit_records rows are immutable (intaglio policy)';
 end;
 $$;
 

@@ -11,7 +11,7 @@
     "outDir": "./dist",
     "baseUrl": ".",
     "paths": {
-      "@axon/engine": ["../../axon-engine/src/index.ts"]
+      "@intaglio/engine": ["../../intaglio-engine/src/index.ts"]
     }
   },
   "include": ["src", "test"]

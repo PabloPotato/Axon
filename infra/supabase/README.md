@@ -1,6 +1,6 @@
-# Axon — Supabase schema
+# Intaglio — Supabase schema
 
-Postgres 15+ schema for the Axon control plane. Matches the canonical `AuditRecord` shape in [`axon-engine/src/types.ts`](../../axon-engine/src/types.ts) and the hash-chain rules in [`apl/SPEC.md`](../../apl/SPEC.md) §6.
+Postgres 15+ schema for the Intaglio control plane. Matches the canonical `AuditRecord` shape in [`intaglio-engine/src/types.ts`](../../intaglio-engine/src/types.ts) and the hash-chain rules in [`apl/SPEC.md`](../../apl/SPEC.md) §6.
 
 ## Files
 
@@ -18,7 +18,7 @@ Or via the Supabase CLI:
 
 ```bash
 supabase db reset          # local dev only
-supabase migration new axon_initial
+supabase migration new intaglio_initial
 # paste schema.sql + policies.sql content into the generated migration
 supabase db push
 ```

@@ -1,13 +1,13 @@
 # x402-proxy
 
-Axon enforcement proxy — sits between autonomous agents and x402 payment rails.
+Intaglio enforcement proxy — sits between autonomous agents and x402 payment rails.
 
 ## What it does
 
 Every agent action is evaluated against an APL policy **before** any payment is forwarded:
 
 ```
-Agent → POST /v1/actions → AxonEngine.evaluate() → write audit_record → return decision
+Agent → POST /v1/actions → IntaglioEngine.evaluate() → write audit_record → return decision
                                                                        ↓ (if APPROVE + /x402/forward)
                                                                → forward to upstream
 ```
@@ -26,7 +26,7 @@ Agent → POST /v1/actions → AxonEngine.evaluate() → write audit_record → 
 ## Running locally
 
 ```bash
-# Requires DATABASE_URL pointing to a Postgres with Axon schema applied.
+# Requires DATABASE_URL pointing to a Postgres with Intaglio schema applied.
 export DATABASE_URL=postgresql://...
 bun run dev
 ```
@@ -34,7 +34,7 @@ bun run dev
 ## Token format
 
 ```
-Bearer axon_agent_<agent-uuid>.<raw-secret>
+Bearer intaglio_agent_<agent-uuid>.<raw-secret>
 ```
 
 The `raw-secret` is sha256-hashed and compared against `agents.identity_ref`.

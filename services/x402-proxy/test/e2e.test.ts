@@ -2,7 +2,7 @@ import { describe, it, expect, vi, beforeAll } from "vitest";
 import { newDb } from "pg-mem";
 import { readFileSync } from "node:fs";
 import { randomUUID } from "node:crypto";
-import { inMemoryChain } from "@axon/engine";
+import { inMemoryChain } from "@intaglio/engine";
 
 // ─── 1. Setup Database Memory Mocking ───────────
 
@@ -121,7 +121,7 @@ safeSchema = safeSchema.replace(/member_role/g, "text").replace(/approval_status
 
 mem.public.none(safeSchema);
 
-describe("End-to-End Axon Enforcement Proxy", () => {
+describe("End-to-End Intaglio Enforcement Proxy", () => {
   const OP_ID = randomUUID();
   const AG_ID = randomUUID();
   const POL_ID = randomUUID();
@@ -129,7 +129,7 @@ describe("End-to-End Axon Enforcement Proxy", () => {
   
   const rawSecret = "super-secret-crypto";
   const secretHash = createHash("sha256").update(rawSecret).digest("hex");
-  const authHeader = `Bearer axon_agent_${AG_ID}.${rawSecret}`;
+  const authHeader = `Bearer intaglio_agent_${AG_ID}.${rawSecret}`;
 
   beforeAll(async () => {
     await pool.query(
@@ -235,7 +235,7 @@ policy "marketing" {
     // Must reconstruct types accurately representing JSON stored in postgres
     const records = dbRows.rows.map(row => ({
        ...row,
-       axon_version: "0.1" // Hack mapping for vitest dummy checks
+       intaglio_version: "0.1" // Hack mapping for vitest dummy checks
     }));
     // We already know it verified independently above. Let's just trust prev matches.
   });

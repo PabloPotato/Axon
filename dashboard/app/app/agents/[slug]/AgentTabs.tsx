@@ -93,7 +93,7 @@ export default function AgentTabs({
         method: "POST",
         headers: { 
           "Content-Type": "application/json",
-          "Authorization": "Bearer axon_simulator_bypass",
+          "Authorization": "Bearer intaglio_simulator_bypass",
           "X-Simulator-Agent-Id": agent.id
         },
         body: JSON.stringify(payload),
@@ -155,7 +155,7 @@ export default function AgentTabs({
       a.href = objUrl;
       const cd = res.headers.get("Content-Disposition") ?? "";
       const match = cd.match(/filename="([^"]+)"/);
-      a.download = match?.[1] ?? `axon-audit-${agent.slug}.pdf`;
+      a.download = match?.[1] ?? `intaglio-audit-${agent.slug}.pdf`;
       a.click();
       URL.revokeObjectURL(objUrl);
     } finally {

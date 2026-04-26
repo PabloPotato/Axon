@@ -2,7 +2,7 @@
 
 **Status:** Draft specification under active design.  
 **Target APL version:** v0.2 (post-v1.0)  
-**Author:** Axon Labs  
+**Author:** Intaglio Labs  
 **License:** CC-BY-4.0
 
 ---
@@ -20,7 +20,7 @@ A tokenized money market fund has a richer operational vocabulary than a generic
 - It calculates **NAV** within a defined window and must attest to the calculation method
 - It reports to specific regulators under specific instruments (1940 Act, MiCA Title V, FINMA circulars)
 
-APL-FS adds these primitives to the existing APL grammar. The resulting policy is both machine-enforceable (by an institutional-grade Axon Engine) and human-auditable (by a compliance officer, external auditor, or regulator).
+APL-FS adds these primitives to the existing APL grammar. The resulting policy is both machine-enforceable (by an institutional-grade Intaglio Engine) and human-auditable (by a compliance officer, external auditor, or regulator).
 
 ---
 
@@ -179,13 +179,13 @@ policy "tokenized-mmf-solana-v1" {
 
 ## Implementation Status
 
-APL-FS primitives are **not yet implemented** in the Axon Engine parser. The grammar will be extended in the v0.2 development cycle. The example policy above exists as a forward-looking specimen to guide design partner conversations.
+APL-FS primitives are **not yet implemented** in the Intaglio Engine parser. The grammar will be extended in the v0.2 development cycle. The example policy above exists as a forward-looking specimen to guide design partner conversations.
 
 **What exists today:**
-- APL v0.1 parser (200-line recursive-descent in `axon-engine/src/parser.ts`)
+- APL v0.1 parser (200-line recursive-descent in `intaglio-engine/src/parser.ts`)
 - Full evaluation semantics for `scope`, `limit`, `require`, `deny`, `obligation`, `approval`
 - Hash-chain audit with Solana devnet anchoring
-- PDF audit export via `axon-audit`
+- PDF audit export via `intaglio-audit`
 
 **What we are building next:**
 - APL-FS grammar extensions (new field types for structured attestations)

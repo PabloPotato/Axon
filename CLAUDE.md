@@ -1,4 +1,4 @@
-# Axon — Claude Code Instructions
+# Intaglio — Claude Code Instructions
 
 Read CONTEXT.md first every session. It is the North Star. This file adds engineering discipline on top of it.
 
@@ -37,8 +37,8 @@ Read CONTEXT.md first every session. It is the North Star. This file adds engine
 ## Repo Layout
 
 ```
-axon-engine/     — APL parser + evaluator + hash chain (MIT)
-axon-audit/      — PDF exporter (MIT)
+intaglio-engine/     — APL parser + evaluator + hash chain (MIT)
+intaglio-audit/      — PDF exporter (MIT)
 dashboard/       — Next.js 15 app (Supabase SSR)
 landing/         — Marketing page
 services/x402-proxy/ — Hono enforcement proxy (Bun)

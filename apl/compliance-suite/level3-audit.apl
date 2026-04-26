@@ -3,7 +3,7 @@
 #
 #  1. Every AuditRecord contains `self_hash`, `prev_record_hash`, `policy_hash`,
 #     `agent_id`, `operator_id`, `action`, `decision`, `obligations_emitted`,
-#     `timestamp`, `record_id`, `axon_version`.
+#     `timestamp`, `record_id`, `intaglio_version`.
 #
 #  2. self_hash = sha256( canonical(record_without_self_hash) + prev_record_hash )
 #     where canonical() is deterministic sorted-key JSON.

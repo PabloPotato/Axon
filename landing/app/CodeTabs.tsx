@@ -26,11 +26,11 @@ obligation {
   retention 7y
 }`;
 
-const EVAL_TAB = `import { AxonEngine } from "@axon/engine";
+const EVAL_TAB = `import { IntaglioEngine } from "@intaglio/engine";
 import fs from "node:fs";
 
 const source = fs.readFileSync("marketing-agent.apl", "utf8");
-const engine = new AxonEngine(source);
+const engine = new IntaglioEngine(source);
 
 const { decision, record } = await engine.evaluate(
   {

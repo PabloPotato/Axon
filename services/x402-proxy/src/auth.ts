@@ -1,7 +1,7 @@
 // services/x402-proxy/src/auth.ts
 // Bearer token authentication for agent requests.
 //
-// Token format: axon_agent_<agent_uuid>.<base64url_secret>
+// Token format: intaglio_agent_<agent_uuid>.<base64url_secret>
 // The secret is stored as a sha256 hash in the agents table (identity_ref field
 // is reused for the hashed_secret in v0.1 — a dedicated column should be added
 // in the next schema migration).
@@ -26,13 +26,13 @@ export async function authenticate(
 ): Promise<AuthedAgent | null> {
   if (!authHeader || !authHeader.startsWith("Bearer ")) return null;
 
-  // Simulator bypass for local testing. Gated behind AXON_SIMULATOR_BYPASS=1
+  // Simulator bypass for local testing. Gated behind INTA_SIMULATOR_BYPASS=1
   // so it is impossible to enable in any environment where the env var is not
   // explicitly set (never set in prod). Without this guard, anyone who knows
   // a valid agent UUID could impersonate that agent.
   if (
-    process.env["AXON_SIMULATOR_BYPASS"] === "1" &&
-    authHeader === "Bearer axon_simulator_bypass" &&
+    process.env["INTA_SIMULATOR_BYPASS"] === "1" &&
+    authHeader === "Bearer intaglio_simulator_bypass" &&
     simulatorAgentId
   ) {
     const rows = await sql<Array<{ agentId: string; operatorId: string; slug: string }>>`
@@ -86,8 +86,8 @@ export async function authenticate(
 function parseToken(
   token: string
 ): { agentId: string; rawSecret: string } | null {
-  if (!token.startsWith("axon_agent_")) return null;
-  const rest = token.slice("axon_agent_".length);
+  if (!token.startsWith("intaglio_agent_")) return null;
+  const rest = token.slice("intaglio_agent_".length);
   const dotIdx = rest.indexOf(".");
   if (dotIdx === -1) return null;
   const agentId = rest.slice(0, dotIdx);

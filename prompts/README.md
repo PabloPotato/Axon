@@ -1,4 +1,4 @@
-# Axon — cheap-model prompts
+# Intaglio — cheap-model prompts
 
 These are the prompts you paste into **DeepSeek V3.1 web**, **Kimi K2**, **Cursor Composer**, **v0.dev**, or **Bolt.new** to do bulk work in parallel while Claude Code handles architecture, judgment calls, and security-critical code.
 

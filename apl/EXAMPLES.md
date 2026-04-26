@@ -101,11 +101,11 @@ policy "dws-rebalance-agent-v2" {
 
   obligation {
     log_to            = "solana:mainnet"
-    log_format        = "axon-audit-v1"
+    log_format        = "intaglio-audit-v1"
     retention         = "10y"
     audit_exports     = ["eu-ai-act-article-12", "mifid-ii", "dora-ict-risk", "sec-15c3-3"]
     pii_redaction     = "automatic"
-    incident_webhook  = "https://compliance.dws.com/axon"
+    incident_webhook  = "https://compliance.dws.com/intaglio"
   }
 
   approval {
@@ -222,7 +222,7 @@ policy "acme-base-v1" {
     log_to        = "solana:mainnet"
     retention     = "7y"
     audit_exports = ["eu-ai-act-article-12", "mica-casp"]
-    incident_webhook = "https://compliance.acme.de/axon"
+    incident_webhook = "https://compliance.acme.de/intaglio"
   }
 }
 ```
@@ -255,8 +255,8 @@ The child policy inherits the `deny` and `obligation` blocks from the base, over
 1. Copy the closest example to your use case.
 2. Change the `operator`, `agent`, `identity`, and specific limits.
 3. Save as `<name>.apl` in your repo.
-4. Validate with `axon lint your-policy.apl`.
-5. Deploy with `axon apply your-policy.apl`.
-6. Every agent action your code performs now routes through the Axon enforcement proxy.
+4. Validate with `intaglio lint your-policy.apl`.
+5. Deploy with `intaglio apply your-policy.apl`.
+6. Every agent action your code performs now routes through the Intaglio enforcement proxy.
 
-The language is bigger than the company. If you'd rather self-host, the reference implementation (`axon-engine`) is MIT-licensed and ships in Rust and TypeScript.
+The language is bigger than the company. If you'd rather self-host, the reference implementation (`intaglio-engine`) is MIT-licensed and ships in Rust and TypeScript.

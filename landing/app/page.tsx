@@ -1,5 +1,5 @@
 // landing/app/page.tsx
-// Axon landing page — Stripe-level restraint, dark mode, no emoji.
+// Intaglio landing page — Stripe-level restraint, dark mode, no emoji.
 // All 7 sections per spec. No fake testimonials. No capture modals.
 
 "use client";
@@ -71,7 +71,7 @@ const HOW_STEPS = [
   {
     step: "02",
     title: "Engine evaluates",
-    caption: "Before every agent action, AxonEngine.evaluate() returns APPROVE, DENY, or REQUIRE_APPROVAL in deterministic time.",
+    caption: "Before every agent action, IntaglioEngine.evaluate() returns APPROVE, DENY, or REQUIRE_APPROVAL in deterministic time.",
   },
   {
     step: "03",
@@ -366,7 +366,7 @@ export default function LandingPage() {
       {/* ─── Nav ────────────────────────────────────────────────────────── */}
       <nav className="ax-nav">
         <div className="ax-container ax-nav-inner">
-          <a href="/" className="ax-nav-brand">Axon</a>
+          <a href="/" className="ax-nav-brand">Intaglio</a>
           <div className="ax-nav-links">
             {NAV_LINKS.map(({ label, href }) => (
               <a key={label} href={href} className="ax-nav-link">
@@ -411,7 +411,7 @@ export default function LandingPage() {
           </div>
         </section>
 
-        {/* ─── Why Axon exists ───────────────────────────────────────────── */}
+        {/* ─── Why Intaglio exists ───────────────────────────────────────────── */}
         <section id="why" className="ax-section">
           <div className="ax-why-grid">
             {WHY_ITEMS.map(({ icon, heading, body }, i) => (
@@ -506,7 +506,7 @@ export default function LandingPage() {
           <div className="ax-institutional">
             <h2 className="ax-section-title">For institutional issuers</h2>
             <p className="ax-institutional-text">
-              Tokenized fund operations require deterministic policy enforcement, attestation chains tied to regulated signing entities, and integration with traditional rails. Axon's institutional dialect, APL-FS, adds these primitives.
+              Tokenized fund operations require deterministic policy enforcement, attestation chains tied to regulated signing entities, and integration with traditional rails. Intaglio's institutional dialect, APL-FS, adds these primitives.
             </p>
             <div className="ax-institutional-code">
               <pre className="ax-institutional-code-pre">{APL_FS_POLICY}</pre>
@@ -549,15 +549,15 @@ export default function LandingPage() {
         </section>
 
         {/* ─── Positioning table ─────────────────────────────────────────── */}
-        {/* ─── How Axon compares ──────────────────────────────────────────── */}
+        {/* ─── How Intaglio compares ──────────────────────────────────────────── */}
         <section id="positioning" className="ax-section">
-          <h2 className="ax-section-title">How Axon compares</h2>
+          <h2 className="ax-section-title">How Intaglio compares</h2>
           <div className="ax-table-wrap">
             <table className="ax-table">
               <thead>
                 <tr>
                   <th style={{ textAlign: "left" }}>Capability</th>
-                  <th>Axon</th>
+                  <th>Intaglio</th>
                   <th>Microsoft<br />Agent 365</th>
                   <th>Ramp<br />Treasury</th>
                   <th>Crossmint</th>
@@ -623,7 +623,7 @@ export default function LandingPage() {
           <p className="ax-footer-cta-title">
             Building an agent that moves money in the EU?
           </p>
-          <a id="footer-cta-mailto" href="mailto:hello@axon.dev" className="ax-btn-primary">
+          <a id="footer-cta-mailto" href="mailto:hello@intaglio.dev" className="ax-btn-primary">
             Talk to us
           </a>
         </section>
@@ -638,7 +638,7 @@ export default function LandingPage() {
             ))}
           </div>
           <div className="ax-footer-meta">
-            <p>MIT + CC-BY-4.0 &nbsp;·&nbsp; Berlin &nbsp;·&nbsp; © 2026 Axon Labs</p>
+            <p>MIT + CC-BY-4.0 &nbsp;·&nbsp; Berlin &nbsp;·&nbsp; © 2026 Intaglio Labs</p>
           </div>
         </footer>
       </main>

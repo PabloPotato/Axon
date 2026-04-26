@@ -1,11 +1,11 @@
-# DESIGN.md — Axon Visual System v1.0
+# DESIGN.md — Intaglio Visual System v1.0
 
 > Read this before touching any UI file. Every visual decision flows from here.
 > If a request conflicts with this file, flag with prefix "design-drift:" and stop.
 
 ## North Star
 
-Axon looks like regulatory infrastructure, not a fintech startup.
+Intaglio looks like regulatory infrastructure, not a fintech startup.
 
 The reference points, in order: Linear (restraint), Stripe (precision), Vercel 
 (typography), GitHub (information density). Not Crossmint. Not Skyfire. Not Ramp.
@@ -47,11 +47,11 @@ standard, not a vendor pitch." A Ramp corp-dev analyst should think:
 ### Landing page sections (in order):
 1. Nav — sticky, blurred, 56px. Brand left, links right. Outlined CTA.
 2. Hero — 60/40 split. H1: "Policy and audit / for autonomous / agents." Animated APL code block right.
-3. Three layers diagram — APL → axon-engine → axon-audit
+3. Three layers diagram — APL → intaglio-engine → intaglio-audit
 4. Hash chain visualization — 6 audit records, color-coded
 5. Live policy → decision demo — interactive APL editor with live decision pill
 6. Regulatory mapping table — AI Act Art.12 / MiCA Art.68 / DORA Art.17
-7. Comparison table — Axon vs Microsoft Agent 365 / Ramp Agents / ServiceNow
+7. Comparison table — Intaglio vs Microsoft Agent 365 / Ramp Agents / ServiceNow
 8. Footer — minimal. Brand, GitHub, license, Berlin, 2026.
 
 ### Dashboard

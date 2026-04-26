@@ -7,7 +7,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { createHash } from "node:crypto";
 
-// Reimplement the chain verification here (not importing @axon/engine to avoid Node/Edge compat issues).
+// Reimplement the chain verification here (not importing @intaglio/engine to avoid Node/Edge compat issues).
 const GENESIS =
   "sha256:0000000000000000000000000000000000000000000000000000000000000000";
 
@@ -70,7 +70,7 @@ export async function GET(req: NextRequest) {
 
     // Recompute self_hash from the record fields (excluding self_hash itself).
     const base = {
-      axon_version: "0.1",
+      intaglio_version: "0.1",
       record_id: r.record_uuid,
       timestamp: r.created_at,
       policy_id: r.policy_id,

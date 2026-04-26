@@ -9,7 +9,7 @@ import Link from "next/link";
 import { Shield, ArrowRight, Github } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Axon — Policy & Audit Layer for AI Agents",
+  title: "Intaglio — Policy & Audit Layer for AI Agents",
   description:
     "The open policy and audit layer for autonomous AI agents that move real money. EU AI Act, MiCA, and DORA compatible.",
   robots: { index: true },
@@ -37,7 +37,7 @@ export default async function HomePage() {
         <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
           <Shield className="w-5 h-5 text-primary" strokeWidth={2.5} />
           <span style={{ fontWeight: 700, fontSize: 17, color: "var(--color-primary)", letterSpacing: "-0.02em" }}>
-            Axon
+            Intaglio
           </span>
           <span className="ax-mono ax-muted" style={{ fontSize: 10, background: "var(--color-primary-muted)", padding: "1px 6px", borderRadius: 4 }}>
             v0.1

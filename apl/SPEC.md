@@ -1,8 +1,8 @@
-# Axon Policy Language (APL) — Specification v0.1
+# Intaglio Policy Language (APL) — Specification v0.1
 
 **Status:** Draft — April 18, 2026
 **License:** MIT / CC-BY-4.0
-**Author:** [OPERATOR_NAME] (Axon)
+**Author:** [OPERATOR_NAME] (Intaglio)
 **Target standards track:** IETF (informational) + W3C (community group) + extension to MCP (Anthropic)
 
 ---
@@ -13,7 +13,7 @@ APL is a declarative, machine-enforceable, human-auditable language for defining
 
 APL compiles to three artifacts:
 
-1. A **runtime policy** — evaluated inline by an enforcement engine (e.g. Axon Engine) when an agent attempts an action.
+1. A **runtime policy** — evaluated inline by an enforcement engine (e.g. Intaglio Engine) when an agent attempts an action.
 2. A **human-readable policy document** — suitable for board review, audit, or regulator submission.
 3. A **regulator-ready audit mapping** — linking policy clauses to the specific regulations they satisfy (EU AI Act Article 12, MiCA, DORA, NIST AI RMF, ISO 42001, etc.).
 
@@ -140,12 +140,12 @@ Defines required logging, retention, and audit outputs. Obligations are the hear
 ```apl
 obligation {
   log_to            = "solana:mainnet"      # anchor chain for audit hashes
-  log_format        = "axon-audit-v1"
+  log_format        = "intaglio-audit-v1"
   retention         = "7y"
   audit_exports     = ["eu-ai-act-article-12", "mica-casp", "dora-ict-risk"]
   pii_redaction     = "automatic"
   notify_operator   = ["denied", "limit-exceeded"]
-  incident_webhook  = "https://ops.example.com/axon/webhook"
+  incident_webhook  = "https://ops.example.com/intaglio/webhook"
 }
 ```
 
@@ -198,7 +198,7 @@ Every evaluation produces a canonical `AuditRecord`:
 
 ```json
 {
-  "axon_version": "0.1",
+  "intaglio_version": "0.1",
   "record_id": "uuid-v4",
   "timestamp": "2026-04-18T14:22:01Z",
   "policy_id": "marketing-agent-v1",
@@ -264,7 +264,7 @@ Full PEG grammar is in `apl/grammar.peg` in the reference implementation.
 **Level 3 — Audit-anchoring.** Implements §6 hash chain with on-chain anchoring. Can produce regulator-ready exports.
 **Level 4 — Full compliance.** Implements §7 regulatory mapping, emits audit exports in all supported formats, passes the APL compliance test suite.
 
-Axon Engine targets Level 4.
+Intaglio Engine targets Level 4.
 
 ## 10. Versioning
 
@@ -283,4 +283,4 @@ The APL specification is developed in the open at `github.com/axon-labs/apl`. Ch
 
 ---
 
-*APL is the open standard. Axon Engine is one implementation. The language is bigger than the company.*
+*APL is the open standard. Intaglio Engine is one implementation. The language is bigger than the company.*

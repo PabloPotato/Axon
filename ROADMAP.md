@@ -1,9 +1,9 @@
-# Axon Roadmap
+# Intaglio Roadmap
 
 ## Now — v0.1 (shipped April 2026)
 - APL v0.1 spec as open standard (MIT + CC-BY-4.0)
-- Axon Engine — parser, evaluator, hash-chain auditor (TypeScript, MIT)
-- Axon Audit — PDFKit PDF exporter with 12 passing tests
+- Intaglio Engine — parser, evaluator, hash-chain auditor (TypeScript, MIT)
+- Intaglio Audit — PDFKit PDF exporter with 12 passing tests
 - x402 Proxy — Hono + Bun enforcement proxy with Solana devnet sink
 - Operator dashboard — Next.js 15, Supabase SSR, Apple-blue design
 - Landing page with live policy editor and hash chain visualization
@@ -35,6 +35,6 @@
 
 ## H2 2027 — and beyond
 - Managed compliance subscription: auto-updating regulatory templates across MiCA, DORA, EU AI Act, NIST AI RMF, ISO 42001, FINMA circulars
-- EU regulatory referenceability: regulator accepts Axon audit exports as evidence
+- EU regulatory referenceability: regulator accepts Intaglio audit exports as evidence
 - 20+ institutional customers across tokenized funds, payment agents, and treasury operations
 - Standards body governance with multiple implementing vendors

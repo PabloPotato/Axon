@@ -9,16 +9,16 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "Axon — The open policy layer for AI agents that move real money",
+  title: "Intaglio — The open policy layer for AI agents that move real money",
   description:
     "One .apl file governs every action your agent takes. Deterministic decisions. Tamper-evident audit. EU AI Act Article 12, MiCA, and DORA compatible out of the box.",
   openGraph: {
-    title: "Axon — Policy & Audit Layer for AI Agents",
+    title: "Intaglio — Policy & Audit Layer for AI Agents",
     description:
       "Deterministic policy enforcement and tamper-evident audit for autonomous AI agents.",
     type: "website",
     locale: "en_US",
-    siteName: "Axon",
+    siteName: "Intaglio",
   },
   robots: { index: true, follow: true },
   keywords: [

@@ -1,5 +1,5 @@
 /**
- * Font configuration for Axon Landing Page
+ * Font configuration for Intaglio Landing Page
  * Using Geist Sans and Geist Mono from Vercel
  */
 import { GeistSans } from "geist/font/sans";

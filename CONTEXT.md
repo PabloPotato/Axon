@@ -5,11 +5,11 @@
 
 ---
 
-## What Axon actually is
+## What Intaglio actually is
 
 **One sentence. Memorize it.**
 
-> Axon is the policy layer for the autonomous economy. We give companies running AI agents the standard, the templates, and the auto-updating compliance service that lets them deploy agents faster than competitors and stay regulator-ready without thinking about it.
+> Intaglio is the policy layer for the autonomous economy. We give companies running AI agents the standard, the templates, and the auto-updating compliance service that lets them deploy agents faster than competitors and stay regulator-ready without thinking about it.
 
 Not "EU compliance product." Not "Ramp for agents." Not "auditor PDF generator."
 
@@ -19,7 +19,7 @@ We follow the right template now.
 
 ## What we are actually selling (three layers)
 
-**Layer 1 — APL, the Axon Policy Language** (free, MIT + CC-BY-4.0)
+**Layer 1 — APL, the Intaglio Policy Language** (free, MIT + CC-BY-4.0)
 The open standard. Declarative DSL for agent policy. Frozen at v1.0 and donated to a neutral standards body. This is the funnel top — drives adoption, integrations, and ecosystem.
 
 **Layer 2 — Curated policy template library** (freemium)
@@ -49,7 +49,7 @@ Ramp is no longer primary. Ramp's business model lets them fork APL. Our new acq
 | Date | What |
 |---|---|
 | **2026-05-12** | Solana x402 Demo Day — fixed external anchor |
-| **2026-06-16** | Kill-criterion review: ≥2 paid design partners or Axon pauses until Sep |
+| **2026-06-16** | Kill-criterion review: ≥2 paid design partners or Intaglio pauses until Sep |
 | **2026-07-01** | MiCA CASP compliance deadline (market forcing function) |
 | **2026-08** | EU AI Act Article 12 compliance deadline for agents (market forcing function) |
 | **2026-09** | Tetr College starts — [OPERATOR_NAME]'s fallback. Non-negotiable optionality. |
@@ -65,14 +65,14 @@ Ramp is no longer primary. Ramp's business model lets them fork APL. Our new acq
 ## What is built right now (as of 2026-04-26)
 
 - ✅ APL v0.1 SPEC + 4 compliance fixtures (parse + evaluate + audit)
-- ✅ axon-engine (TypeScript, 49 tests pass)
-- ✅ axon-audit — PDF exporter, 12 tests, wired into `/api/audit/pdf`
+- ✅ intaglio-engine (TypeScript, 49 tests pass)
+- ✅ intaglio-audit — PDF exporter, 12 tests, wired into `/api/audit/pdf`
 - ✅ Supabase schema + RLS **deployed** to project `[SUPABASE_PROJECT_ID]`
 - ✅ x402 enforcement proxy (Hono + Bun, auth hardened, Solana devnet sink)
 - ✅ Dashboard (Next.js 15 — auth, onboarding, agents, policy editor, approvals, audit)
 - ✅ Dashboard design: Apple-light, dark sidebar, JetBrains Mono, hash chain ledger
 - ✅ Landing page (Next.js — responsive, hash chain visualization, live policy editor)
-- ✅ Proxy e2e tests (2 pass), axon-audit tests (12 pass)
+- ✅ Proxy e2e tests (2 pass), intaglio-audit tests (12 pass)
 - ✅ docs/ — API ref, SDK wrapper, PDF audit runbook
 - ✅ CLAUDE.md + AGENTS.md + memory/HANDOFF.md
 - ✅ 4 gstack OpenClaw skills installed (.claude/skills/, .agents/skills/)

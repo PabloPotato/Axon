@@ -434,7 +434,7 @@ body {
   text-align: left;
 }
 
-.ax-table th.ax-table-axon {
+.ax-table th.intaglio-table-intaglio {
   color: var(--color-violet);
   font-weight: 700;
   font-size: 15px;

@@ -1,4 +1,4 @@
-# Axon
+# Intaglio
 
 **The policy layer for the autonomous economy.**
 
@@ -10,7 +10,7 @@ Build agents that scale without lawyers.
 
 ## Why this exists
 
-Companies want to deploy fifty AI agents to run their treasury operations and sleep at night. Today, that is impossible. Every agent vendor solves this with closed policy engines and proprietary dashboards. Microsoft Agent 365 is the loudest example. That bundling is the wrong shape. Policy and audit for autonomous agents are infrastructure, like TLS or JSON. They should look like protocols, not products. Axon is that protocol layer, plus the curated templates and managed updates that turn it into a service.
+Companies want to deploy fifty AI agents to run their treasury operations and sleep at night. Today, that is impossible. Every agent vendor solves this with closed policy engines and proprietary dashboards. Microsoft Agent 365 is the loudest example. That bundling is the wrong shape. Policy and audit for autonomous agents are infrastructure, like TLS or JSON. They should look like protocols, not products. Intaglio is that protocol layer, plus the curated templates and managed updates that turn it into a service.
 
 Autonomous agents are about to move real money on behalf of real companies. In the next eighteen months:
 
@@ -23,7 +23,7 @@ Autonomous agents are about to move real money on behalf of real companies. In t
 
 ```
 ┌──────────────────────────────────────────────────────────────────┐
-│  APL — Axon Policy Language                                      │
+│  APL — Intaglio Policy Language                                      │
 │  Declarative DSL. MIT + CC-BY-4.0. Frozen at v1.0 and donated.   │
 │  apl/SPEC.md                                                     │
 ├──────────────────────────────────────────────────────────────────┤
@@ -68,8 +68,8 @@ policy "acme-marketing-bot-v1" {
 ```
 
 ```ts
-import { AxonEngine } from "@axon/engine";
-const engine = new AxonEngine(readFileSync("marketing.apl", "utf8"));
+import { IntaglioEngine } from "@intaglio/engine";
+const engine = new IntaglioEngine(readFileSync("marketing.apl", "utf8"));
 const { decision, record } = await engine.evaluate(action, ctx);
 // decision: APPROVE | DENY | REQUIRE_APPROVAL
 // record:   canonical, hash-chained, regulator-ready
@@ -89,7 +89,7 @@ const { decision, record } = await engine.evaluate(action, ctx);
 
 ## Positioning
 
-|                              | Axon                           | Microsoft Agent 365            | Ramp Treasury           | ServiceNow AI Control Tower |
+|                              | Intaglio                           | Microsoft Agent 365            | Ramp Treasury           | ServiceNow AI Control Tower |
 | ---------------------------- | ------------------------------ | ------------------------------ | ----------------------- | --------------------------- |
 | Open-source core             | Yes (MIT + CC-BY-4.0)          | No                             | No                      | No                          |
 | Portable policy format       | Yes (APL)                      | No                             | No                      | No                          |
@@ -105,13 +105,13 @@ Microsoft can copy features. They cannot copy a standard their business model fo
 ## Repo layout
 
 ```
-Axon/
+Intaglio/
 ├── apl/                     — the language
 │   ├── SPEC.md              — normative spec, v0.1 draft
 │   ├── EXAMPLES.md          — five realistic policies
 │   ├── templates/           — 10 curated policy templates (v0.1)
 │   └── README.md            — public framing + governance
-├── axon-engine/             — TypeScript reference implementation
+├── intaglio-engine/             — TypeScript reference implementation
 │   ├── src/                 — parser · evaluator · audit chain · API
 │   ├── examples/            — runnable end-to-end demo
 │   └── README.md
@@ -132,7 +132,7 @@ Axon/
 
 - Read [the spec](apl/SPEC.md) — start at §5 (evaluation semantics) or §7 (regulatory mapping).
 - Browse [policy templates](apl/templates/) — ready-to-use `.apl` files for common agent use cases.
-- Try [the engine](axon-engine/) — `npm install @axon/engine` and run the example.
+- Try [the engine](intaglio-engine/) — `npm install @intaglio/engine` and run the example.
 - Open issues and PRs. The language is still pre-1.0; syntax changes are expected.
 
 ## License
@@ -140,4 +140,4 @@ Axon/
 Spec and grammar: **CC-BY-4.0**.
 Reference implementation: **MIT**.
 
-© Axon Labs (Berlin), 2026. Built in the open for the autonomous economy that is coming whether anyone is ready or not.
+© Intaglio Labs (Berlin), 2026. Built in the open for the autonomous economy that is coming whether anyone is ready or not.

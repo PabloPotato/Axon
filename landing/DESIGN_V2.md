@@ -1,4 +1,4 @@
-# DESIGN_V2 — Axon Landing Page Design Contract
+# DESIGN_V2 — Intaglio Landing Page Design Contract
 
 ## Rationale
 The current live site is functional but does not look like infrastructure. It looks like a hackathon project.
@@ -54,7 +54,7 @@ This document is the single source of truth for the design v2 refresh. The subag
 ## Section Order (Frozen — 9 sections, no more, no less)
 1. Sticky nav (56px, blurred backdrop, Geist Mono brand, 3 links + CTA)
 2. Hero (90vh, 3-line H1, subhead, CTAs, EU badge, violet radial gradient + static APL code block)
-3. Three layers diagram (APL standard, axon-engine runtime, axon-audit evidence — CSS-only, 3 boxes)
+3. Three layers diagram (APL standard, intaglio-engine runtime, intaglio-audit evidence — CSS-only, 3 boxes)
 4. Hash chain visualization (existing — do not touch)
 5. Live policy editor (existing — do not touch)
 6. Ten policy templates grid (dynamic from apl/templates/)

@@ -1,4 +1,4 @@
-# Axon x402-Proxy API Reference
+# Intaglio x402-Proxy API Reference
 
 The enforcement proxy evaluates all agent actions against active AI governance policies (APL) locally before making a `forward` or `deny` decision.
 

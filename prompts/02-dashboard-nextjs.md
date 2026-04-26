@@ -7,7 +7,7 @@
 
 ## Paste this into the model
 
-Build the **Axon operator dashboard**: a Next.js 15 (App Router, TypeScript, Tailwind v4, shadcn/ui) app that lets an operator manage their agents, policies, audit records, and pending approvals. Auth via Supabase (email magic link + GitHub OAuth). Data backend is the Supabase schema described in `infra/supabase/schema.sql` (tables: operators, operator_members, agents, policies, audit_records, approval_requests).
+Build the **Intaglio operator dashboard**: a Next.js 15 (App Router, TypeScript, Tailwind v4, shadcn/ui) app that lets an operator manage their agents, policies, audit records, and pending approvals. Auth via Supabase (email magic link + GitHub OAuth). Data backend is the Supabase schema described in `infra/supabase/schema.sql` (tables: operators, operator_members, agents, policies, audit_records, approval_requests).
 
 ### Pages to build
 
@@ -36,7 +36,7 @@ Build the **Axon operator dashboard**: a Next.js 15 (App Router, TypeScript, Tai
 - shadcn components: Card, Table, Tabs, Dialog, Sheet, Button, Badge, Skeleton, Toast. Install via `npx shadcn@latest add ...`.
 - Dark mode default, light toggle in header.
 - No client-side data fetching for anything server-renderable. Use server components + revalidateTag.
-- Do NOT implement APL parsing or evaluation in the dashboard. Those live in `@axon/engine`. Just read/write audit records and policy source text.
+- Do NOT implement APL parsing or evaluation in the dashboard. Those live in `@intaglio/engine`. Just read/write audit records and policy source text.
 
 ### File layout expected
 

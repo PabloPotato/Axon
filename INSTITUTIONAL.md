@@ -1,6 +1,6 @@
-# Axon for Institutional Issuers
+# Intaglio for Institutional Issuers
 
-**BlackRock built Aladdin because portfolio managers needed to act faster than spreadsheets allowed. Today institutional issuers running tokenized fund operations need autonomous policy enforcement that a regulator accepts as evidence. Axon is that layer.**
+**BlackRock built Aladdin because portfolio managers needed to act faster than spreadsheets allowed. Today institutional issuers running tokenized fund operations need autonomous policy enforcement that a regulator accepts as evidence. Intaglio is that layer.**
 
 ---
 
@@ -8,14 +8,14 @@
 
 Initial institutional design partner targets, sourced through Solana Superteam Germany and direct introductions:
 
-| Institution | Jurisdiction | Thesis for Axon |
+| Institution | Jurisdiction | Thesis for Intaglio |
 |---|---|---|
 | **Sygnum** (Switzerland) | FINMA | Tokenized asset issuance needs deterministic policy enforcement with Swiss regulator-acceptable audit trails |
 | **Amina** (Liechtenstein) | Liechtenstein TVTG / FMA | Blockchain-native bank running agent-based treasury operations |
 | **Bitpanda Asset Management** (Austria) | FMA / CSSF MiCA passport | MiCA-compliant stablecoin and tokenized fund operations at scale |
 | **Bitstamp** (UK / Luxembourg) | FCA / CSSF | Custody and payment rails that MiCA CASP rules will govern |
 
-These are not prospects. These are design partners. The relationship is: they define the institutional primitives, Axon builds them, they get the first production deployment.
+These are not prospects. These are design partners. The relationship is: they define the institutional primitives, Intaglio builds them, they get the first production deployment.
 
 ---
 
@@ -23,7 +23,7 @@ These are not prospects. These are design partners. The relationship is: they de
 
 **Structure:** 60-day paid proof of concept
 **Pricing:** 25,000–50,000 EUR
-**Scope:** One fund's policy operations governed through Axon Engine + Audit
+**Scope:** One fund's policy operations governed through Intaglio Engine + Audit
 **Deliverable:** Auditor-accepted evidence package (PDF + hash-chain anchor + regulatory mapping)
 
 The pilot answers one question for the partner's operations team: *"Does this reduce the time between a deal being agreed and the money moving?"*
@@ -60,7 +60,7 @@ Every institutional conversation starts with a variant of "How is this different
 
 The honest answer: Aladdin is a portfolio management and risk platform built for BlackRock's internal operations. It does not speak to agents. It does not produce a regulator-acceptable evidence package from an autonomous agent action. It does not hash-chain to Solana. It does not have MiCA templates.
 
-Axon is not Aladdin for portfolios. Axon is Aladdin for *autonomous agents moving money on behalf of those portfolios*.
+Intaglio is not Aladdin for portfolios. Intaglio is Aladdin for *autonomous agents moving money on behalf of those portfolios*.
 
 The Aladdin column in our comparison table reflects this honestly. Aladdin has enterprise SSO, multi-asset support, and portfolio analytics — all things we will build over time. But it has zero agent-native policy, zero x402 support, zero open standard, zero hash-chained on-chain audit, and zero MiCA regulatory templates. Those are our moats.
 
@@ -68,4 +68,4 @@ The Aladdin column in our comparison table reflects this honestly. Aladdin has e
 
 ## Contact
 
-For design partner inquiries: [hello@axon.dev](mailto:hello@axon.dev)
+For design partner inquiries: [hello@intaglio.dev](mailto:hello@intaglio.dev)

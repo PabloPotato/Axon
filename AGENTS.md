@@ -2,18 +2,18 @@
 
 ## Who you are working for
 
-**[OPERATOR_NAME]**, 22, Berlin. Ex-Meta ads. Building Axon on €80 liquid runway.
+**[OPERATOR_NAME]**, 22, Berlin. Ex-Meta ads. Building Intaglio on €80 liquid runway.
 ADHD/PTSD (active therapy). Shipping on a 60-day kill-criterion window.
 Talks to agents as peers. Expects brutal honesty. No flattery. No pep talk.
 
-## What Axon is (one sentence — do not paraphrase)
+## What Intaglio is (one sentence — do not paraphrase)
 
-> Axon is the policy layer for the autonomous economy. We give companies running AI agents the standard, the templates, and the auto-updating compliance service that lets them deploy agents faster than competitors and stay regulator-ready without thinking about it.
+> Intaglio is the policy layer for the autonomous economy. We give companies running AI agents the standard, the templates, and the auto-updating compliance service that lets them deploy agents faster than competitors and stay regulator-ready without thinking about it.
 
 ## The v2 thesis (three layers)
 
 ### Layer 1 — APL (free)
-The Axon Policy Language. MIT + CC-BY-4.0. Donated to a neutral standards body at v1.0. The funnel top — drives adoption and ecosystem integration.
+The Intaglio Policy Language. MIT + CC-BY-4.0. Donated to a neutral standards body at v1.0. The funnel top — drives adoption and ecosystem integration.
 
 ### Layer 2 — Templates (freemium)
 50+ curated policy templates from EU regulatory text, fraud cases, and Fortune 500 treasury controls. Free for individuals. $2K/month teams. $20K/month enterprise.
@@ -44,7 +44,7 @@ The acquirer we design for: **Stripe** (needs EU agent governance for MPP). The 
 | Date | Event |
 |---|---|
 | **2026-05-12** | Solana x402 Demo Day — must have live demo |
-| **2026-06-16** | Kill criterion: 2 paid design partners or Axon pauses |
+| **2026-06-16** | Kill criterion: 2 paid design partners or Intaglio pauses |
 | **2026-07-01** | MiCA CASP compliance deadline (market forcing function) |
 | **2026-08** | EU AI Act Article 12 deadline |
 | **2026-09** | [OPERATOR_NAME] starts Tetr College — non-negotiable optionality |
@@ -55,8 +55,8 @@ The acquirer we design for: **Stripe** (needs EU agent governance for MPP). The 
 
 ### ✅ Done and working
 - APL v0.1 spec (`apl/SPEC.md`) + 4 compliance fixtures
-- `axon-engine` — parser, evaluator, hash-chain auditor (TypeScript, MIT)
-- `axon-audit` — PDFKit PDF exporter, 12 tests passing
+- `intaglio-engine` — parser, evaluator, hash-chain auditor (TypeScript, MIT)
+- `intaglio-audit` — PDFKit PDF exporter, 12 tests passing
 - `services/x402-proxy` — Hono + Bun enforcement proxy, auth hardened, Solana devnet sink fixed
 - `dashboard` — Next.js 15, Supabase SSR, design implemented (Apple blue, dark sidebar)
 - `landing` — marketing page with hash chain visualization + live policy editor
@@ -84,8 +84,8 @@ The acquirer we design for: **Stripe** (needs EU agent governance for MPP). The 
 ## Repo layout
 
 ```
-axon-engine/          MIT. Parser + evaluator + hash chain. 49 tests.
-axon-audit/           MIT. PDFKit PDF exporter. 12 tests.
+intaglio-engine/          MIT. Parser + evaluator + hash chain. 49 tests.
+intaglio-audit/           MIT. PDFKit PDF exporter. 12 tests.
 apl/                  CC-BY-4.0. Spec + 4 compliance .apl fixtures.
   templates/          Layer 2: curated policy templates (10 files).
 dashboard/            Next.js 15. Supabase SSR. Port 3000.

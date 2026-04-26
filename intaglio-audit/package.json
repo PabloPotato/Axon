@@ -1,0 +1,58 @@
+{
+  "name": "@intaglio/audit",
+  "version": "0.1.0",
+  "description": "Auditor-signable PDF exporter for Intaglio — maps hash-chained action records to EU AI Act Article 12, MiCA CASP, and DORA.",
+  "license": "MIT",
+  "author": "Intaglio Labs <hello@intaglio.dev>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/PabloPotato/Axon"
+  },
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "example": "tsx examples/run.ts"
+  },
+  "keywords": [
+    "intaglio",
+    "audit",
+    "pdf",
+    "compliance",
+    "eu-ai-act",
+    "mica",
+    "dora",
+    "regulator-ready"
+  ],
+  "dependencies": {
+    "@intaglio/engine": "file:../intaglio-engine",
+    "iconv-lite": "^0.7.2",
+    "pdfkit": "^0.15.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/pdfkit": "^0.13.4",
+    "@vitest/coverage-v8": "^4.1.4",
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.0",
+    "vitest": "^4.1.4"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

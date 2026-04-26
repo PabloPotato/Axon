@@ -1,9 +1,9 @@
 {
-  "name": "axon-monorepo",
+  "name": "intaglio-monorepo",
   "private": true,
   "workspaces": [
-    "axon-engine",
-    "axon-audit",
+    "intaglio-engine",
+    "intaglio-audit",
     "dashboard",
     "landing",
     "services/x402-proxy"

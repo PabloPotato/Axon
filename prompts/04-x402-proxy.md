@@ -7,14 +7,14 @@
 
 ## Paste this into the model
 
-Build an **x402 enforcement proxy** for Axon. This is the thing that sits between an autonomous agent and the real x402 payment rail: every outbound request passes through this proxy, gets evaluated against the agent's APL policy, and is either forwarded, rejected, or parked for human approval.
+Build an **x402 enforcement proxy** for Intaglio. This is the thing that sits between an autonomous agent and the real x402 payment rail: every outbound request passes through this proxy, gets evaluated against the agent's APL policy, and is either forwarded, rejected, or parked for human approval.
 
 ### Stack
 
 - Runtime: **Bun** (not Node). Framework: **Hono**. TypeScript strict.
-- Dependency: **`@axon/engine`** (the workspace package next door at `../axon-engine/` — use a workspace reference). You import `AxonEngine`, `AgentAction`, `EvaluationContext`, `AuditRecord` from it.
+- Dependency: **`@intaglio/engine`** (the workspace package next door at `../intaglio-engine/` — use a workspace reference). You import `IntaglioEngine`, `AgentAction`, `EvaluationContext`, `AuditRecord` from it.
 - Storage: Postgres via `postgres` (porsager/postgres). Schema matches `infra/supabase/schema.sql`.
-- Auth to the proxy: bearer token with shape `axon_agent_<uuid>.<secret>`. The uuid maps to an agents row; the secret is compared via `timingSafeEqual` against a stored hash.
+- Auth to the proxy: bearer token with shape `intaglio_agent_<uuid>.<secret>`. The uuid maps to an agents row; the secret is compared via `timingSafeEqual` against a stored hash.
 
 ### Endpoints
 
@@ -60,7 +60,7 @@ services/x402-proxy/
 │   └── db.ts            — postgres client
 ├── test/
 │   └── actions.test.ts  — bun:test, with a real Postgres (testcontainer or docker-compose)
-├── package.json         — workspace ref to ../../axon-engine
+├── package.json         — workspace ref to ../../intaglio-engine
 ├── tsconfig.json
 └── README.md
 ```

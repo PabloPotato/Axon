@@ -1,5 +1,5 @@
 // dashboard/lib/supabase/types.ts
-// Minimal typed Database interface for Axon tables.
+// Minimal typed Database interface for Intaglio tables.
 //
 // IMPORTANT: Every table needs a `Relationships` array (even if empty) to
 // satisfy @supabase/supabase-js v2.100+ GenericTable constraint. Without it

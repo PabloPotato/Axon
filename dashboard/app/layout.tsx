@@ -9,15 +9,15 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   title: {
-    template: "%s — Axon",
-    default: "Axon — Policy & Audit Layer for AI Agents",
+    template: "%s — Intaglio",
+    default: "Intaglio — Policy & Audit Layer for AI Agents",
   },
   description:
     "The open policy and audit layer for autonomous AI agents that move real money. EU AI Act, MiCA, and DORA compatible.",
   openGraph: {
     type: "website",
     locale: "en_US",
-    siteName: "Axon",
+    siteName: "Intaglio",
   },
   robots: { index: false }, // App is private — don't index
 };

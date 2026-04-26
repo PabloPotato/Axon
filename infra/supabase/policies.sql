@@ -1,5 +1,5 @@
 -- axon — policies.sql
--- Row-Level Security for all Axon tables.
+-- Row-Level Security for all Intaglio tables.
 -- Run AFTER schema.sql.
 --
 -- Isolation model:
@@ -9,7 +9,7 @@
 
 -- ─── Helper ──────────────────────────────────────────────────────────────────
 
-create or replace function axon_is_operator_member(oid uuid)
+create or replace function intaglio_is_operator_member(oid uuid)
 returns boolean
 language sql
 stable
@@ -29,7 +29,7 @@ alter table operators enable row level security;
 
 create policy "operators: members can read"
   on operators for select
-  using (axon_is_operator_member(id));
+  using (intaglio_is_operator_member(id));
 
 create policy "operators: owners can update"
   on operators for update
@@ -65,7 +65,7 @@ alter table operator_members enable row level security;
 
 create policy "operator_members: members can read"
   on operator_members for select
-  using (axon_is_operator_member(operator_id));
+  using (intaglio_is_operator_member(operator_id));
 
 create policy "operator_members: admins can insert"
   on operator_members for insert
@@ -106,7 +106,7 @@ alter table agents enable row level security;
 
 create policy "agents: members can read"
   on agents for select
-  using (axon_is_operator_member(operator_id));
+  using (intaglio_is_operator_member(operator_id));
 
 create policy "agents: admins can insert"
   on agents for insert
@@ -147,7 +147,7 @@ alter table policies enable row level security;
 
 create policy "policies: members can read"
   on policies for select
-  using (axon_is_operator_member(operator_id));
+  using (intaglio_is_operator_member(operator_id));
 
 create policy "policies: admins can insert"
   on policies for insert
@@ -179,7 +179,7 @@ alter table audit_records enable row level security;
 
 create policy "audit_records: members can read"
   on audit_records for select
-  using (axon_is_operator_member(operator_id));
+  using (intaglio_is_operator_member(operator_id));
 
 -- Insert is done via the service role from the proxy (trusted server).
 -- Dashboard never inserts audit_records directly.
@@ -188,7 +188,7 @@ create policy "audit_records: members can read"
 -- If you want the anon / authenticated role to insert, uncomment:
 -- create policy "audit_records: members can insert"
 --   on audit_records for insert
---   with check (axon_is_operator_member(operator_id));
+--   with check (intaglio_is_operator_member(operator_id));
 
 -- ─── approval_requests ───────────────────────────────────────────────────────
 
@@ -196,9 +196,9 @@ alter table approval_requests enable row level security;
 
 create policy "approval_requests: members can read"
   on approval_requests for select
-  using (axon_is_operator_member(operator_id));
+  using (intaglio_is_operator_member(operator_id));
 
 -- Approve/deny comes from the dashboard, which is authenticated.
 create policy "approval_requests: members can update"
   on approval_requests for update
-  using (axon_is_operator_member(operator_id));
+  using (intaglio_is_operator_member(operator_id));

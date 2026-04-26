@@ -37,7 +37,7 @@ policy "level2-edge-cases" {
     retention         = "7y"
     audit_exports     = ["eu-ai-act-article-12", "mica-casp", "dora"]
     pii_redaction     = "automatic"
-    incident_webhook  = "https://hooks.example.com/axon-incidents"
+    incident_webhook  = "https://hooks.example.com/intaglio-incidents"
   }
 
   approval {

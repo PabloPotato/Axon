@@ -8,7 +8,7 @@
 //
 // Pattern: BEGIN → SELECT pg_advisory_xact_lock(hash(agent_id)) → INSERT → COMMIT
 
-import type { AuditRecord, Decision } from "@axon/engine";
+import type { AuditRecord, Decision } from "@intaglio/engine";
 import { sql } from "./db.js";
 import { anchorRecord } from "./sinks/solana.js";
 
@@ -75,7 +75,7 @@ export async function insertAuditRecord(
       // If the proxy supports routing to different sinks, we fan out here.
       // E2E test has "solana:devnet" logic explicitly hooked here.
       anchorRecord(record).catch(err => {
-        console.error("[axon] background solana sink error:", err);
+        console.error("[intaglio] background solana sink error:", err);
       });
     }, 0);
   }
@@ -108,7 +108,7 @@ export async function getRecordsForVerification(
 ): Promise<AuditRecord[]> {
   const rows = await sql<
     Array<{
-      axonVersion: string;
+      intaglioVersion: string;
       recordUuid: string;
       createdAt: string;
       policyId: string;
@@ -121,7 +121,7 @@ export async function getRecordsForVerification(
     }>
   >`
     select
-      'axon_version_missing' as "axonVersion",
+      'intaglio_version_missing' as "intaglioVersion",
       record_uuid          as "recordUuid",
       created_at::text     as "createdAt",
       policy_id            as "policyId",
@@ -138,14 +138,14 @@ export async function getRecordsForVerification(
   `;
 
   return rows.map((r) => ({
-    axon_version: r.axonVersion,
+    intaglio_version: r.intaglioVersion,
     record_id: r.recordUuid,
     timestamp: r.createdAt,
     policy_id: r.policyId,
     policy_hash: r.policyHash,
     agent_id: agentId,
     operator_id: operatorId,
-    action: r.action as import("@axon/engine").AgentAction,
+    action: r.action as import("@intaglio/engine").AgentAction,
     decision: r.decision,
     obligations_emitted: r.obligationsEmitted,
     prev_record_hash: r.prevRecordHash,

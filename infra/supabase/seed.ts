@@ -58,7 +58,7 @@ const VENDORS = [
 ];
 
 async function main() {
-  console.log("Seeding Axon demo data...");
+  console.log("Seeding Intaglio demo data...");
 
   // 1. Insert operator
   const { data: operator, error: opErr } = await supabase
@@ -84,7 +84,7 @@ async function main() {
 #
 #  1. Every AuditRecord contains \`self_hash\`, \`prev_record_hash\`, \`policy_hash\`,
 #     \`agent_id\`, \`operator_id\`, \`action\`, \`decision\`, \`obligations_emitted\`,
-#     \`timestamp\`, \`record_id\`, \`axon_version\`.
+#     \`timestamp\`, \`record_id\`, \`intaglio_version\`.
 #
 #  2. self_hash = sha256( canonical(record_without_self_hash) + prev_record_hash )
 #     where canonical() is deterministic sorted-key JSON.
@@ -182,7 +182,7 @@ policy "acme-purchase-policy" {
       operator_id: operator.id,
       agent_id: agent.id,
       policy_hash: policyHash,
-      axon_version: "0.1.0",
+      intaglio_version: "0.1.0",
       timestamp: timestamp.toISOString(),
       action: {
         type: "x402_payment",

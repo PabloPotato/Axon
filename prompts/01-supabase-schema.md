@@ -1,4 +1,4 @@
-# Prompt 01 — Supabase schema for Axon control plane
+# Prompt 01 — Supabase schema for Intaglio control plane
 
 **Target model:** DeepSeek V3.1 (web UI) or Kimi K2.
 **Output:** a single `schema.sql` file + a `policies.sql` RLS file, to be saved under `infra/supabase/`.
@@ -7,11 +7,11 @@
 
 ## Paste this into the model
 
-You are writing the initial Postgres schema for **Axon**, an open-source policy + audit layer for autonomous AI agents. Axon stores:
+You are writing the initial Postgres schema for **Intaglio**, an open-source policy + audit layer for autonomous AI agents. Intaglio stores:
 
 - **Operators** — the legal entity that owns agents (e.g. "Acme GmbH").
 - **Agents** — autonomous AI actors owned by an operator.
-- **Policies** — versioned APL (Axon Policy Language) documents that bind an agent's behavior. Stored as source text plus a content hash.
+- **Policies** — versioned APL (Intaglio Policy Language) documents that bind an agent's behavior. Stored as source text plus a content hash.
 - **Audit records** — one per agent action. Hash-chained: each record references the hash of the previous one, and computes its own `self_hash` over its canonical contents. This chain is tamper-evident.
 - **Approval requests** — pending human-approval events created when a policy evaluates to `REQUIRE_APPROVAL`.
 
