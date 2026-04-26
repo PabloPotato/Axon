@@ -243,4 +243,33 @@ Frankfurt compliance officer at a company with 5-50 AI agents spending USDC/USDT
 - **Supabase project**: [SUPABASE_PROJECT_ID]
 - **[OPERATOR_NAME]'s email**: [OPERATOR_EMAIL]
 - **Distribution target**: Solana Superteam Germany (Demo Day: 2026-05-12)
-- **Potential acquirer**: Ramp (design every artifact so their corp-dev can find us)
+|- **Potential acquirer**: Ramp (design every artifact so their corp-dev can find us)
+
+---
+
+## Session: 2026-04-26 (night build — Phase Zero through Phase Five)
+- **Phase Zero** ✅ shipped: Thesis v2 context files rewritten (CONTEXT.md, AGENTS.md, README.md, HANDOFF.md)
+- **Privacy** ✅ fixed: sari@axon.dev → hello@axon.dev, HANDOFF.md scrubbed of real name/email. Committed + pushed.
+- **Dashboard deploy** ✅ done: Fixed `transpilePackages` vs `serverExternalPackages` conflict in next.config.ts. API rootDirectory=`dashboard`, sourceFilesOutsideRootDirectory=true. Live at https://dashboard-lilac-five-43.vercel.app
+  - Dashboard build: 9.9s compile, 15 pages, zero errors
+- **Landing deploy** ✅ redeployed: Enhanced hash chain with violet connector lines + decision pills + JetBrains Mono. Live at https://landing-gules-phi.vercel.app
+  - Landing build: 3.0s compile, 4 pages, zero errors
+- **Phase Five** ✅ shipped: 10 policy templates in `apl/templates/` — all parse cleanly via `npx tsx examples/verify-templates.ts`
+  - Files: per-transaction, per-day, velocity, allowlist, blocklist, time-window, risk-score, usdc-treasury, domestic-only, combined-compliance
+- **Phase Two** ✅ shipped: Hash chain visualization with violet connector lines between records, decision pills (green/red/amber), hover tooltips with full hashes
+- **Phase Three** ✅ shipped: Live policy editor — two-column layout, slider for per_transaction limit, real-time APPROVE/DENY decision, reason text
+- **Phase Four** ⏸️ skipped (bonus): Dashboard is deployed but empty states + sidebar polish not done — operator can do manually
+- **Design vault** 🏗️ created: `~/.hermes/vault-design/` with Obsidian init. Graphify ready. 5 design skills available: excalidraw, architecture-diagram, popular-web-designs, p5js, pixel-art
+- **Design skills** ⏳ pending: Need subagent spawned with 5 design skills + graphify + obsidian + vault-design activated
+- **Memory compaction** ✅ done: This HANDOFF.md section
+- **Coder Budget**: 7 delegations used (30 limit). Cost: $0.00
+- **Auto-commit cron**: Active, pushes hourly
+- **Vercel landing URL**: https://landing-gules-phi.vercel.app
+- **Vercel dashboard URL**: https://dashboard-lilac-five-43.vercel.app
+- **Key decisions**:
+  - transpilePackages conflict fix: removed @axon/engine and @axon/audit from serverExternalPackages (they only need transpiling, not externalizing)
+  - Vercel API rootDirectory set to `dashboard` via PATCH — sourceFilesOutsideRootDirectory was already true by default
+  - npm workspaces already configured in root package.json — no changes needed
+  - Dashboard vercel.json simplified: just buildCommand, outputDirectory, framework — install command is auto-detected from npm workspaces
+- **Blocker for operator**: Dashboard needs empty states and sidebar polish (Phase Four), plus Railway proxy deploy (needs interactive login)
+
