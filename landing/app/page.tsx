@@ -311,32 +311,34 @@ export default function LandingPage() {
       <main className="ax-container">
         {/* ─── Hero ──────────────────────────────────────────────────────── */}
         <section id="hero" className="ax-hero">
-          <div className="ax-animate">
+          <div className="ax-hero-content">
             <h1 className="ax-hero-title">
-              The open policy layer for AI agents that move real money.
+              <span className="ax-hero-title-line">Policy and audit</span>
+              <span className="ax-hero-title-line">for autonomous</span>
+              <span className="ax-hero-title-line">agents.</span>
             </h1>
             <p className="ax-hero-sub">
-              One <code className="ax-code-inline">.apl</code> file governs every action
-              your agent takes. Deterministic decisions. Tamper-evident audit. EU AI Act
-              Article 12, MiCA, and DORA compatible out of the box.
+              The open standard EU compliance officers accept as evidence under AI Act Article 12, MiCA, and DORA.
             </p>
             <div className="ax-hero-ctas">
-              <CopyButton code="npm install @axon/engine" />
-              <a id="hero-read-spec" href="/spec" className="ax-btn-ghost">
+              <a href="/demo" className="ax-btn-primary">
+                View live demo
+              </a>
+              <a href="/spec" className="ax-btn-ghost">
                 Read the spec
               </a>
             </div>
+            <div className="ax-hero-badge">
+              <span className="ax-hero-badge-dot" />
+              EU AI Act Article 12 ready
+            </div>
           </div>
 
-          {/* APL code block */}
-          <div className="ax-code-block ax-animate ax-delay-2">
-            <div className="ax-code-header">
-              {["#ef4444", "#f59e0b", "#22c55e"].map((c) => (
-                <div key={c} className="ax-code-dot" style={{ background: c }} />
-              ))}
-              <span className="ax-code-filename">marketing-agent.apl</span>
+          {/* Static APL code block */}
+          <div className="ax-hero-code">
+            <div className="ax-hero-code-block">
+              <pre className="ax-hero-code-pre">{HELLO_WORLD_APL}</pre>
             </div>
-            <pre className="ax-code-pre">{HELLO_WORLD_APL}</pre>
           </div>
         </section>
 
