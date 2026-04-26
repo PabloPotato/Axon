@@ -9,35 +9,40 @@
 
 **One sentence. Memorize it.**
 
-> Axon is the EU compliance and treasury governance product for companies running stablecoin-paying AI agents.
+> Axon is the policy layer for the autonomous economy. We give companies running AI agents the standard, the templates, and the auto-updating compliance service that lets them deploy agents faster than competitors and stay regulator-ready without thinking about it.
 
-That's it. Not "financial OS." Not "control plane for the autonomous AI workforce." Not "Ramp for agents."
+Not "EU compliance product." Not "Ramp for agents." Not "auditor PDF generator."
 
-If the sentence gets wider, Microsoft Agent 365 or Ramp eats us. Narrow wins.
+Compliance is a tax buyers pay reluctantly. Productivity is what they pay enthusiastically for. Every billion-dollar B2B infrastructure company sold productivity and bundled compliance, never the reverse. Stripe sold payments not PCI. Datadog sold observability not SOC2. ServiceNow sold workflow not compliance.
 
-## What we are actually selling (the MVP)
+We follow the right template now.
 
-**An auditor-signable PDF.**
+## What we are actually selling (three layers)
 
-That's the product. Everything else in the repo is scaffolding around that PDF.
+**Layer 1 — APL, the Axon Policy Language** (free, MIT + CC-BY-4.0)
+The open standard. Declarative DSL for agent policy. Frozen at v1.0 and donated to a neutral standards body. This is the funnel top — drives adoption, integrations, and ecosystem.
 
-A company in the EU is running AI agents that move stablecoins. Their compliance officer is scared of a €35M AI Act fine. They push a button in Axon. Out comes a hash-chained, regulator-ready PDF covering Article 12 + MiCA + DORA for the reporting period. That PDF is what they pay us for.
+**Layer 2 — Curated policy template library** (freemium)
+50+ templates derived from EU regulatory text, fraud cases, and Fortune 500 treasury controls. Free for individual developers. Paid at $2K/month for unlimited templates. $20K/month for enterprise with custom templates and SLA on regulatory updates.
 
-**If a feature doesn't make that PDF better, cheaper, or more trustworthy, it doesn't ship in v0.1.**
+**Layer 3 — Auto-updating compliance subscription** (premium)
+When MiCA gets amended, every customer's templates absorb the change within 48 hours. When DORA adds a clause, every customer is updated automatically. This is the Bloomberg Terminal play — $50K–$500K/year contracts. The auditor PDF is a feature of this layer, not the product itself.
+
+**If a feature doesn't make agents deploy faster or stay regulator-ready without thinking, it doesn't ship in v0.1.**
 
 ## Who buys this
 
-The **~300–2,000 EU companies in 2026** running AI agents that spend stablecoins. The buyer in the room is the **compliance officer** or **CFO**, not the engineer. The engineer integrates; the compliance officer signs the PO.
+CFOs at companies running 5–50 production AI agents. The buyer wants permission to scale agents without legal anxiety. Compliance is the side effect they tell their board about. Autonomy is the reason they actually pay.
 
-Early targets: Browserbase-style session agents, crypto-native SaaS with agent workflows, EU fintechs experimenting with agent payments, stablecoin-paying DAOs.
+Early targets: EU fintechs experimenting with agent payments, crypto-native SaaS with agent workflows, Browserbase-style session agent companies, stablecoin-paying DAOs, large e-commerce with procurement bots.
 
-## The one acquirer we design for
+## The acquirers we design for (new, in order of likelihood)
 
-**Ramp.** Not Coinbase. Not Stripe. Not Microsoft.
+1. **Stripe** — needs EU compliance specificity for Agent MPP and needs agent governance. They have the distribution, we have the standard.
+2. **Bloomberg or LSEG** — we look like a Bloomberg Terminal for agent governance. Regulatory data subscription is their exact business model.
+3. **Microsoft or Visa** — defensive acquirers if we get large enough to threaten their bundles.
 
-Why: Ramp has the customers, the capital ($500M raise), the motivation (crypto-native EU gap they cannot credibly fill), and the aggressive pace. They will either acquire us in 24–36 months or build this themselves.
-
-Every public artifact (README, landing page, blog post, design-partner logo) should be legible to a Ramp corp-dev analyst scanning for acquisition candidates in 18 months. Not flashy — legible.
+Ramp is no longer primary. Ramp's business model lets them fork APL. Our new acquirers cannot replicate regulatory expertise and curated templates as easily.
 
 ## Fixed deadlines (do not move)
 
@@ -49,22 +54,15 @@ Every public artifact (README, landing page, blog post, design-partner logo) sho
 | **2026-08** | EU AI Act Article 12 compliance deadline for agents (market forcing function) |
 | **2026-09** | Tetr College starts — [OPERATOR_NAME]'s fallback. Non-negotiable optionality. |
 
-## The moat (why Microsoft can't copy us)
+## The moat (three stacked moats)
 
-Three layers, all open:
+1. **The standards moat.** MIT + CC-BY-4.0 with a foundation donation at v1.0. Microsoft cannot adopt because their bundle business model forbids them. They can build a competitor, but they cannot own the standard.
 
-1. **APL — the Axon Policy Language** (CC-BY-4.0)
-2. **axon-engine** — reference implementation (MIT)
-3. **axon-audit** — the PDF exporter (MIT, shipping v0.2)
+2. **The templates moat.** 50+ expertly curated policy templates that compound through usage data. Ramp cannot replicate years of policy refinements quickly even if they fork the engine. Templates are the network effect.
 
-Microsoft's business model forbids them from adopting an open standard as their agent governance layer. Ramp has no infrastructure team that writes DSLs. We can out-compete their bundle by being **the standard**, not a product.
+3. **The regulatory expertise moat.** Embedded EU compliance knowledge updated continuously. This takes lawyers and policy specialists — years to build, impossible to replicate overnight.
 
-**Commitment — never violate:**
-- Never ship a closed APL extension.
-- Never charge for conformance.
-- Donate the spec to a neutral standards body at v1.0 (target 2027).
-
-## What is built right now (as of 2026-04-20)
+## What is built right now (as of 2026-04-26)
 
 - ✅ APL v0.1 SPEC + 4 compliance fixtures (parse + evaluate + audit)
 - ✅ axon-engine (TypeScript, 49 tests pass)
@@ -73,71 +71,85 @@ Microsoft's business model forbids them from adopting an open standard as their 
 - ✅ x402 enforcement proxy (Hono + Bun, auth hardened, Solana devnet sink)
 - ✅ Dashboard (Next.js 15 — auth, onboarding, agents, policy editor, approvals, audit)
 - ✅ Dashboard design: Apple-light, dark sidebar, JetBrains Mono, hash chain ledger
-- ✅ Landing page (Next.js — responsive)
+- ✅ Landing page (Next.js — responsive, hash chain visualization, live policy editor)
 - ✅ Proxy e2e tests (2 pass), axon-audit tests (12 pass)
 - ✅ docs/ — API ref, SDK wrapper, PDF audit runbook
 - ✅ CLAUDE.md + AGENTS.md + memory/HANDOFF.md
 - ✅ 4 gstack OpenClaw skills installed (.claude/skills/, .agents/skills/)
 - ✅ Public GitHub: github.com/PabloPotato/Axon
+- ✅ Codebase audit complete — PII scrubbed, dependency audit, SECURITY.md
+- ✅ Supabase seeded with 20 audit records (valid hash chain)
+- ✅ Solana sink `@ts-nocheck` removed (tsconfig paths)
+- ✅ Hash chain visualization on landing page
+- ✅ Live policy editor on landing page
 
 ## What is NOT built (stay disciplined)
 
-- ❌ **Seed data + public deployment** ← THE next priority for Demo Day
-- ❌ [OPERATOR_NAME] logged into live dashboard (needs fresh magic link — stale JWT)
-- ❌ Solana devnet anchoring live (stub exists, `// @ts-nocheck` must be fixed)
+- ❌ Deployed to Railway + Vercel ← current priority
+- ❌ [OPERATOR_NAME] logged into live dashboard (needs fresh magic link)
+- ❌ Layer 2 paid templates UI (post-hackathon)
+- ❌ Layer 3 auto-update subscription (post-hackathon)
+- ❌ First 10 policy templates as APL files in `apl/templates/`
+- ❌ Solana devnet anchoring live (stub exists, fix applied)
 - ❌ Real approval adapters (Slack/email/PagerDuty)
-- ❌ Multi-currency oracle
 - ❌ Any paying customer
 
-## What to NEVER build in v0.1
-
-Per the 60-day plan, these waste runway:
+## What we NEVER build in v0.1
 
 - Fraud detection ML
-- Identity/KYC (use World AgentKit / Skyfire later)
-- Custom custody (use Privy/Turnkey/Fireblocks)
+- Agent identity/KYC — Skyfire's lane, we integrate
+- Custom custody — Privy/Turnkey/Fireblocks
+- The payment rail itself — Coinbase x402, Stripe MPP — we govern what runs on top
 - Mobile app, marketplace, insurance, benchmark modules
-- Non-stablecoin currency support
 - Agent-to-agent negotiation primitives
-- Anything requested without being tied to the auditor PDF or a named EU design partner
+- Anything requested without being tied to faster agent deployment or regulatory readiness
 
 ## The priority order (do not reorder)
 
-1. ~~**Ship the PDF exporter.**~~ ✅ Done.
-2. ~~**Deploy Supabase.**~~ ✅ Done — schema + RLS live on `[SUPABASE_PROJECT_ID]`.
-3. **Seed demo data + get [OPERATOR_NAME] logged in.** Fresh magic link → onboarding → 20 seeded audit records → working dashboard.
-4. **Deploy publicly.** Proxy → Railway. Dashboard → Vercel. Public URL for Demo Day (2026-05-12).
-5. **Land the first EU design partner conversation.** One named compliance officer using this weekly beats five hackathon demos.
-6. **Everything else.**
+1. ~~**Seed Supabase + audit records.**~~ ✅ Done.
+2. ~~**Fix Solana sink @ts-nocheck.**~~ ✅ Done.
+3. **Deploy to Railway + Vercel.** Public URL for Demo Day.
+4. **Hash chain visualization on landing page.** ✅ Done.
+5. **Live policy editor on landing page.** ✅ Done.
+6. **Empty states + sidebar polish.**
+7. **Record demo video.**
+8. **Publish first 10 policy templates** — `apl/templates/` — proves layer 2 thesis tangibly.
 
-Last updated: 2026-04-20
+## The funnel
+
+```
+Free spec         → adoption
+Free engine       → prototyping
+Paid templates    → teams monetized
+Paid auto-update  → enterprises monetized
+Foundation v1.0   → standard becomes infrastructure
+```
 
 ## The operator ([OPERATOR_NAME])
 
-22, Berlin, ex-Meta ads, ships software, short runway (€80 liquid + Meta freelance client), ADHD/PTSD (active therapy), accepted Tetr College Sep 2026. Talks to Claude as a peer, not as an assistant.
+22, Berlin, ex-Meta ads, ships software, short runway (€80 liquid + Meta freelance client), ADHD/PTSD (active therapy), accepted Tetr College Sep 2026. Talks to agents as peers.
 
 **Do not treat [OPERATOR_NAME] as fragile. Do not validate. Do not pep-talk.**
 
-The highest-value thing Claude can produce for [OPERATOR_NAME] is friction that reveals what's wrong, not support for what's visibly right.
+The highest-value thing we can produce is friction that reveals what's wrong, not support for what's visibly right.
 
 ## Communication protocol (locked)
 
 - **ALWAYS:** peer-level, brutal honesty, confidence labels on strategic claims (HIGH/MED/LOW), minimum tokens unless depth is required, step-by-step reasoning.
 - **NEVER:** flattery openers, context restating, unprompted lectures, disclaimers, hallucinated facts about [OPERATOR_NAME]'s life or clients.
 - **Format:** simple Q → 2–5 sentences; code tasks → code first, explain after; strategy → DIAGNOSIS → LOGIC → RECOMMENDATION → ACTION.
-- **Oracle mode:** answer the question that *should* have been asked. Every response contains one non-obvious insight or it didn't earn its tokens.
 
 ## The anti-drift rules (caveman mode)
 
-Before building anything, Claude and [OPERATOR_NAME] both answer these out loud:
+Before building anything, answer these out loud:
 
-1. **Does this ship the PDF?** If no — why are we touching it right now?
+1. **Does this let agents deploy faster or stay regulator-ready without thinking?** If no — why are we touching it right now?
 2. **Does this narrow us or widen us?** Narrow is good. Widen is banned until v1.0.
 3. **Is this something Microsoft can copy in 6 months?** If yes — it's not a moat.
-4. **Can a Ramp corp-dev analyst understand why this matters?** If no — rewrite.
+4. **Can a Stripe or Bloomberg corp-dev analyst understand why this matters?** If no — rewrite.
 5. **Is Jun 16 closer than it was yesterday?** If no — stop reading specs and ship.
 
-If a request fails any of these five, don't do it. Flag it in the chat with "anti-drift:" as the prefix.
+If a request fails any of these five, don't do it. Flag it with "anti-drift:" as the prefix.
 
 ## Single source of truth
 
@@ -145,4 +157,4 @@ This file. Not the thesis, not the strategic synthesis, not memory. Those are co
 
 When they disagree with this file, this file wins. When this file drifts from what we're actually doing, we rewrite this file — we don't silently ignore it.
 
-Last updated: 2026-04-19.
+Last updated: 2026-04-26.

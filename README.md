@@ -1,16 +1,16 @@
 # Axon
 
-**The open policy and audit layer for autonomous AI agents.**
+**The policy layer for the autonomous economy.**
 
-Axon is an open-source standard that lets AI agents prove, in real time, that every action they take — every payment, every API call, every on-chain transaction — is inside a policy a human wrote and a regulator would accept.
+Open standard. Curated regulatory templates. Auto-updating compliance.
 
-One `.apl` file. One deterministic decision. One tamper-evident record. Every time.
-
-MIT licensed. Vendor-neutral. EU-first.
+Build agents that scale without lawyers.
 
 ---
 
 ## Why this exists
+
+Companies want to deploy fifty AI agents to run their treasury operations and sleep at night. Today, that is impossible. Every agent vendor solves this with closed policy engines and proprietary dashboards. Microsoft Agent 365 is the loudest example. That bundling is the wrong shape. Policy and audit for autonomous agents are infrastructure, like TLS or JSON. They should look like protocols, not products. Axon is that protocol layer, plus the curated templates and managed updates that turn it into a service.
 
 Autonomous agents are about to move real money on behalf of real companies. In the next eighteen months:
 
@@ -18,12 +18,6 @@ Autonomous agents are about to move real money on behalf of real companies. In t
 - **EU AI Act Article 12** makes logging of high-risk agent decisions mandatory.
 - **MiCA** (July 1 2026) forces every CASP-adjacent operator in the EU to keep auditable records of stablecoin movements.
 - **DORA** extends operational resilience obligations to ICT third parties — which now includes your agents.
-
-Today, every agent vendor solves this the same way: a closed policy engine, a proprietary dashboard, a bundled SKU. Microsoft Agent 365 (May 2026 GA) is the loudest example.
-
-That is the wrong shape. Policy and audit are **infrastructure**. They should look like TLS, not like a Salesforce add-on.
-
-Axon is that infrastructure.
 
 ## The three layers
 
@@ -33,13 +27,15 @@ Axon is that infrastructure.
 │  Declarative DSL. MIT + CC-BY-4.0. Frozen at v1.0 and donated.   │
 │  apl/SPEC.md                                                     │
 ├──────────────────────────────────────────────────────────────────┤
-│  axon-engine — reference implementation                          │
-│  TypeScript first, Rust/WASM next. Parse · Evaluate · Audit.     │
-│  axon-engine/                                                    │
+│  Curated template library                                        │
+│  50+ templates from EU regulatory text, fraud cases, controls.   │
+│  Free for individuals. Paid for teams. $2K–$20K/month.           │
+│  apl/templates/                                                  │
 ├──────────────────────────────────────────────────────────────────┤
-│  axon-audit — compliance exporter                                │
-│  EU AI Act Art. 12 · MiCA · DORA · NIST AI RMF · ISO 42001       │
-│  One-click signable PDF + Solana-anchored hash. (v0.2)           │
+│  Auto-updating compliance subscription                           │
+│  MiCA/DORA amendments absorbed in 48h.                           │
+│  $50K–$500K/year. The Bloomberg Terminal for agent governance.   │
+│  (shipping post-hackathon)                                       │
 └──────────────────────────────────────────────────────────────────┘
 ```
 
@@ -81,22 +77,25 @@ const { decision, record } = await engine.evaluate(action, ctx);
 
 ## What makes this different
 
-**It is a standard, not a product.** The language and grammar are CC-BY-4.0. The reference engine is MIT. The governance commitment is written into [apl/README.md](apl/README.md): no closed extensions, no paid conformance, donation to a neutral standards body at v1.0.
+**It is a standard, not a product.** The language and grammar are CC-BY-4.0. The reference engine is MIT. Donated to a neutral standards body at v1.0.
 
-**It is deterministic and verifiable.** Given the same policy, action, and context, every compliant implementation returns the same decision and the same record hash. No model-in-the-loop. No vendor lock-in.
+**It is deterministic and verifiable.** Given the same policy, action, and context, every compliant implementation returns the same decision and the same record hash.
 
-**It is regulator-shaped.** The AuditRecord format maps directly to EU AI Act Article 12, MiCA CASP record-keeping, DORA ICT incident registers, NIST AI RMF, and ISO 42001 Annex B. A compliance officer can read it without training.
+**It is regulator-shaped.** The AuditRecord format maps directly to EU AI Act Article 12, MiCA CASP, DORA, NIST AI RMF, and ISO 42001.
 
 **It is rail-agnostic.** x402, MPP, AP2, TAP, Agent Pay, and any future rail are just values of `scope.rails`. The policy outlives the rail.
 
+**It auto-updates.** When regulations change, your templates change with them. No lawyers required.
+
 ## Positioning
 
-|                              | Axon                           | Microsoft Agent 365            | Ramp Agents             | ServiceNow AI Control Tower |
+|                              | Axon                           | Microsoft Agent 365            | Ramp Treasury           | ServiceNow AI Control Tower |
 | ---------------------------- | ------------------------------ | ------------------------------ | ----------------------- | --------------------------- |
 | Open-source core             | Yes (MIT + CC-BY-4.0)          | No                             | No                      | No                          |
 | Portable policy format       | Yes (APL)                      | No                             | No                      | No                          |
 | Deterministic audit chain    | Yes (hash-chained, anchorable) | Proprietary log                | Internal                | Internal                    |
 | EU-first regulatory mapping  | Article 12, MiCA, DORA native  | Global, US-tilted              | US                      | Global                      |
+| Auto-updating templates      | Yes (48h on regulation change) | No                             | No                      | No                          |
 | Rail coverage                | All (declarative)              | Microsoft-first                | Ramp card + wire        | Connectors                  |
 | Priced per seat              | No (infra; later SaaS)         | $15/user/mo in E7              | Per card                | Enterprise                  |
 | Can you self-host end-to-end | Yes                            | No                             | No                      | No                          |
@@ -110,28 +109,29 @@ Axon/
 ├── apl/                     — the language
 │   ├── SPEC.md              — normative spec, v0.1 draft
 │   ├── EXAMPLES.md          — five realistic policies
+│   ├── templates/           — 10 curated policy templates (v0.1)
 │   └── README.md            — public framing + governance
 ├── axon-engine/             — TypeScript reference implementation
 │   ├── src/                 — parser · evaluator · audit chain · API
 │   ├── examples/            — runnable end-to-end demo
 │   └── README.md
-├── prompts/                 — cheap-model prompts for parallel bulk work
+├── dashboard/               — Next.js 15 operator dashboard
+├── landing/                 — marketing page
+├── services/                — x402 enforcement proxy
 └── README.md                — this file
 ```
 
-Strategy artifacts (thesis, competitive map, customer-discovery plan, 60-day build plan, Oracle note) live at the repo root as `AXON_*.md` and are not part of the shipped library.
-
 ## Status
 
-- **v0.1 (this release)** — APL spec draft · TypeScript engine · parse + evaluate + hash chain (APL Conformance Level 2 + Level 3 hash anchoring).
-- **v0.2 (May 2026)** — Solana anchoring emitter · PDF audit exporter (EU AI Act Article 12 template) · ReDoS-safe regex via re2.
-- **v0.3 (Q3 2026)** — Cross-currency oracle · Slack/email/PagerDuty approval adapters · DORA + MiFID II export templates.
-- **v0.4 (Q4 2026)** — Rust + WASM build, sub-1ms evaluation.
-- **v1.0 (2027)** — Full APL Level 4 conformance. Spec donated to a neutral standards body.
+- **v0.1 (this release)** — APL spec draft · TypeScript engine · 10 template starters · hash chain visualization · live policy editor on landing page
+- **v0.2 (May 2026)** — Solana anchoring · PDF audit exporter · v1 template library (50 templates) · deployment to Railway/Vercel
+- **v0.3 (Q3 2026)** — Cross-currency oracle · Slack/email approval adapters · DORA + MiFID II export templates · paid tier billing
+- **v1.0 (2027)** — Full APL Level 4 conformance · spec donated to neutral standards body · auto-updating compliance subscription
 
 ## Get involved
 
 - Read [the spec](apl/SPEC.md) — start at §5 (evaluation semantics) or §7 (regulatory mapping).
+- Browse [policy templates](apl/templates/) — ready-to-use `.apl` files for common agent use cases.
 - Try [the engine](axon-engine/) — `npm install @axon/engine` and run the example.
 - Open issues and PRs. The language is still pre-1.0; syntax changes are expected.
 
@@ -140,4 +140,4 @@ Strategy artifacts (thesis, competitive map, customer-discovery plan, 60-day bui
 Spec and grammar: **CC-BY-4.0**.
 Reference implementation: **MIT**.
 
-© Axon Labs (Berlin), 2026. Built in the open for the operator economy that is coming whether anyone is ready or not.
+© Axon Labs (Berlin), 2026. Built in the open for the autonomous economy that is coming whether anyone is ready or not.

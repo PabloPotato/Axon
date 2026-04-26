@@ -4,9 +4,88 @@
 
 ---
 
-## Current status: SOLANA SINK FIXED — advancing to priority item 3 (deployment)
+## Thesis v2 — Policy layer for the autonomous economy (2026-04-26)
 
-One-time codebase audit completed. Supabase seeded. Solana sink `@ts-nocheck` removed. Ready for deployment to Railway + Vercel.
+**The project repositioned.** No longer "EU compliance product for stablecoin-paying AI agents." Now **"the policy layer for the autonomous economy."**
+
+### Three product layers
+1. **APL** — free open standard (MIT + CC-BY-4.0), donated at v1.0
+2. **Curated templates** — freemium, $2K–$20K/month, 50+ templates
+3. **Auto-updating compliance subscription** — $50K–$500K/year, Bloomberg Terminal model
+
+### Three moats
+1. Standards moat — Microsoft cannot adopt an open standard
+2. Templates moat — network effects, compounds through usage
+3. Regulatory expertise moat — lawyers + policy specialists, years to build
+
+### Acquirers (new order)
+Stripe → Bloomberg/LSEG → Microsoft/Visa. No longer Ramp-primary.
+
+### Codebase unchanged
+Only the wrapper changed. All gear cycles run against this new thesis going forward.
+
+---
+
+## Current session: 2026-04-26 (overnight autonomous run)
+
+### Completed this session
+- ✅ Codebase audit (privacy scan, ts-nocheck/dep audit, npm audit, SECURITY.md)
+- ✅ PII scrubbed from 12 files, GitHub configured, hourly auto-commit
+- ✅ Supabase seeded with 20 audit records (valid hash chain, live)
+- ✅ Solana sink `@ts-nocheck` removed (Option A: tsconfig paths)
+- ✅ Hash chain visualization on landing page (6 fake records, hover tooltips)
+- ✅ Live policy editor on landing page (useState, number comparison)
+- ✅ Thesis v2 context files rewritten (CONTEXT.md, AGENTS.md, README.md, HANDOFF.md)
+
+### In progress
+- Phase 1: Deployment to Vercel + Railway (Vercel token received, Railway pending)
+- Phase 4: Empty states + sidebar polish
+- Phase 5: First 10 policy templates in `apl/templates/`
+
+- **CSS written by**: Minimax M2.5 subagent (all .ax-hashchain-* classes in globals.css)
+- **JSX written by**: orchestrator directly (subagent hit rate limit mid-patch) — tagged ORCHESTRATOR_WROTE
+- **Section**: "Live audit chain" inserted between "how it works" and "positioning" table
+- **Six fake records**: realistic timestamps April 19-23, mixed APPROVE/DENY/REQUIRE_APPROVAL, EUR amounts 90-2000 USDC, agent names purchase-agent-v1/analytics-bot-02/compliance-checker-01/data-indexer-03
+- **Hash transitions**: sha256:xxxxxxx → sha256:yyyyyyy with full 64-char hover tooltip
+- **Decision pills**: green (#22c55e) APPROVE, red (#ef4444) DENY, amber (#f59e0b) REQUIRE_APPROVAL
+- **Responsive**: 768px hides Agent column, 640px hides Amount column
+- **Build**: `npx next build` passes clean (exit 0)
+- **No new dependencies**, no images, pure CSS + React, matches existing tokens
+
+### Coder Budget update
+| # | Time (UTC) | Model | Task | Result |
+|---|---|---|---|---|
+| 4 | 2026-04-26 01:25 | Minimax M2.5 | Phase 2 hash chain CSS | CSS written (interrupted mid-patch) |
+| — | 2026-04-26 01:28 | (orchestrator) | Phase 2 hash chain JSX | Written directly (ORCHESTRATOR_WROTE tag) |
+## Phase 3 status: LIVE POLICY EDITOR — DONE
+
+- **Written by**: Minimax M2.5 subagent — all CSS and JSX
+- **Section**: "Try the engine" inserted between hash chain and positioning table
+- **Two-column layout**: left = policy text with editable `per_transaction` value (default 500), right = live decision display
+- **Decision logic**: `limitValue >= 750` → green APPROVE, otherwise red DENY
+- **State**: React useState, number input with 50-step increments
+- **No APL parser**, no engine import, no new dependencies — pure useState + number comparison
+- **Build**: `npx next build` passes clean (5.15 kB, up from 4.74 kB)
+- **CSS**: `.ax-policy-editor-*` classes in globals.css, responsive (stacks at 768px)
+
+### Coder Budget update
+| # | Time (UTC) | Model | Task | Result |
+|---|---|---|---|---|
+| 5 | 2026-04-26 01:32 | Minimax M2.5 | Phase 3 policy editor JSX + CSS | Completed, build passes |
+Total this window: 5 delegations (30 limit). Next reset: 2026-04-27 00:54 UTC.
+
+## Phase 1 status: DEPLOYMENT — BLOCKED (manual login required)
+
+### Phase 1 blocker
+- Vercel CLI: `vercel login` blocks waiting for browser auth
+- Railway CLI: `railway login` blocks waiting for browser auth
+- Neither CLI has cached credentials on this machine
+- **Fix**: Run the commands in `DEPLOY.md` at the repo root after authenticating via browser
+
+### Phase 1 deployed artifact
+- Created `/root/axon/Axon-main/DEPLOY.md` — manual deployment instructions for all 3 services
+- Includes env vars (Supabase URL, anon key, connection string placeholder, CORS origins, Solana RPC)
+- Includes troubleshooting section for workspace dep resolution on Railway/Vercel build runners
 
 ---
 
@@ -91,28 +170,8 @@ Total this window: 3 delegations (30 limit). Next reset: 2026-04-27 00:54 UTC.
 
 ## Immediate next actions (in order)
 
-### 1. Get [OPERATOR_NAME] logged in (URGENT — blocks everything else)
-```
-http://localhost:3000/login
-→ Enter [OPERATOR_EMAIL]
-→ Click magic link in email
-→ Complete /onboarding (org name, legal entity, country DE, billing email)
-→ Land on /app
-```
-Root cause of past failures: expired JWT from URL-typo era. New magic link = clean tokens.
-
-### 2. Seed demo data (Claude Code task)
-Tell Claude Code in Antigravity:
-> "Using Supabase MCP, seed: 1 agent named 'purchase-agent-v1', 1 active policy (use level3-audit.apl source), 20 audit records with mixed APPROVE/DENY/REQUIRE_APPROVAL outcomes spread over 14 days, realistic EUR amounts (50-2000 USDC). I need the hash chain to be valid."
-
-### 3. Deploy for Demo Day
-- Dashboard → Vercel: `vercel --prod` from `dashboard/`
-- Proxy → Railway: `railway up` from `services/x402-proxy/`
-- Set env vars on both platforms (copy from `.env.local` + add `AXON_SIMULATOR_BYPASS=1` on Railway)
-
-### 4. Fix Solana `// @ts-nocheck` before devnet goes live
-File: `services/x402-proxy/src/sinks/solana.ts`
-Issue: `@solana/web3.js` proxy typing conflicts. Fix the types, remove the nocheck.
+### Phase 2 — Hash chain visualization on landing page (IN PROGRESS)
+Add a hash chain visualization section to `landing/app/page.tsx` between "how it works" and the comparison table. Six fake audit records as a table with hash transitions, hover tooltips, violet accents. Pure CSS + React. Use JetBrains Mono for the hashes.
 
 ---
 
