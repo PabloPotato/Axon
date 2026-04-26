@@ -8,8 +8,8 @@
 // duplicated from intaglio-engine/src/audit.ts — verbose on purpose.
 
 import { createHash } from "node:crypto";
-import type { AuditRecord } from "@intaglio/engine";
-import { GENESIS_HASH } from "@intaglio/engine";
+import type { AuditRecord } from "../intaglio-engine/index";
+import { GENESIS_HASH } from "../intaglio-engine/index";
 
 function canonicalize(obj: unknown): string {
   if (obj === null || typeof obj !== "object") return JSON.stringify(obj);

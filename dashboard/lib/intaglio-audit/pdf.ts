@@ -10,8 +10,8 @@
 
 import PDFDocument from "pdfkit";
 import { Writable } from "node:stream";
-import type { Policy, AuditRecord } from "@intaglio/engine";
-import { hashPolicy } from "@intaglio/engine";
+import type { Policy, AuditRecord } from "../intaglio-engine/index";
+import { hashPolicy } from "../intaglio-engine/index";
 import type { AuditSummary } from "./summarize.js";
 import type { VerificationResult } from "./verify.js";
 import { FRAMEWORKS, requirementsByFramework } from "./frameworks.js";

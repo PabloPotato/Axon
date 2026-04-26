@@ -2,7 +2,7 @@
 // Pure aggregation over an AuditRecord[] for the executive-summary page.
 // No I/O. No PDF. Just stats.
 
-import type { AuditRecord, Decision } from "@intaglio/engine";
+import type { AuditRecord, Decision } from "../intaglio-engine/index";
 
 export interface SpendByCurrency {
   currency: string;

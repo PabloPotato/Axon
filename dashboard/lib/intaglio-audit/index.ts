@@ -3,7 +3,7 @@
 
 import { createWriteStream } from "node:fs";
 import { Writable } from "node:stream";
-import type { Policy, AuditRecord } from "@intaglio/engine";
+import type { Policy, AuditRecord } from "../intaglio-engine/index";
 import { summarize } from "./summarize.js";
 import { verifyChain } from "./verify.js";
 import { renderAuditPDF } from "./pdf.js";
