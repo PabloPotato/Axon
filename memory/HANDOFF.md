@@ -4,11 +4,21 @@
 
 ---
 
-## Current status: AUDIT COMPLETE — advancing to priority item 1
+## Current status: SOLANA SINK FIXED — advancing to priority item 3 (deployment)
 
-One-time codebase audit completed. 5 tasks shipped. No security holes found in auth or data flow. Ready to seed Supabase.
+One-time codebase audit completed. Supabase seeded. Solana sink `@ts-nocheck` removed. Ready for deployment to Railway + Vercel.
 
 ---
+
+## Coder Budget (rolling 24h window)
+
+| # | Time (UTC) | Model | Task | Result |
+|---|---|---|---|---|
+| 1 | 2026-04-26 00:54 | Qwen3-Coder | Security audit tasks | Completed (1-5) |
+| 2 | 2026-04-26 01:12 | Minimax M2.5 | Solana diagnostic | Completed |
+| 3 | 2026-04-26 01:19 | Minimax M2.5 | Solana fix round 1 | Analyzed, hit max_iterations before applying |
+| — | 2026-04-26 01:22 | (orchestrator) | Applied Option A (tsconfig paths) + removed ts-nocheck | Completed |
+Total this window: 3 delegations (30 limit). Next reset: 2026-04-27 00:54 UTC.
 
 ## What was just completed (audit session)
 
@@ -64,7 +74,14 @@ One-time codebase audit completed. 5 tasks shipped. No security holes found in a
   - All 20 records inserted successfully — hash chain trigger verified automatically by Postgres
 - Seed uses env vars for credentials (no hardcoded secrets in committed file)
 
-**Key findings for operator attention:**
+**Task 8 — Solana sink @ts-nocheck removed (Option A: tsconfig paths)**
+- Applied by Minimax M2.5 diagnostic + orchestrator apply
+- Added `paths` mapping in `services/x402-proxy/tsconfig.json`:
+  `"@axon/engine": ["../../axon-engine/src/index.ts"]`
+- Removed `// @ts-nocheck` from `services/x402-proxy/src/sinks/solana.ts`
+- Verified: `bun tsc --noEmit` shows solana.ts has ZERO type errors (all remaining errors are in axon-engine/src/ and test/ — outside scope)
+- Tests: 2 pass, 1 fail (needs DATABASE_URL env var), 1 error — all pre-existing, none related to Solana sink
+- Note: Option B (bun install workspace symlink) was tried first but `moduleResolution: "bundler"` doesn't follow symlinks correctly. Flagged in HANDOFF.md to migrate to proper workspace setup later.
 1. PII/INFRA in 4 core files (CONTEXT.md, AGENTS.md, memory/HANDOFF.md, .claude/settings.local.json) — needs placeholder cleanup before making repo public
 2. Next.js 15.3.0 has critical CVEs — upgrade to 15.5.15+ (post-audit)
 3. One @ts-nocheck in Solana sink — priority item #2

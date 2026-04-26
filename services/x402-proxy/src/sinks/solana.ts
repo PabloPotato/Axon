@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { Connection, Keypair, Transaction, TransactionInstruction, PublicKey } from "@solana/web3.js";
 import { readFileSync } from "node:fs";
 import type { AuditRecord } from "@axon/engine";

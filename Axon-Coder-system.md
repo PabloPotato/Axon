@@ -72,7 +72,7 @@ Guessing on a 16-day deadline costs hours of debugging.
 
 ═══════════════════════════════════════════════════════════════════════
  SECTION 4: HARDWARE CONSTRAINTS — RESPECT THESE
-═══════════════════════════════════════════════════════════════════════
+## Hardware constraints (respect these)
 
 Available: 4 CPU cores, 8GB RAM, 256GB SSD. Linux server.
 
@@ -89,6 +89,12 @@ Rules that follow from this:
   https://api.devnet.solana.com
 - After any task, run: rm -rf .next/cache && du -sh node_modules 
   to make sure we're not blowing up disk
+
+## Model fallback chain
+If Qwen3-Coder (primary) is rate-limited on OpenRouter, the orchestrator will:
+1. Fall back to minimax/minimax-m2.5:free (highest SWE-Bench free model)
+2. Fall back to openai/gpt-oss-120b:free (reasoning-heavy work)
+These are orchestrator-side decisions. Your Axon-Coder-system.md instructions remain unchanged. If you receive a task, execute it regardless of which model instance you are running on.
 
 If you hit OOM or "ENOMEM" or "killed" — STOP. Do not retry. Report which 
 command and how much memory it tried to use.
