@@ -89,8 +89,6 @@ const TABLE_ROWS = [
   ["Self-hostable", true, false, false, false],
 ] as const;
 
-const TABLE_COLS = ["Axon", "Microsoft Agent 365", "Ramp Agents", "ServiceNow AI CT"];
-
 const HASH_CHAIN_DATA = [
   {
     ts: "2026-04-19T08:14:23Z",
@@ -264,6 +262,77 @@ limit {
   );
 }
 
+const APL_FS_POLICY = `# APL-FS specimen — Tokenized Money Market Fund on Solana
+# Status: Draft. APL-FS primitives are post-v1 design.
+
+policy "tokenized-mmf-solana-v1" {
+  version     = "0.2.0-draft"
+  operator    = "org:sygnum"
+  agent       = "mmf-oracle-bot"
+
+  fund_mandate    = ["money_market", "short_term_government", "repo"]
+  fund_type       = "money_market"
+  domicile        = "CH"
+  investor_class  = ["qualified", "institutional"]
+
+  scope {
+    rails      = ["x402", "solana:transfer"]
+    endpoints  = ["api.sygnum.com/funds/mmf/*"]
+    currencies = ["USDC", "EURC", "CHF"]
+    chains     = ["solana:mainnet"]
+  }
+
+  limit {
+    per_transaction = 5000000 USDC
+    per_day         = 25000000 USDC
+    concurrency     = 5
+  }
+
+  require {
+    kyc_status                 = "enhanced_due_diligence"
+    sanctions_screen           = true
+    identity_verified          = true
+    human_approval_above       = 1000000 USDC
+    redemption_gate            = 50000000 USDC
+    liquidity_floor            = 10000000 USDC
+  }
+
+  attestation_required {
+    signer             = "compliance-officer-01"
+    role               = "compliance_officer"
+    registered_entity  = "Sygnum AG"
+  }
+
+  deny {
+    countries = ["IR", "KP", "CU", "SY", "RU"]
+  }
+
+  approval {
+    default_approver  = "fund-admin@sygnum.com"
+    timeout           = 30m
+    on_timeout        = "deny"
+  }
+
+  obligation {
+    log_to            = "solana:mainnet"
+    retention         = "10y"
+    audit_exports     = ["finma-circular-2026-1", "mica-title-v"]
+  }
+}`;
+
+const TEMPLATE_CARDS = [
+  {name: "01 — per-transaction", desc: "Hard cap on individual agent actions", regs: ["AI Act Art. 12", "MiCA Art. 68"]},
+  {name: "02 — per-day", desc: "Daily spend ceiling for autonomous agents", regs: ["AI Act Art. 12", "MiCA Art. 68"]},
+  {name: "03 — velocity", desc: "Frequency cap on agent actions", regs: ["AI Act Art. 12", "MiCA Art. 74"]},
+  {name: "04 — allowlist", desc: "Restrict to explicitly approved endpoints", regs: ["AI Act Art. 15", "DORA Art. 17"]},
+  {name: "05 — blocklist", desc: "Deny sanctioned jurisdictions and merchants", regs: ["MiCA Art. 22", "NIST AI RMF"]},
+  {name: "06 — time-window", desc: "Restrict activity to EU business hours", regs: ["AI Act Art. 14", "ISO 42001"]},
+  {name: "07 — risk-score", desc: "Dynamic per-action risk assessment", regs: ["AI Act Art. 15", "NIST AI RMF"]},
+  {name: "08 — USDC treasury", desc: "Stablecoin treasury with conservative limits", regs: ["MiCA Art. 68", "MiCA Art. 74"]},
+  {name: "09 — domestic-only", desc: "Restrict to EU domestic transactions", regs: ["MiCA Art. 22", "AI Act Art. 5"]},
+  {name: "10 — combined", desc: "Full MiCA-ready compliance policy", regs: ["AI Act Art. 12", "MiCA Art. 68", "DORA Art. 17"]},
+];
+
 const ROADMAP = [
   { version: "v0.1", label: "Today", desc: "Engine, APL spec, hash-chain audit, operator dashboard." },
   { version: "v0.2", label: "May 2026", desc: "Solana anchoring, PDF audit export, DORA templates." },
@@ -311,32 +380,34 @@ export default function LandingPage() {
       <main className="ax-container">
         {/* ─── Hero ──────────────────────────────────────────────────────── */}
         <section id="hero" className="ax-hero">
-          <div className="ax-animate">
+          <div className="ax-hero-content">
             <h1 className="ax-hero-title">
-              The open policy layer for AI agents that move real money.
+              <span className="ax-hero-title-line">Policy and audit</span>
+              <span className="ax-hero-title-line">for autonomous</span>
+              <span className="ax-hero-title-line">agents.</span>
             </h1>
             <p className="ax-hero-sub">
-              One <code className="ax-code-inline">.apl</code> file governs every action
-              your agent takes. Deterministic decisions. Tamper-evident audit. EU AI Act
-              Article 12, MiCA, and DORA compatible out of the box.
+              The open standard EU compliance officers accept as evidence under AI Act Article 12, MiCA, and DORA.
             </p>
             <div className="ax-hero-ctas">
-              <CopyButton code="npm install @axon/engine" />
-              <a id="hero-read-spec" href="/spec" className="ax-btn-ghost">
+              <a href="/demo" className="ax-btn-primary">
+                View live demo
+              </a>
+              <a href="/spec" className="ax-btn-ghost">
                 Read the spec
               </a>
             </div>
+            <div className="ax-hero-badge">
+              <span className="ax-hero-badge-dot" />
+              EU AI Act Article 12 ready
+            </div>
           </div>
 
-          {/* APL code block */}
-          <div className="ax-code-block ax-animate ax-delay-2">
-            <div className="ax-code-header">
-              {["#ef4444", "#f59e0b", "#22c55e"].map((c) => (
-                <div key={c} className="ax-code-dot" style={{ background: c }} />
-              ))}
-              <span className="ax-code-filename">marketing-agent.apl</span>
+          {/* Static APL code block */}
+          <div className="ax-hero-code">
+            <div className="ax-hero-code-block">
+              <pre className="ax-hero-code-pre">{HELLO_WORLD_APL}</pre>
             </div>
-            <pre className="ax-code-pre">{HELLO_WORLD_APL}</pre>
           </div>
         </section>
 
@@ -408,7 +479,77 @@ export default function LandingPage() {
         {/* ─── Policy Editor ────────────────────────────────────────────── */}
         <PolicyEditor />
 
+        {/* ─── Ten Templates Grid ─────────────────────────────────────────── */}
+        <section id="templates" className="ax-section">
+          <h2 className="ax-section-title">Ten templates. Pre-mapped to EU regulation.</h2>
+          <p style={{ textAlign: "center", fontSize: "14px", color: "var(--color-muted)", marginBottom: "28px", lineHeight: 1.6 }}>
+            Procurement bots. Treasury rebalancing. Marketing spend. Each one cites the clause it satisfies.
+          </p>
+          <div className="ax-templates-grid">
+            {TEMPLATE_CARDS.map((t, i) => (
+              <div key={i} className="ax-template-card">
+                <div className="ax-template-name">{t.name}</div>
+                <div className="ax-template-desc">{t.desc}</div>
+                <div className="ax-template-badges">
+                  {t.regs.map((r, j) => (
+                    <span key={j} className="ax-template-badge">{r}</span>
+                  ))}
+                </div>
+                <a href="#" className="ax-template-link">View template</a>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* ─── For Institutional Issuers ─────────────────────────────────────── */}
+        <section id="institutional" className="ax-section">
+          <div className="ax-institutional">
+            <h2 className="ax-section-title">For institutional issuers</h2>
+            <p className="ax-institutional-text">
+              Tokenized fund operations require deterministic policy enforcement, attestation chains tied to regulated signing entities, and integration with traditional rails. Axon's institutional dialect, APL-FS, adds these primitives.
+            </p>
+            <div className="ax-institutional-code">
+              <pre className="ax-institutional-code-pre">{APL_FS_POLICY}</pre>
+            </div>
+            <div className="ax-institutional-badges">
+              <span className="ax-institutional-badge">1940 Investment Company Act compatible</span>
+              <span className="ax-institutional-badge">MiCA Title V compatible</span>
+              <span className="ax-institutional-badge">FINMA circular 2026/1 compatible</span>
+            </div>
+            <a href="/docs/apl-fs" className="ax-institutional-link">Read the APL-FS draft specification →</a>
+          </div>
+        </section>
+
+        {/* ─── Regulatory Mapping ───────────────────────────────────────────── */}
+        <section id="regulatory-mapping" className="ax-section">
+          <h2 className="ax-section-title">Every APL primitive maps to a regulation</h2>
+          <div className="ax-table-wrap">
+            <table className="ax-reg-table">
+              <thead>
+                <tr>
+                  <th style={{ textAlign: "left" }}>Primitive</th>
+                  <th>EU AI Act<br />Art. 12</th>
+                  <th>MiCA<br />Art. 68</th>
+                  <th>MiCA<br />Art. 70</th>
+                  <th>DORA<br />Art. 17</th>
+                  <th>NIST<br />AI RMF</th>
+                  <th>ISO<br />42001</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>obligation.log_to</td><td className="ax-reg-check">✓</td><td className="ax-reg-check">✓</td><td className="ax-reg-check">✓</td><td className="ax-reg-check">✓</td><td className="ax-reg-check">✓</td><td className="ax-reg-check">✓</td></tr>
+                <tr><td>limit (per_transaction, per_day)</td><td className="ax-reg-check">✓</td><td className="ax-reg-check">✓</td><td className="ax-reg-check">✓</td><td className="ax-reg-check">✓</td><td className="ax-reg-check">✓</td><td className="ax-reg-check">✓</td></tr>
+                <tr><td>require.human_approval</td><td className="ax-reg-check">✓</td><td className="ax-reg-minus">—</td><td className="ax-reg-minus">—</td><td className="ax-reg-minus">—</td><td className="ax-reg-check">✓</td><td className="ax-reg-check">✓</td></tr>
+                <tr><td>deny.countries</td><td className="ax-reg-check">✓</td><td className="ax-reg-minus">—</td><td className="ax-reg-minus">—</td><td className="ax-reg-minus">—</td><td className="ax-reg-minus">—</td><td className="ax-reg-check">✓</td></tr>
+                <tr><td>obligation.audit_exports</td><td className="ax-reg-check">✓</td><td className="ax-reg-check">✓</td><td className="ax-reg-minus">—</td><td className="ax-reg-check">✓</td><td className="ax-reg-check">✓</td><td className="ax-reg-check">✓</td></tr>
+                <tr><td>require.identity_verified</td><td className="ax-reg-check">✓</td><td className="ax-reg-minus">—</td><td className="ax-reg-check">✓</td><td className="ax-reg-minus">—</td><td className="ax-reg-check">✓</td><td className="ax-reg-check">✓</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
         {/* ─── Positioning table ─────────────────────────────────────────── */}
+        {/* ─── How Axon compares ──────────────────────────────────────────── */}
         <section id="positioning" className="ax-section">
           <h2 className="ax-section-title">How Axon compares</h2>
           <div className="ax-table-wrap">
@@ -416,28 +557,20 @@ export default function LandingPage() {
               <thead>
                 <tr>
                   <th style={{ textAlign: "left" }}>Capability</th>
-                  {TABLE_COLS.map((col) => (
-                    <th key={col} className={col === "Axon" ? "ax-table-axon" : ""}>
-                      {col}
-                    </th>
-                  ))}
+                  <th>Axon</th>
+                  <th>Microsoft<br />Agent 365</th>
+                  <th>Ramp<br />Treasury</th>
+                  <th>Crossmint</th>
+                  <th>Aladdin<br />(BlackRock)</th>
                 </tr>
               </thead>
               <tbody>
-                {TABLE_ROWS.map(([label, ...checks]) => (
-                  <tr key={String(label)}>
-                    <td>{label}</td>
-                    {checks.map((v, i) => (
-                      <td key={i}>
-                        {v ? (
-                          <span className="ax-check">✓</span>
-                        ) : (
-                          <span className="ax-dash">—</span>
-                        )}
-                      </td>
-                    ))}
-                  </tr>
-                ))}
+                <tr><td>Open standard</td><td className="ax-check">✓</td><td className="ax-dash">—</td><td className="ax-dash">—</td><td className="ax-dash">—</td><td className="ax-dash">—</td></tr>
+                <tr><td>EU regulation citations</td><td className="ax-check">✓</td><td className="ax-dash">—</td><td className="ax-dash">—</td><td className="ax-dash">—</td><td className="ax-dash">—</td></tr>
+                <tr><td>Hash-chained audit trail</td><td className="ax-check">✓</td><td className="ax-dash">—</td><td className="ax-dash">—</td><td className="ax-dash">—</td><td className="ax-dash">—</td></tr>
+                <tr><td>Auto-updating compliance</td><td className="ax-check">✓</td><td className="ax-dash">—</td><td className="ax-dash">—</td><td className="ax-dash">—</td><td className="ax-dash">—</td></tr>
+                <tr><td>Agent-framework agnostic</td><td className="ax-check">✓</td><td className="ax-dash">—</td><td className="ax-dash">—</td><td className="ax-dash">—</td><td className="ax-dash">—</td></tr>
+                <tr><td>MIT licensed</td><td className="ax-check">✓</td><td className="ax-dash">—</td><td className="ax-dash">—</td><td className="ax-check">✓</td><td className="ax-dash">—</td></tr>
               </tbody>
             </table>
           </div>

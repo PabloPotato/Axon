@@ -2,17 +2,27 @@
 
 /* ── Tailwind v4 theme ────────────────────────────────────────────────── */
 @theme {
+  /* Color tokens from DESIGN_V2.md */
   --color-violet: #7C5CFF;
+  --color-violet-hover: #6b4cf0;
   --color-violet-muted: rgba(124, 92, 255, 0.12);
   --color-foreground: #f4f4f5;
   --color-muted: #71717a;
   --color-border: rgba(255, 255, 255, 0.08);
   --color-bg: #09090b;
   --color-bg-surface: #111113;
+  --color-surface: #111113;
+  --color-fg: #f4f4f5;
   --color-good: #22c55e;
+  --color-bad: #ef4444;
+  --color-warn: #f59e0b;
 
-  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
-  --font-mono: "JetBrains Mono", "Fira Code", ui-monospace, monospace;
+  /* Gradient */
+  --gradient-violet: linear-gradient(135deg, #7C5CFF, #4F46E5);
+
+  /* Typography - Geist from Vercel */
+  --font-sans: "Geist Sans", system-ui, -apple-system, sans-serif;
+  --font-mono: "Geist Mono", "JetBrains Mono", "Fira Code", ui-monospace, monospace;
 }
 
 /* ── Reset ────────────────────────────────────────────────────────────── */
@@ -93,47 +103,107 @@ body {
 
 /* ── Hero ─────────────────────────────────────────────────────────────── */
 .ax-hero {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 64px;
+  min-height: 90vh;
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  padding-top: 96px;
-  padding-bottom: 96px;
+  justify-content: center;
+  padding: 80px 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Violet radial gradient background */
+.ax-hero::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 800px;
+  height: 800px;
+  background: radial-gradient(circle, rgba(124, 92, 255, 0.3) 0%, rgba(79, 70, 229, 0.15) 40%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
 }
 
 @media (max-width: 768px) {
   .ax-hero {
-    grid-template-columns: 1fr;
-    gap: 40px;
-    padding-top: 56px;
-    padding-bottom: 56px;
+    min-height: auto;
+    padding: 56px 20px;
+  }
+  .ax-hero::before {
+    width: 400px;
+    height: 400px;
   }
 }
 
+.ax-hero-content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  max-width: 800px;
+}
+
 .ax-hero-title {
-  font-size: clamp(2rem, 4vw, 2.75rem);
-  font-weight: 700;
+  font-size: 72px;
+  font-weight: 600;
   letter-spacing: -0.04em;
-  line-height: 1.1;
-  margin-bottom: 20px;
+  line-height: 1.05;
+  margin-bottom: 24px;
   color: var(--color-foreground);
 }
 
+@media (max-width: 768px) {
+  .ax-hero-title {
+    font-size: 48px;
+  }
+}
+
+.ax-hero-title-line {
+  display: block;
+}
+
 .ax-hero-sub {
-  font-size: 17px;
+  font-size: 18px;
   color: var(--color-muted);
-  line-height: 1.65;
+  line-height: 1.6;
   margin-bottom: 32px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 @media (max-width: 480px) {
-  .ax-hero-sub { font-size: 15px; }
+  .ax-hero-sub { font-size: 16px; }
 }
 
 .ax-hero-ctas {
   display: flex;
-  gap: 12px;
+  gap: 16px;
+  justify-content: center;
   flex-wrap: wrap;
+  margin-bottom: 24px;
+}
+
+.ax-hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--color-muted);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--color-border);
+  border-radius: 20px;
+  padding: 6px 14px;
+}
+
+.ax-hero-badge-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-good);
 }
 
 .ax-code-inline {
@@ -144,6 +214,39 @@ body {
   font-size: 15px;
   font-family: var(--font-mono);
 }
+
+/* ── Hero static code block ──────────────────────────────────────────── */
+.ax-hero-code {
+  position: relative;
+  z-index: 1;
+  margin-top: 48px;
+  width: 100%;
+  max-width: 640px;
+}
+
+.ax-hero-code-block {
+  border-radius: 8px;
+  border: 1px solid var(--color-border);
+  background: var(--color-bg-surface);
+  overflow: hidden;
+  text-align: left;
+}
+
+.ax-hero-code-pre {
+  padding: 24px 20px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--color-foreground);
+  overflow-x: auto;
+  font-family: var(--font-mono);
+  margin: 0;
+}
+
+/* Syntax highlighting */
+.ax-hero-code-pre .kw { color: var(--color-violet); }
+.ax-hero-code-pre .str { color: #a78bfa; }
+.ax-hero-code-pre .cm { color: var(--color-muted); }
+.ax-hero-code-pre .num { color: #f59e0b; }
 
 /* ── Code block (hero right) ──────────────────────────────────────────── */
 .ax-code-block {
@@ -361,10 +464,193 @@ body {
 .ax-dash { color: var(--color-border); }
 
 .ax-table-note {
-  font-size: 12px;
+  text-align: center;
+  font-size: 13px;
   color: var(--color-muted);
   margin-top: 12px;
-  text-align: right;
+}
+
+/* ─── Ten Templates Grid ──────────────────────────────── */
+.ax-templates-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.ax-template-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 24px;
+  transition: border-color 200ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.ax-template-card:hover {
+  border-color: rgba(124, 92, 255, 0.3);
+}
+
+.ax-template-name {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-fg);
+  margin-bottom: 8px;
+}
+
+.ax-template-desc {
+  font-size: 14px;
+  color: var(--color-muted);
+  line-height: 1.5;
+  margin-bottom: 12px;
+}
+
+.ax-template-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.ax-template-badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--color-muted);
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  padding: 2px 8px;
+  font-family: "JetBrains Mono", monospace;
+}
+
+.ax-template-link {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-violet);
+  text-decoration: none;
+}
+
+.ax-template-link:hover {
+  text-decoration: underline;
+}
+
+/* ─── Institutional Issuers ────────────────────────────── */
+.ax-institutional {
+  max-width: 720px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.ax-institutional-text {
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--color-muted);
+  margin: 24px auto;
+  max-width: 640px;
+}
+
+.ax-institutional-code {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 20px;
+  margin: 24px 0;
+  text-align: left;
+  overflow-x: auto;
+}
+
+.ax-institutional-code-pre {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--color-fg);
+  white-space: pre;
+  margin: 0;
+}
+
+.ax-institutional-badges {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 16px 0;
+}
+
+.ax-institutional-badge {
+  font-size: 12px;
+  color: var(--color-muted);
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  padding: 4px 12px;
+  font-weight: 500;
+}
+
+.ax-institutional-link {
+  display: inline-block;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-violet);
+  text-decoration: none;
+  margin-top: 8px;
+}
+
+.ax-institutional-link:hover {
+  text-decoration: underline;
+}
+
+/* ─── Regulatory Mapping Table ────────────────────────── */
+.ax-reg-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 13px;
+}
+
+.ax-reg-table th {
+  padding: 12px 8px;
+  text-align: center;
+  font-weight: 600;
+  color: var(--color-muted);
+  border-bottom: 1px solid var(--color-border);
+  font-size: 12px;
+  line-height: 1.3;
+  vertical-align: bottom;
+}
+
+.ax-reg-table td {
+  padding: 12px 8px;
+  text-align: center;
+  border-bottom: 1px solid var(--color-border);
+  color: var(--color-fg);
+}
+
+.ax-reg-table td:first-child {
+  text-align: left;
+  font-weight: 500;
+  color: var(--color-fg);
+}
+
+.ax-reg-check {
+  color: var(--color-good);
+  font-size: 16px;
+}
+
+.ax-reg-minus {
+  color: var(--color-muted);
+  opacity: 0.4;
+}
+
+/* ─── Responsive templates grid ──────────────────────── */
+@media (max-width: 768px) {
+  .ax-templates-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .ax-templates-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* ── Governance card ──────────────────────────────────────────────────── */
