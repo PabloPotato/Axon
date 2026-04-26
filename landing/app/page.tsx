@@ -89,8 +89,6 @@ const TABLE_ROWS = [
   ["Self-hostable", true, false, false, false],
 ] as const;
 
-const TABLE_COLS = ["Axon", "Microsoft Agent 365", "Ramp Agents", "ServiceNow AI CT"];
-
 const HASH_CHAIN_DATA = [
   {
     ts: "2026-04-19T08:14:23Z",
@@ -551,6 +549,7 @@ export default function LandingPage() {
         </section>
 
         {/* ─── Positioning table ─────────────────────────────────────────── */}
+        {/* ─── How Axon compares ──────────────────────────────────────────── */}
         <section id="positioning" className="ax-section">
           <h2 className="ax-section-title">How Axon compares</h2>
           <div className="ax-table-wrap">
@@ -558,28 +557,20 @@ export default function LandingPage() {
               <thead>
                 <tr>
                   <th style={{ textAlign: "left" }}>Capability</th>
-                  {TABLE_COLS.map((col) => (
-                    <th key={col} className={col === "Axon" ? "ax-table-axon" : ""}>
-                      {col}
-                    </th>
-                  ))}
+                  <th>Axon</th>
+                  <th>Microsoft<br />Agent 365</th>
+                  <th>Ramp<br />Treasury</th>
+                  <th>Crossmint</th>
+                  <th>Aladdin<br />(BlackRock)</th>
                 </tr>
               </thead>
               <tbody>
-                {TABLE_ROWS.map(([label, ...checks]) => (
-                  <tr key={String(label)}>
-                    <td>{label}</td>
-                    {checks.map((v, i) => (
-                      <td key={i}>
-                        {v ? (
-                          <span className="ax-check">✓</span>
-                        ) : (
-                          <span className="ax-dash">—</span>
-                        )}
-                      </td>
-                    ))}
-                  </tr>
-                ))}
+                <tr><td>Open standard</td><td className="ax-check">✓</td><td className="ax-dash">—</td><td className="ax-dash">—</td><td className="ax-dash">—</td><td className="ax-dash">—</td></tr>
+                <tr><td>EU regulation citations</td><td className="ax-check">✓</td><td className="ax-dash">—</td><td className="ax-dash">—</td><td className="ax-dash">—</td><td className="ax-dash">—</td></tr>
+                <tr><td>Hash-chained audit trail</td><td className="ax-check">✓</td><td className="ax-dash">—</td><td className="ax-dash">—</td><td className="ax-dash">—</td><td className="ax-dash">—</td></tr>
+                <tr><td>Auto-updating compliance</td><td className="ax-check">✓</td><td className="ax-dash">—</td><td className="ax-dash">—</td><td className="ax-dash">—</td><td className="ax-dash">—</td></tr>
+                <tr><td>Agent-framework agnostic</td><td className="ax-check">✓</td><td className="ax-dash">—</td><td className="ax-dash">—</td><td className="ax-dash">—</td><td className="ax-dash">—</td></tr>
+                <tr><td>MIT licensed</td><td className="ax-check">✓</td><td className="ax-dash">—</td><td className="ax-dash">—</td><td className="ax-check">✓</td><td className="ax-dash">—</td></tr>
               </tbody>
             </table>
           </div>
