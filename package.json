@@ -1,6 +1,13 @@
 {
   "name": "axon-monorepo",
   "private": true,
+  "workspaces": [
+    "axon-engine",
+    "axon-audit",
+    "dashboard",
+    "landing",
+    "services/x402-proxy"
+  ],
   "dependencies": {
     "@supabase/supabase-js": "^2.104.1"
   }

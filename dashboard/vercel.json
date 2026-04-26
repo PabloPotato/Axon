@@ -1,5 +1,6 @@
 {
-  "buildCommand": "cd dashboard && npm install && npx next build",
-  "installCommand": "cd dashboard && npm install",
-  "outputDirectory": "dashboard/.next"
+  "installCommand": "cd .. && npm install --prefix axon-engine && npm install --prefix axon-audit && npm install --prefix dashboard",
+  "buildCommand": "npm run build",
+  "outputDirectory": ".next",
+  "framework": "nextjs"
 }
