@@ -18,9 +18,7 @@
     "incremental": true,
     "plugins": [{ "name": "next" }],
     "paths": {
-      "@/*": ["./*"],
-      "@intaglio/engine": ["../intaglio-engine/src/index.ts"],
-      "@intaglio/audit": ["../intaglio-audit/src/index.ts"]
+      "@/*": ["./*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

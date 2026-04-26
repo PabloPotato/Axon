@@ -12,9 +12,9 @@ export const runtime = "nodejs";
 import { NextRequest, NextResponse } from "next/server";
 import { PassThrough } from "node:stream";
 import { createClient } from "@/lib/supabase/server";
-import { parse } from "@intaglio/engine";
-import type { AuditRecord } from "@intaglio/engine";
-import { generateAuditPDF } from "@intaglio/audit";
+import { parse } from "@/lib/intaglio-engine/index";
+import type { AuditRecord } from "@/lib/intaglio-engine/types";
+import { generateAuditPDF } from "@/lib/intaglio-audit/index";
 
 export async function GET(req: NextRequest) {
   const supabase = await createClient();

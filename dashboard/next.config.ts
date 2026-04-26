@@ -7,20 +7,17 @@ const config: NextConfig = {
   },
   // These packages must NOT be bundled — they run in Node.js runtime
   serverExternalPackages: ["@supabase/supabase-js", "pdfkit", "iconv-lite"],
-  // Tell Next.js where to find workspace dependencies at build time
-  transpilePackages: ["@intaglio/engine", "@intaglio/audit"],
+  // Local inlined engine/audit are in lib/ — no transpile packages needed
+  transpilePackages: [],
   outputFileTracingIncludes: {
     "/api/audit/pdf/route": [
-      "../intaglio-engine/src/**/*",
-      "../intaglio-audit/src/**/*",
+      "lib/intaglio-engine/**/*",
+      "lib/intaglio-audit/**/*",
     ],
   },
   webpack: (config, { isServer }) => {
     if (isServer) {
-      // Resolve .ts → .js extension imports from workspace deps
-      // intaglio-engine and intaglio-audit source files use `.js` extensions
-      // in their imports (standard for ESM). webpack needs to resolve
-      // these to the actual .ts source files when using tsconfig paths.
+      // Resolve .ts → .js extension imports from local lib/
       config.resolve.extensionAlias = {
         ".js": [".ts", ".js", ".tsx", ".jsx"],
       };

@@ -10,8 +10,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@intaglio/audit": "file:../intaglio-audit",
-    "@intaglio/engine": "file:../intaglio-engine",
     "@monaco-editor/react": "^4.6.0",
     "@supabase/ssr": "^0.10.2",
     "@supabase/supabase-js": "^2.103.3",
