@@ -6,7 +6,7 @@ const config: NextConfig = {
     // Required for server actions + streaming in Next.js 15
   },
   // These packages must NOT be bundled — they run in Node.js runtime
-  serverExternalPackages: ["@supabase/supabase-js", "pdfkit", "@axon/audit", "@axon/engine", "iconv-lite"],
+  serverExternalPackages: ["@supabase/supabase-js", "pdfkit", "iconv-lite"],
   // Tell Next.js where to find workspace dependencies at build time
   transpilePackages: ["@axon/engine", "@axon/audit"],
   outputFileTracingIncludes: {
