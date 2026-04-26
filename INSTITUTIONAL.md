@@ -2,6 +2,8 @@
 
 **BlackRock built Aladdin because portfolio managers needed to act faster than spreadsheets allowed. Today institutional issuers running tokenized fund operations need autonomous policy enforcement that a regulator accepts as evidence. Intaglio is that layer.**
 
+Intaglio takes its name from the engraving technique where designs are permanently incised into the surface — the same property that makes our hash-chained audit records irreversible evidence.
+
 ---
 
 ## The Wedge Buyers
