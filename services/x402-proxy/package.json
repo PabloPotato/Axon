@@ -1,0 +1,27 @@
+{
+  "name": "x402-proxy",
+  "version": "0.1.0",
+  "description": "Axon x402 enforcement proxy — evaluates agent actions against APL policy before forwarding.",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "dev": "PORT=3005 bun run --watch src/index.ts",
+    "build": "bun build ./src/index.ts --target=bun --outfile=./dist/index.js",
+    "start": "bun run src/index.ts",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@axon/engine": "file:../../axon-engine",
+    "@solana/web3.js": "^1.95.0",
+    "hono": "^4.4.0",
+    "postgres": "^3.4.4"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "pg": "^8.20.0",
+    "pg-mem": "^3.0.14",
+    "typescript": "^5.6.0",
+    "vitest": "^4.1.4"
+  }
+}

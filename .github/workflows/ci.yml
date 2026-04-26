@@ -1,0 +1,104 @@
+name: CI
+
+on:
+  push:
+    branches: [main, dev]
+  pull_request:
+    branches: [main]
+
+jobs:
+  engine:
+    name: axon-engine
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: axon-engine
+
+    strategy:
+      matrix:
+        node-version: [20, 22]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: npm
+          cache-dependency-path: axon-engine/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Type-check
+        run: npx tsc --noEmit
+
+      - name: Build
+        run: npm run build
+
+      - name: Test
+        run: npm test
+
+  proxy-typecheck:
+    name: x402-proxy typecheck
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: services/x402-proxy
+    needs: engine
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: axon-engine/package-lock.json
+
+      - name: Build engine (needed for dist types)
+        working-directory: axon-engine
+        run: npm ci && npm run build
+
+      - name: Install proxy dependencies
+        run: npm install
+
+      - name: Type-check proxy
+        run: npx tsc --noEmit
+
+  sql-parse:
+    name: SQL syntax check
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install libpg-query
+        run: npm install libpg-query
+
+      - name: Parse schema.sql + policies.sql
+        run: |
+          node --input-type=module <<'EOF'
+          import pkg from "libpg-query";
+          const { parse } = pkg;
+          import { readFileSync } from "node:fs";
+          const files = ["infra/supabase/schema.sql", "infra/supabase/policies.sql"];
+          let ok = true;
+          for (const f of files) {
+            try {
+              const r = await parse(readFileSync(f, "utf8"));
+              console.log("OK  " + f + "  (" + r.stmts.length + " statements)");
+            } catch(e) {
+              console.error("FAIL " + f + "  " + e.message);
+              ok = false;
+            }
+          }
+          if (!ok) process.exit(1);
+          EOF
