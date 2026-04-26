@@ -12,6 +12,9 @@ export const metadata: Metadata = {
   title: "Intaglio — The open policy layer for AI agents that move real money",
   description:
     "One .apl file governs every action your agent takes. Deterministic decisions. Tamper-evident audit. EU AI Act Article 12, MiCA, and DORA compatible out of the box.",
+  icons: {
+    icon: "/favicon.svg",
+  },
   openGraph: {
     title: "Intaglio — Policy & Audit Layer for AI Agents",
     description:
@@ -19,6 +22,13 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     siteName: "Intaglio",
+    url: "https://landing-gules-phi.vercel.app",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Intaglio — Policy & Audit Layer for AI Agents",
+    description:
+      "Deterministic policy enforcement and tamper-evident audit for autonomous AI agents.",
   },
   robots: { index: true, follow: true },
   keywords: [

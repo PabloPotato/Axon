@@ -360,17 +360,17 @@ const ROADMAP = [
 ];
 
 const NAV_LINKS = [
-  { label: "Spec", href: "/spec" },
-  { label: "Engine", href: "https://github.com/PabloPotato/Axon" },
-  { label: "GitHub", href: "https://github.com/PabloPotato/Axon" },
-  { label: "Discord", href: "#" },
+  { label: "Spec", href: "https://github.com/PabloPotato/Intaglio#readme" },
+  { label: "Engine", href: "https://github.com/PabloPotato/Intaglio/tree/main/intaglio-engine" },
+  { label: "GitHub", href: "https://github.com/PabloPotato/Intaglio" },
+  { label: "Discord", href: "https://discord.gg/intaglio", ariaLabel: "Join our Discord" },
 ];
 
 const FOOTER_LINKS = [
-  { label: "Spec", href: "/spec" },
-  { label: "Engine", href: "https://github.com/PabloPotato/Axon" },
-  { label: "GitHub", href: "https://github.com/PabloPotato/Axon" },
-  { label: "Discord", href: "#" },
+  { label: "Spec", href: "https://github.com/PabloPotato/Intaglio#readme" },
+  { label: "Engine", href: "https://github.com/PabloPotato/Intaglio/tree/main/intaglio-engine" },
+  { label: "GitHub", href: "https://github.com/PabloPotato/Intaglio" },
+  { label: "Discord", href: "https://discord.gg/intaglio" },
 ];
 
 const GOVERNANCE = [
@@ -387,8 +387,8 @@ export default function LandingPage() {
         <div className="ax-container ax-nav-inner">
           <a href="/" className="ax-nav-brand">Intaglio</a>
           <div className="ax-nav-links">
-            {NAV_LINKS.map(({ label, href }) => (
-              <a key={label} href={href} className="ax-nav-link">
+            {NAV_LINKS.map(({ label, href, ariaLabel }) => (
+              <a key={label} href={href} className="ax-nav-link" {...(ariaLabel ? { 'aria-label': ariaLabel } : {})}>
                 {label}
               </a>
             ))}
@@ -410,10 +410,10 @@ export default function LandingPage() {
               The open standard EU compliance officers accept as evidence under AI Act Article 12, MiCA, and DORA.
             </p>
             <div className="ax-hero-ctas">
-              <a href="/demo" className="ax-btn-primary">
-                View live demo
+              <a href="https://github.com/PabloPotato/Intaglio" className="ax-btn-primary">
+                View on GitHub
               </a>
-              <a href="/spec" className="ax-btn-ghost">
+              <a href="https://github.com/PabloPotato/Intaglio#readme" className="ax-btn-ghost">
                 Read the spec
               </a>
             </div>
@@ -440,7 +440,7 @@ export default function LandingPage() {
           <div className="ax-different-grid">
             {DIFFERENT_CARDS.map((card) => (
               <div key={card.title} className="ax-different-card">
-                <div className="ax-different-icon">{card.icon}</div>
+                <div className="ax-different-icon" aria-hidden="true">{card.icon}</div>
                 <h3 className="ax-different-title">{card.title}</h3>
                 <p className="ax-different-body">{card.body}</p>
               </div>
@@ -524,7 +524,7 @@ export default function LandingPage() {
                     <span key={j} className="ax-template-badge">{r}</span>
                   ))}
                 </div>
-                <a href="#" className="ax-template-link">View template</a>
+                <a href="https://github.com/PabloPotato/Intaglio/tree/main/apl/templates" className="ax-template-link" aria-label={`View ${t.name} template`}>View template</a>
               </div>
             ))}
           </div>
@@ -545,7 +545,7 @@ export default function LandingPage() {
               <span className="ax-institutional-badge">MiCA Title V compatible</span>
               <span className="ax-institutional-badge">FINMA circular 2026/1 compatible</span>
             </div>
-            <a href="/docs/apl-fs" className="ax-institutional-link">Read the APL-FS draft specification →</a>
+            <a href="https://github.com/PabloPotato/Intaglio/tree/main/apl" className="ax-institutional-link">Read the APL spec on GitHub →</a>
           </div>
         </section>
 

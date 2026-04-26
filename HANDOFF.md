@@ -126,4 +126,104 @@ Two attempts to fix, then `git checkout master` and document the blocker here. M
 - Graphify knowledge graph integration — post-hackathon
 - Vercel DNS repointing to `intaglio.tech` — operator action after rename verified
 - GitHub repo rename from `PabloPotato/Axon` to `PabloPotato/Intaglio` — operator action
-- Dashboard Vercel deploy via GitHub integration — operator action
+- [ ] dashboard Vercel deploy via GitHub integration — operator action
+
+---
+
+## POLISH AUDIT — 2026-04-27
+
+Conducted via browser audit of `https://landing-gules-phi.vercel.app` at 3 viewports (375px, 768px, 1440px) plus source code analysis.
+
+### Critical
+
+1. **CRIT — Links to /spec and /demo are 404** — Both nav links point to pages that don't exist (`/spec`, `/demo`). Hero CTAs also link to `/demo` and `/spec`. These should either be real pages or link to GitHub with hash anchors.
+2. **CRIT — Engine and GitHub nav links point to PabloPotato/Axon** — Repo was renamed to Intaglio. All 4 references (nav ×2, footer ×2) still point to `/Axon`.
+3. **CRIT — Discord link is a bare `#` with no aria-label** — Looks unprofessional during demo.
+4. **CRIT — Missing favicon** — No `link[rel="icon"]` exists on the page. The browser shows a blank favicon.
+
+### High
+
+5. **HIGH — Missing OG image** — `og:image` meta tag is absent. Shared links on Twitter/Discord will show no preview image.
+6. **HIGH — 10 "View template" links all point to `#`** — Template cards have dead links with no aria-label. During a demo if someone clicks, nothing happens.
+7. **HIGH — No hover states on .ax-different-card** — The "Why Intaglio is different" cards should shift border color on hover (like .ax-template-card already does).
+8. **HIGH — No mobile responsive hamburger** — At 375px, the nav has 4 links that crowd the header. No mobile menu toggle.
+9. **HIGH — "View live demo" and "Read the spec" both 404** — These are the two primary CTAs on the page. Both lead to nowhere.
+10. **HIGH — `CodeTabs.tsx` has debug console.log** — Line 52: `console.log(decision.outcome);` and line 53: `console.log(record.self_hash);`. These log production simulation data to console.
+
+### Medium
+
+11. **MED — Minimal responsive rules for ax-different-grid** — Only collapses to 1fr at 768px. No intermediate tablet layout (2 columns).
+12. **MED — Hash chain table overflows at 375px** — The hash chain table has `min-width: 600px` on .ax-table but there's no responsive collapse for the .ax-hashchain-table itself. At 375px the Agent column is hidden but the hash column is still displayed — very cramped.
+13. **MED — Section vertical rhythm inconsistent** — `.ax-section` uses `padding-bottom: 80px` but hero uses `padding: 80px 24px`, footer-cta uses `padding-bottom: 64px`, governance card uses `padding: 32px 36px`. No consistent vertical rhythm between sections.
+14. **MED — Hero title "The policy layer for the autonomous economy." at 72px** — On 375px viewport, this renders at 48px which is reasonable but the `letter-spacing: -0.04em` on a 48px font could make the text cramped. Should verify renders cleanly.
+15. **MED — `.ax-nav` background is rgba(9,9,11,0.85)** — The 85% opacity with backdrop-blur is fine but on scroll there's no border-bottom change (no thicker nav border on scroll like Linear does).
+16. **MED — `Axon` still in package.json URLs** — `intaglio-engine/package.json` and `intaglio-audit/package.json` still reference `https://github.com/PabloPotato/Axon`.
+17. **MED — CodeTabs has inline style `linear-gradient` on file icon** — Hardcoded CSS in component JSX rather than using CSS custom properties.
+18. **MED — `.ax-why-card` uses `transform: translateY(-2px)` on hover** — The spec says "Cards should shift their border color, never lift." This should be changed.
+19. **MED — `.ax-btn-primary` uses `transform: translateY(-1px)` on hover** — Lifting behavior. Should darken opacity or change border color instead per spec.
+20. **MED — `.ax-why-card` uses `transition: border-color 0.2s, transform 0.2s`** — The `transform` animation is redundant with the lift. Should only transition border-color.
+
+### Low
+
+21. **LOW — `CONTEXT.md` still references "Axon" in a URL** — Line 79: `github.com/PabloPotato/Axon`.
+22. **LOW — `HANDOFF.md` section "Known Intentional Axon References" lists GitHub URLs but repo is already renamed** — Needs updating.
+23. **LOW — No `alt` attributes on images** — The page has decorative SVG icons in inline-JSX (Lock, Zap, Globe) with no aria-hidden or alt tags.
+24. **LOW — Template badges use `JetBrains Mono` directly rather than `var(--font-mono)`** — Two references to `"JetBrains Mono", monospace` in CSS that should use the CSS variable.
+25. **LOW — Hardcoded `12.5px` font sizes** — Code blocks use `font-size: 12.5px` which is an odd value. Should be `12px` or `13px`.
+26. **LOW — Footer has double border-top** — Both `.ax-footer-cta` and `.ax-footer` have `border-top: 1px solid var(--color-border)`. Creates a visible double line.
+27. **LOW — `.ax-institutional-link` points to `/docs/apl-fs`** — This page doesn't exist. Same issue as /spec and /demo.
+28. **LOW — `.ax-hero-sub` has `max-width: 600px` but the subtitle text needs more width** — The subtitle "The open standard EU compliance officers accept..." is 76 chars. At 600px max-width it wraps on desktop. Should be wider.
+29. **LOW — No responsive rule for roadmap at 480px** — Roadmap grid goes to 2 columns at 640px, but at 375px/480px the cards might be too wide with their text content.
+30. **LOW — Hash chain tooltip uses `position: fixed`** — Tooltip for hash display uses `position: fixed` with no repositioning logic. On scroll it will appear in wrong position.
+
+---
+
+## REPO AUDIT — 2026-04-27
+
+### TODO/FIXME/XXX/HACK Comments
+None found in source files (excluding node_modules and .git). Clean.
+
+### Debug Console Logs in Production Code
+- **`landing/app/CodeTabs.tsx:52`** — `console.log(decision.outcome);` — debug output that shouldn't ship
+- **`landing/app/CodeTabs.tsx:53`** — `console.log(record.self_hash);` — same
+- All other console.log calls are in services/, infra/, or examples/ — appropriate for those contexts
+
+### Axon → Intaglio References Still Unchanged
+| File | Reference | Severity |
+|---|---|---|
+| `landing/app/page.tsx:364,365,371,372` | `PabloPotato/Axon` in nav/footer | HIGH |
+| `intaglio-engine/package.json:9` | `PabloPotato/Axon` in repo URL | MED |
+| `intaglio-audit/package.json:9` | `PabloPotato/Axon` in repo URL | MED |
+| `CONTEXT.md:79` | `PabloPotato/Axon` in URL | LOW |
+| `dashboard/app/page.tsx:48,105` | `PabloPotato/Axon` in footer links | MED |
+| `HANDOFF.md` | Various historical references | LOW (intentional) |
+
+### Broken Image References
+- No `<img>` tags found anywhere in landing/ or dashboard/ — no images used, so no broken images.
+
+### Unused Imports (static analysis)
+- All imports in landing/app/*.tsx appear to be used or necessary. React import used for Fragment/useState. lucide-react icons used in DIFFERENT_CARDS. CopyButton and CodeTabs used in JSX.
+
+### TypeScript Errors
+- `npx tsc --noEmit` passes cleanly for both `landing/` and `dashboard/` — zero errors.
+
+### Accessibility Issues
+1. **Missing aria-labels on icon-only elements** — 10 "View template" links and "Discord" link use `href="#"` with no `aria-label` (11 total).
+2. **No favicon** — Browser shows blank tab icon.
+3. **Missing OG image** — Social shares show no preview.
+4. **Decorative icons (Lock, Zap, Globe) in section cards** — Should have `aria-hidden="true"` on the wrapping div to avoid screen reader confusion.
+5. **No skip-to-content link** — Keyboard users must tab through full nav to reach content.
+
+### OG Tags Status
+| Tag | Present | Value |
+|---|---|---|
+| `og:title` | ✅ | "Intaglio — Policy & Audit Layer for AI Agents" |
+| `og:description` | ✅ | "Deterministic policy enforcement and tamper-evident audit for autonomous AI agents." |
+| `og:type` | ✅ | "website" |
+| `og:url` | ❌ | Missing — important for canonical sharing |
+| `og:image` | ❌ | Missing — no social preview card |
+| `og:site_name` | ✅ | "Intaglio" |
+| `twitter:card` | ❌ | Missing — should be "summary_large_image" |
+| `twitter:title` | ❌ | Missing — should match og:title |
+| `twitter:description` | ❌ | Missing — should match og:description |
+| `twitter:image` | ❌ | Missing — should match og:image (once added)

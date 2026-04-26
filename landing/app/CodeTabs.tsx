@@ -49,8 +49,8 @@ const { decision, record } = await engine.evaluate(
   }
 );
 
-console.log(decision.outcome); // "APPROVE"
-console.log(record.self_hash); // "sha256:a3f9c1…"`;
+// decision.outcome → "APPROVE"
+// record.self_hash → "sha256:a3f9c1…"`;
 
 export default function CodeTabs() {
   const [active, setActive] = useState<"policy" | "eval">("policy");
