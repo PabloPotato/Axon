@@ -1,68 +1,47 @@
-# HANDOFF — Session Context & Polish Run
+# HANDOFF — Session Context & Deploy Pipeline Fix
 
-## DEMO READINESS BRIEFING — April 27, 2026
+## MORNING BRIEFING — April 27, 2026 (14:00 CET)
 
-### WHAT'S LIVE
-| Asset | URL | Status |
-|---|---|---|
-| **Landing** | https://landing-gules-phi.vercel.app | ✅ 200 — Ten bugs fixed and deployed, OG image, all prior improvements live |
-| **Dashboard** | https://dashboard-lilac-five-43.vercel.app | ⚠️ 200 — Still serving old build. Blocked on PR merge + git creds |
-| **GitHub** | https://github.com/PabloPotato/Intaglio | ✅ PR #1 open, mergeable (rename + design). README Axon-branded until merge |
+### ⚡ VERIFIED LIVE STATE
 
-### WHAT'S READY FOR DEMO
-1. **Live policy editor** — Type in a USDC amount, see APPROVE/DENY/REQUIRE_APPROVAL with hash output. Centers the demo around the core interaction.
-2. **Hash chain visualization** — 6 tamper-evident audit records with hash transitions, decision pills, tooltip-able hashes. Judges can immediately understand the audit moat.
-3. **Ten templates section** — "MiCA CASP Stablecoin", "EU AI Act Marketing Agent", etc. with GitHub links. Makes the ecosystem play concrete.
-4. **Institutional section with APL-FS preview** — Sygnum, Amina, Bitpanda named. 60-day pilot at 25–50K EUR. Shows real design partner traction.
-5. **Comparison table with Aladdin column** — "Intaglio vs Microsoft Agent 365 vs Ramp vs Crossmint vs Aladdin(BlackRock)". The Aladdin column is the strongest social proof — judges who know financial infrastructure will notice.
+| URL | HTTP | Bug Markers (curl verified) | Status |
+|-----|------|-----------------------------|--------|
+| `https://landing-gules-phi.vercel.app/` | **200** | `intaglio.dev`: 0 ✅ `demo-placeholder`: 0 ✅ `Talk to us`: 0 ✅ `hello@intaglio.tech`: 1 ✅ `ax-decision-pill`: 1 ✅ `lowering the limit`: 1 ✅ | **ALL BUG FIXES LIVE** |
+| `https://landing-crwcqqi09-axons-projects-61010da5.vercel.app/` | **200** (auth-wall) | Requires Vercel auth bypass — production alias is the source of truth | Production alias serving correct content |
+| `https://dashboard-lilac-five-43.vercel.app/` | **200** | Still serving old build. Blocked on git integration. | Needs operator action |
 
-### VERIFICATION — April 27 Early Morning
+### ✅ WHAT THIS RUN ACCOMPLISHED
 
-**HTML content checks on live landing URL:**
-| Check | Result |
-|---|---|
-| "Intaglio" appears 5+ times | ✅ 34 occurrences |
-| "policy layer for the autonomous economy" | ✅ Present |
-| "Why Intaglio is different" | ✅ Present |
-| "Aladdin" in comparison table | ✅ Present |
-| "Sygnum" in institutional section | ✅ Present |
-| No "Axon" outside href URLs | ✅ Clean |
-| `body[data-scrolled] .ax-nav` rule | ✅ In deployed CSS bundle |
-| `.ax-different-card:hover` rule | ✅ Present |
-| `:focus-visible` with violet color | ✅ Present |
-| Hero title 36px at ≤480px | ✅ Present |
-| Table column hiding at ≤640px | ✅ Present (cols 5,6 hidden) |
+**Priority One — Deploy Pipeline Diagnosis & Fix**
+1. **Diagnosed root cause**: Previous deployments built correctly but were NOT promoting to the `landing-gules-phi.vercel.app` production alias. The alias system was not being triggered by `--prod` flag correctly.
+2. **Applied fix**: Used `npx vercel deploy --prod --yes` which explicitly calls the production alias promotion at the end. The output shows `Aliased: https://landing-gules-phi.vercel.app [44s]` — confirming the alias promotion worked.
+3. **Verified live**: Curl of production URL shows all 3 North Star markers clean (zero `intaglio.dev`, zero `demo-placeholder`, zero `Talk to us`).
 
-### DEMO-DAY IMPROVEMENTS (shipped this session)
+**Priority Two — Policy Editor Approve/Deny UX**
+1. **Fix 1: Change initial state** — `useState(1000)` instead of `useState(500)`. First view shows APPROVE in green. ✅ *Verified: curl shows `value="1000"` on input*
+2. **Fix 2: Add hint label** — `<span class="ax-policy-editor-hint">Try lowering the limit to see DENY</span>` in muted 12px italic below input. ✅ *Verified: curl finds "lowering the limit"*
+3. **Fix 3: Decision pill** — Wrapped APPROVE/DENY in `<span class="ax-decision-pill ax-decision-pill--approve">` with green/red background tint + border, 8px 16px padding, 6px radius, JetBrains Mono uppercase, weight 600. ✅ *Verified: curl finds "ax-decision-pill"*
+4. **CSS added**: Decision pill rules and hint label rules in `globals.css`.
+5. **Deployed**: Build succeeded (7.84 KB, 109 KB First Load JS), deployed with `--prod` flag, aliased to `landing-gules-phi.vercel.app`.
 
-1. **OG image** — 1200×630 dark theme typography at `/og-image.png`. Serves as 200 with 18KB. Configured in layout.tsx as both `og:image` and `twitter:image` with absolute URL. Social previews will show "Intaglio" wordmark + subtitle.
-2. **Demo video link** — "Watch 60-second demo" with Play icon, now links to `#policy-editor` (live code section). Consolidated onto same row as badge with bullet separator per DESIGN.md.
-3. **Partner CTA** — "Building tokenized fund operations on Solana?" section above footer with email and GitHub issue links. Replaces old redundant "Talk to us" CTA.
+**Priority Three — Repository Bug Sweep**
+1. **Axon refs in source files**: Found `github.com/PabloPotato/Axon` in `dashboard/app/page.tsx` (2 occurrences) — fixed to `PabloPotato/Intaglio`. No other Axon references in source files (excluding `.next` build artifacts).
+2. **intaglio.dev refs**: Zero matches across landing/ and dashboard/ source files ✅
+3. **tsc --noEmit**: Exit 0 ✅
+4. **Build size**: 109 KB First Load JS — under 200KB target ✅
+5. **Git push blocked**: SSH key not registered with GitHub. Changes committed locally but pushed failed.
 
-### TEN-BUG FIX RUN
+### ➡️ OPERATOR ACTIONS
 
-| # | Bug | Status |
-|---|---|---|
-| 1 | Email domain: `intaglio.dev` → `intaglio.tech` (6 files: page.tsx, 2x package.json, INSTITUTIONAL.md, x402-proxy comment) | ✅ Fixed |
-| 2 | SHA256 hashes: 5 with wrong lengths (63,63,66,65 chars) corrected to exactly 64 hex chars each. All 12 hashes audited and verified. | ✅ Fixed |
-| 3 | Hash chain tooltip: removed full-hash inline rendering, shows truncated form only for clean visual density | ✅ Simplified |
-| 4 | Demo link anchor: `#demo-placeholder` → `#policy-editor` (scrolls to live policy editor section) | ✅ Fixed |
-| 5 | CodeTabs tab switcher: verified both tabs render correctly with `useState` toggling. Console.log already commented in prior run. | ✅ Verified working |
-| 6 | Institutional code block: wrapped in `<details>/<summary>` collapsible. Label: "View tokenized money market fund policy specimen (57 lines)". Default closed. | ✅ Fixed |
-| 7 | Roadmap: updated from 4 items (v0.1→v1.0) to 5 items (v0.1→v1.5) mirroring ROADMAP.md: APL-FS, attestation chain, SWIFT ingest, SOC 2, managed compliance subscription. | ✅ Fixed |
-| 8 | Hero badge + demo link: consolidated into single `.ax-hero-secondary` row with centered bullet separator. Three elements → one clean row. | ✅ Fixed |
-| 9 | Redundant "Talk to us" CTA: removed. Partner CTA (with email + GitHub issue) is the single footer ask per DESIGN.md. | ✅ Fixed |
-| 10 | JSON-LD schema: added `Organization` + `SoftwareApplication` structured data in layout.tsx head. | ✅ Added |
-
-### OPERATOR WAKE-UP CHECKLIST
-1. **Fix git push access**: Generate new GitHub PAT at https://github.com/settings/tokens (repo scope), then run:
+1. **Fix git push** — The SSH key (`~/.ssh/id_rsa`) is not authorized for `github.com/PabloPotato/Intaglio`. Generate a GitHub PAT (repo scope) at https://github.com/settings/tokens, then run:
    ```
-   echo "https://PabloPotato:YOUR_NEW_TOKEN@github.com" > ~/.hermes/git-creds && chmod 600 ~/.hermes/git-creds
+   git remote set-url origin https://PabloPotato:YOUR_TOKEN@github.com/PabloPotato/Intaglio.git
+   cd /root/axon/Axon-main && git push origin feature/dashboard-deploy-fix
    ```
-2. **Push local commits**: `cd ~/axon/Axon-main && git push origin feature/dashboard-deploy-fix` — pushes OG image, demo link, partner CTA, mobile QA, a11y, ROADMAP updates.
-3. **Merge PR #1 from phone**: https://github.com/PabloPotato/Intaglio/pull/1 — updates GitHub README from Axon to Intaglio, triggers Vercel auto-deploy.
-4. **Record 60-second demo video**: Update `DEMO_VIDEO_URL` constant in `landing/app/page.tsx` with real YouTube/Loom URL. Text: "Watch 60-second demo" with play icon already styled.
-5. **Verify dashboard deploy + send Sygnum DM**: After PR merge, check dashboard loads with Intaglio branding. Then DM Sygnum contact with landing + demo link. Partner CTA section on landing is ready for inbound.
+2. **Merge PR #1 from phone** — https://github.com/PabloPotato/Intaglio/pull/1. This updates GitHub README from Axon to Intaglio and triggers any auto-deploys.
+3. **Record demo video** — Update `DEMO_VIDEO_URL` constant in `landing/app/page.tsx:13` with real YouTube/Loom URL. The Play icon + "Watch 60-second demo" text is already styled.
+4. **Send Sygnum DM** — After PR merge and verified dashboard deploy, DM Sygnum contact with landing + demo link. Partner CTA section is ready for inbound.
+5. **Dashboard deploy** — The `dashboard-lilac-five-43.vercel.app` is still serving old build. Go to Vercel dashboard → dashboard project → Settings → verify Root Directory is "dashboard" → trigger a redeploy from the latest commit on master.
 
 ---
 
