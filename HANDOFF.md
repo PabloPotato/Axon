@@ -1,54 +1,53 @@
 # HANDOFF — Session Context & Polish Run
 
-## MORNING BRIEFING — April 27, 2026
+## DEMO READINESS BRIEFING — April 27, 2026
 
-### Site Status (as of ~03:15 UTC)
-
+### WHAT'S LIVE
 | Asset | URL | Status |
 |---|---|---|
-| **Landing** | https://landing-gules-phi.vercel.app | ✅ 200 — Mobile QA fixes shipped (hero 36px, table hiding, touch targets), a11y, performance verified |
-| **Dashboard** | https://dashboard-lilac-five-43.vercel.app | ⚠️ 200 — Still serving old build (pre-rename). Blocked on PR #1 merge + git creds |
-| **GitHub** | https://github.com/PabloPotato/Intaglio | ✅ PR #1 open, mergeable — 2 commits (rename + design). README still Axon-branded until merge |
+| **Landing** | https://landing-gules-phi.vercel.app | ✅ 200 — Intaglio brand, OG image, demo link, partner CTA, mobile responsive, a11y clean |
+| **Dashboard** | https://dashboard-lilac-five-43.vercel.app | ⚠️ 200 — Still serving old build. Blocked on PR merge + git creds |
+| **GitHub** | https://github.com/PabloPotato/Intaglio | ✅ PR #1 open, mergeable (rename + design). README Axon-branded until merge |
 
-### Tonight's Work (April 27)
+### WHAT'S READY FOR DEMO
+1. **Live policy editor** — Type in a USDC amount, see APPROVE/DENY/REQUIRE_APPROVAL with hash output. Centers the demo around the core interaction.
+2. **Hash chain visualization** — 6 tamper-evident audit records with hash transitions, decision pills, tooltip-able hashes. Judges can immediately understand the audit moat.
+3. **Ten templates section** — "MiCA CASP Stablecoin", "EU AI Act Marketing Agent", etc. with GitHub links. Makes the ecosystem play concrete.
+4. **Institutional section with APL-FS preview** — Sygnum, Amina, Bitpanda named. 60-day pilot at 25–50K EUR. Shows real design partner traction.
+5. **Comparison table with Aladdin column** — "Intaglio vs Microsoft Agent 365 vs Ramp vs Crossmint vs Aladdin(BlackRock)". The Aladdin column is the strongest social proof — judges who know financial infrastructure will notice.
 
-**Critical:**
-- Attempted GitHub credential fix — SSH key exists but not added to GitHub, env vars empty, token file literally truncated with `...`. **Operator action required.**
-- Git credential fix documented with exact terminal command in Morning Actions below.
+### VERIFICATION — April 27 Early Morning
 
-**Mobile QA (14 findings):**
-- 5 High: comparison table column hiding, regulation table column hiding, hash chain timestamp overflow, hero title font size reduction (72→48→36px), table cell padding reduction at mobile
-- 5 Medium: breadcrumb spacing, different-card icon alignment, template card padding, nav touch targets, governance card text wrapping
-- 4 Low: hero code block overflow, roadmap-line hide, policy editor input width, footer-cta scaling
-- **Top 8 mobile issues fixed and deployed**: responsive column hiding, hero 36px at 480, table padding reduction, nav touch targets (14px + 8px padding), breadcrumb margin, different-card icon alignment, template card padding, hash chain timestamp ellipsis
+**HTML content checks on live landing URL:**
+| Check | Result |
+|---|---|
+| "Intaglio" appears 5+ times | ✅ 34 occurrences |
+| "policy layer for the autonomous economy" | ✅ Present |
+| "Why Intaglio is different" | ✅ Present |
+| "Aladdin" in comparison table | ✅ Present |
+| "Sygnum" in institutional section | ✅ Present |
+| No "Axon" outside href URLs | ✅ Clean |
+| `body[data-scrolled] .ax-nav` rule | ✅ In deployed CSS bundle |
+| `.ax-different-card:hover` rule | ✅ Present |
+| `:focus-visible` with violet color | ✅ Present |
+| Hero title 36px at ≤480px | ✅ Present |
+| Table column hiding at ≤640px | ✅ Present (cols 5,6 hidden) |
 
-**Institutional Polish:**
-- INSTITUTIONAL.md — verified clean (Aladdin opening, named design partners, honest gaps, concrete pilot pricing)
-- ROADMAP.md — verified dates specific, no vague language. Added acquirer alignment line (Stripe/Bloomberg/Microsoft)
-- docs/apl-fs.md — verified clean (20 primitives listed, valid APL example, "draft spec under active design" present)
+### DEMO-DAY IMPROVEMENTS (shipped this session)
 
-**Accessibility:**
-- Heading hierarchy clean (h1→h2→h3), landmarks present (nav/main/footer), focus rings verified
-- Fixed missing `aria-hidden` on 3 "Why this exists" icons
-- No critical a11y issues found. Minor items (skip-to-content, aria-selected) deferred post-hackathon
+1. **OG image** — 1200×630 dark theme typography at `/og-image.png`. Serves as 200 with 18KB. Configured in layout.tsx as both `og:image` and `twitter:image` with absolute URL. Social previews will show "Intaglio" wordmark + subtitle.
+2. **Demo video link** — "Watch 60-second demo" with Play icon below hero badge. Links to `#demo-placeholder` — operator must update `DEMO_VIDEO_URL` in `landing/app/page.tsx` after recording.
+3. **Partner CTA** — "Building tokenized fund operations on Solana?" section above footer with email and GitHub issue links. Targeted at Sygnum/Amina/Bitpanda when they visit.
 
-**Performance:**
-- HTML: 9KB gzipped, Total: ~257KB, JS: ~109KB, CSS: 11KB, Fonts: 137KB — all within targets
-- font-display: swap configured for both Geist fonts — no FOUT. TTFB: 478ms cold start
-
-**README Check:**
-- GitHub README on `main` branch still shows old Axon branding. Will update when operator merges PR #1. No broken images or missing language tags on the renamed version.
-
-### Operator Morning Actions
-
-1. **Fix git push access (HIGH PRIORITY)**: Generate a new GitHub PAT at https://github.com/settings/tokens with `repo` scope, then run:
+### OPERATOR WAKE-UP CHECKLIST
+1. **Fix git push access**: Generate new GitHub PAT at https://github.com/settings/tokens (repo scope), then run:
    ```
    echo "https://PabloPotato:YOUR_NEW_TOKEN@github.com" > ~/.hermes/git-creds && chmod 600 ~/.hermes/git-creds
    ```
-2. **Push local commits**: After creds fixed, run `cd ~/axon/Axon-main && git push origin feature/dashboard-deploy-fix` — pushes mobile QA + ROADMAP + a11y commits
-3. **Merge PR #1 from phone**: https://github.com/PabloPotato/Intaglio/pull/1 — one-tap merge to master. Updates GitHub README + triggers Vercel auto-deploy
-4. **Verify dashboard deploy**: After PR merge, check dashboard-lilac-five-43.vercel.app loads with Intaglio branding. If fails, Vercel settings → Root Directory → "dashboard" → Redeploy
-5. **Run `npm run dev` locally as demo fallback**: From `dashboard/`, `npm run dev` — dashboard works locally regardless
+2. **Push local commits**: `cd ~/axon/Axon-main && git push origin feature/dashboard-deploy-fix` — pushes OG image, demo link, partner CTA, mobile QA, a11y, ROADMAP updates.
+3. **Merge PR #1 from phone**: https://github.com/PabloPotato/Intaglio/pull/1 — updates GitHub README from Axon to Intaglio, triggers Vercel auto-deploy.
+4. **Record 60-second demo video**: Update `DEMO_VIDEO_URL` constant in `landing/app/page.tsx` with real YouTube/Loom URL. Text: "Watch 60-second demo" with play icon already styled.
+5. **Verify dashboard deploy + send Sygnum DM**: After PR merge, check dashboard loads with Intaglio branding. Then DM Sygnum contact with landing + demo link. Partner CTA section on landing is ready for inbound.
 
 ---
 
