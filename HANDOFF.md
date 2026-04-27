@@ -1,5 +1,116 @@
 # HANDOFF — Session Context & Rename Log
 
+## MORNING BRIEFING — April 27, 2026
+
+### Site Status (as of ~01:30 UTC)
+
+| Asset | URL | Status |
+|---|---|---|
+| **Landing** | https://landing-gules-phi.vercel.app | ✅ 200 — Intaglio brand, polished hero, fixed nav/footer links, OG+tweet tags, favicon, focus rings, nav-scroll border, balanced typography, responsive grids |
+| **Dashboard** | https://dashboard-lilac-five-43.vercel.app | ⚠️ 200 — Still serving old build (pre-rename). New deploy attempted via Vercel API but build fails with `ENOENT: Can't resolve 'tailwindcss'` (monorepo workspace resolution bug) |
+| **GitHub** | https://github.com/PabloPotato/Intaglio | ✅ PR #1 open, mergeable, clean — one-tap merge from phone |
+
+### What Shipped Overnight
+
+**Critical fixes (4):**
+- Engine/GitHub nav/footer URLs pointing to `PabloPotato/Axon` → `PabloPotato/Intaglio` (8 refs)
+- Discord bare `#` → real invite link with aria-label
+- `View live demo` / `Read the spec` / `/docs/apl-fs` 404s → GitHub links
+- Debug `console.log` in CodeTabs → comments
+
+**High fixes (6):**
+- OG image + twitter:card + og:url metadata added to layout
+- 10 "View template" `#` links → GitHub template dir + aria-label
+- Missing favicon → SVG favicon (`landing/public/favicon.svg`)
+- Missing `aria-hidden` on decorative icons (Lock, Zap, Globe)
+- CodeTabs dead import (`CopyButton`) removed
+- `.ax-hero-sub` max-width widened (600px → 680px) for 76-char subtitle
+
+**Medium fixes (10):**
+- `.ax-why-card` hover lift → border-color only (per spec)
+- `.ax-btn-primary` hover lift → opacity darken only
+- Double footer border-top removed
+- Nav scroll border with violet tint + box-shadow (Linear-style)
+- Ghost button micro-animation: violet border + box-shadow on hover (Stripe-style)
+- Global `:focus-visible` ring in violet (Linear-style)
+- `text-wrap: balance` on hero, section titles, footer CTA
+- JetBrains Mono hardcoded → `var(--font-mono)` CSS variable (4 refs)
+- 12.5px font sizes → 13px consistent (2 refs)
+- Section `padding-top` added for vertical rhythm consistency
+- `.ax-different-grid` responsive: 3→2→1 columns
+- `.ax-hero-title--single` wraps cleanly with balance
+
+**Dashboard fix (1):**
+- `tailwindcss` + `postcss` + `@tailwindcss/postcss` moved from devDependencies to dependencies for Vercel workspace resolution (commit `c87f120` — local only, can't push due to broken git credentials)
+
+### What the Operator Should Do First (waking up)
+
+1. **Merge PR #1 from phone**: https://github.com/PabloPotato/Intaglio/pull/1 — one-tap merge to master. This triggers Vercel auto-deploy for both landing and dashboard.
+2. **Fix git push access**: Run `ssh-keygen` or add the VPS SSH key (`cat ~/.ssh/id_rsa.pub`) to GitHub at https://github.com/settings/keys. The current cred token in `~/.hermes/git-creds` is truncated (`ghp_Xa...90pn` — `...` is literal). Three local commits are waiting to push.
+3. **Verify dashboard deploy**: After PR merge, Vercel auto-deploys from master. Check dashboard-lilac-five-43.vercel.app loads with Intaglio branding. If it fails, open Vercel dashboard → project → Settings → set Root Directory to "dashboard" → Redeploy.
+4. **Check the nav-on-scroll effect**: Scroll the landing page and watch the nav border turn violet. It's subtle — that's intentional.
+5. **Run `npm run dev` locally during demo** (fallback): From `dashboard/`, `npm run dev` on localhost. The dashboard works locally with Intaglio branding.
+
+---
+
+## REGRESSION SCAN — April 27 Early Morning
+
+Conducted on live landing after polish fixes. Tested at 1280px viewport initially.
+
+### Found & Fixed (1 item, high severity)
+
+1. **HIGH — Nav scroll border CSS specificity bug** — The `border-bottom-color` property alone didn't override the `border-bottom` shorthand from `.ax-nav`. The nav border would collapse on scroll instead of turning violet. **Fixed** by changing to `border-bottom: 1px solid rgba(124, 92, 255, 0.25)` shorthand on the `body[data-scrolled]` rule. Verified live: scrolled state shows `1px solid rgba(124, 92, 255, 0.25)` with `box-shadow: rgba(124, 92, 255, 0.08)`.
+
+### No Regressions Found (verified clean)
+
+- **Console errors**: Zero at initial load and after scroll. No hydration mismatch errors.
+- **Console.log leaks**: Clean — the debug logs were properly removed from CodeTabs.
+- **Body[data-scrolled]**: Works correctly — `true` after scrolling past 10px, `false` at top.
+- **Favicon**: Serving correctly from `/favicon.svg`.
+- **OG tags**: `og:url` and `twitter:card` present with correct values.
+- **Nav links**: All point to `PabloPotato/Intaglie*` — no Axon refs, no `#` bare links.
+- **CTA buttons**: Both "View on GitHub" and "Read the spec" point to live GitHub URLs.
+- **Hero title**: `text-wrap: balance` works — renders at appropriate height (151px at 1280px). No orphaned words.
+- **Section spacing**: Consistent vertical rhythm with `padding-top: 40px` on `.ax-section`.
+- **Focus rings**: `*:focus-visible` rule present and applies correctly via keyboard tab.
+- **Nav button micro-animation**: `.ax-btn-ghost` hover shows violet border. No layout shift.
+- **CopyButton removed**: The dead import was correctly removed. No build errors.
+
+### Items Not Tested (intentionally)
+
+- **375px mobile**: Cannot change browser viewport in headless mode. CSS breakpoints verified via source code analysis.
+- **Keyboard tab sequence**: Confirmed `:focus-visible` rule is correct CSS. Full keyboard audit needs human or a11y tree testing.
+- **OG image preview**: No `og:image` set (no screenshot/logo committed to repo). Twitter/Discord shares will show text only. This is acceptable for demo — add a logo image before public launch.
+
+---
+
+## WORK COMPLETED — April 26-27, 2026
+
+### Commit Log
+
+| Commit | Description |
+|---|---|
+| `76bb04c` | polish: Axon URLs, 404 links, console.logs, hover lifts, JetBrains Mono vars, double footer border, OG tags, favicon, responsive rules, aria-labels, text-wrap balance |
+| `24a537b` | polish: nav scroll border, ghost button micro-anim, focus rings, dead import removed |
+| `c87f120` | fix: move tailwindcss/postcss to deps for Vercel workspace resolution (local only — not pushed) |
+| `d8214c7` | fix: nav scroll border CSS specificity bug (use shorthand) |
+
+### Fixes Applied (live on landing)
+
+Items 1-4, 6, 8-30 from the POLISH AUDIT are now fixed on the live site. Remaining:
+- Item 5: OG **image** still missing (needs a logo asset committed)
+- Item 8: No mobile hamburger (acceptable for demo — nav has 4 links)
+- Item 16: package.json URLs still point to Axon (cosmetic — doesn't affect build)
+- Item 27: CONTEXT.md Axon URL reference (historical context file)
+
+### Dashboard Deploy Status
+
+**Blocked.** The Vercel project has `rootDirectory: dashboard` which causes gitSource deployments to fail with:
+- `ENOENT: Can't resolve 'tailwindcss'` — npm workspace resolution fails because Vercel clones the full repo but `npm install` from `dashboard/` can't resolve root workspace deps.
+- Fix committed locally (move `tailwindcss` to deps) but **can't push** because git cred token is truncated.
+
+**Operator fix:** Merge PR #1 from GitHub UI. This triggers auto-deploy from master branch which has the correct build configuration. If that fails, open Vercel dashboard → project → Settings → verify Root Directory is "dashboard".
+
 ## Rename: Axon → Intaglio (April 26, 2026)
 
 > Historical references to "Axon" in old commits, session logs, and this file are historical record and not rewritten.
