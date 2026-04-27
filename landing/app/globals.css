@@ -312,6 +312,21 @@ body[data-scrolled="true"] .ax-nav {
   background: var(--color-good);
 }
 
+.ax-hero-demo-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--color-muted);
+  text-decoration: none;
+  margin-top: 20px;
+  transition: color 0.15s;
+}
+
+.ax-hero-demo-link:hover {
+  color: var(--color-violet);
+}
+
 .ax-code-inline {
   background: var(--color-violet-muted);
   color: var(--color-violet);
@@ -921,6 +936,31 @@ body[data-scrolled="true"] .ax-nav {
   color: var(--color-foreground);
   border-color: rgba(124, 92, 255, 0.4);
   box-shadow: 0 0 0 1px rgba(124, 92, 255, 0.1);
+}
+
+/* ── Partner CTA ──────────────────────────────────────────────────────── */
+.ax-partner-cta {
+  text-align: center;
+  padding: 64px 24px;
+  max-width: 1100px;
+  margin: 0 auto;
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.ax-partner-cta p {
+  font-size: 14px;
+  color: var(--color-muted);
+  line-height: 1.6;
+}
+
+.ax-partner-cta-link {
+  color: var(--color-violet);
+  text-decoration: none;
+  transition: text-decoration 0.15s;
+}
+
+.ax-partner-cta-link:hover {
+  text-decoration: underline;
 }
 
 /* ── Footer CTA ───────────────────────────────────────────────────────── */

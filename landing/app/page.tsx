@@ -6,8 +6,11 @@
 
 import React from "react";
 
-import { Lock, Zap, Globe } from "lucide-react";
+import { Lock, Zap, Globe, Play } from "lucide-react";
 import CodeTabs from "./CodeTabs";
+
+// Placeholder — operator must update after recording the 60-second demo video
+const DEMO_VIDEO_URL = "#demo-placeholder";
 
 const HELLO_WORLD_APL = `policy marketing-agent v1.0.0
 agent  marketing-bot-01
@@ -420,6 +423,10 @@ export default function LandingPage() {
               <span className="ax-hero-badge-dot" />
               EU AI Act Article 12 ready
             </div>
+            <a href={DEMO_VIDEO_URL} className="ax-hero-demo-link" target="_blank" rel="noopener noreferrer">
+              <Play size={12} />
+              Watch 60-second demo
+            </a>
           </div>
 
           {/* Static APL code block */}
@@ -654,6 +661,19 @@ export default function LandingPage() {
             Talk to us
           </a>
         </section>
+
+        {/* ─── Partner CTA ───────────────────────────────────────────────── */}
+        <div className="ax-partner-cta">
+          <p>
+            Building tokenized fund operations on Solana? We're looking for{" "}
+            <a href="mailto:hello@intaglio.tech" className="ax-partner-cta-link">design partners</a>.
+            {" "}Email <a href="mailto:hello@intaglio.tech" className="ax-partner-cta-link">hello@intaglio.tech</a>
+            {" "}or{" "}
+            <a href="https://github.com/PabloPotato/Intaglio/issues/new" className="ax-partner-cta-link" target="_blank" rel="noopener noreferrer">
+              open a GitHub issue
+            </a>.
+          </p>
+        </div>
 
         {/* ─── Footer ────────────────────────────────────────────────────── */}
         <footer className="ax-footer">

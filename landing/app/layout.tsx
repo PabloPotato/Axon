@@ -23,12 +23,21 @@ export const metadata: Metadata = {
     locale: "en_US",
     siteName: "Intaglio",
     url: "https://landing-gules-phi.vercel.app",
+    images: [
+      {
+        url: "https://landing-gules-phi.vercel.app/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Intaglio — The policy layer for the autonomous economy",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Intaglio — Policy & Audit Layer for AI Agents",
     description:
       "Deterministic policy enforcement and tamper-evident audit for autonomous AI agents.",
+    images: ["https://landing-gules-phi.vercel.app/og-image.png"],
   },
   robots: { index: true, follow: true },
   keywords: [
