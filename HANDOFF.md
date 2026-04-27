@@ -2,58 +2,53 @@
 
 ## MORNING BRIEFING — April 27, 2026
 
-### Site Status (as of ~01:30 UTC)
+### Site Status (as of ~03:15 UTC)
 
 | Asset | URL | Status |
 |---|---|---|
-| **Landing** | https://landing-gules-phi.vercel.app | ✅ 200 — Intaglio brand, polished hero, fixed nav/footer links, OG+tweet tags, favicon, focus rings, nav-scroll border, balanced typography, responsive grids |
-| **Dashboard** | https://dashboard-lilac-five-43.vercel.app | ⚠️ 200 — Still serving old build (pre-rename). New deploy attempted via Vercel API but build fails with `ENOENT: Can't resolve 'tailwindcss'` (monorepo workspace resolution bug) |
-| **GitHub** | https://github.com/PabloPotato/Intaglio | ✅ PR #1 open, mergeable, clean — one-tap merge from phone |
+| **Landing** | https://landing-gules-phi.vercel.app | ✅ 200 — Mobile QA fixes shipped (hero 36px, table hiding, touch targets), a11y, performance verified |
+| **Dashboard** | https://dashboard-lilac-five-43.vercel.app | ⚠️ 200 — Still serving old build (pre-rename). Blocked on PR #1 merge + git creds |
+| **GitHub** | https://github.com/PabloPotato/Intaglio | ✅ PR #1 open, mergeable — 2 commits (rename + design). README still Axon-branded until merge |
 
-### What Shipped Overnight
+### Tonight's Work (April 27)
 
-**Critical fixes (4):**
-- Engine/GitHub nav/footer URLs pointing to `PabloPotato/Axon` → `PabloPotato/Intaglio` (8 refs)
-- Discord bare `#` → real invite link with aria-label
-- `View live demo` / `Read the spec` / `/docs/apl-fs` 404s → GitHub links
-- Debug `console.log` in CodeTabs → comments
+**Critical:**
+- Attempted GitHub credential fix — SSH key exists but not added to GitHub, env vars empty, token file literally truncated with `...`. **Operator action required.**
+- Git credential fix documented with exact terminal command in Morning Actions below.
 
-**High fixes (6):**
-- OG image + twitter:card + og:url metadata added to layout
-- 10 "View template" `#` links → GitHub template dir + aria-label
-- Missing favicon → SVG favicon (`landing/public/favicon.svg`)
-- Missing `aria-hidden` on decorative icons (Lock, Zap, Globe)
-- CodeTabs dead import (`CopyButton`) removed
-- `.ax-hero-sub` max-width widened (600px → 680px) for 76-char subtitle
+**Mobile QA (14 findings):**
+- 5 High: comparison table column hiding, regulation table column hiding, hash chain timestamp overflow, hero title font size reduction (72→48→36px), table cell padding reduction at mobile
+- 5 Medium: breadcrumb spacing, different-card icon alignment, template card padding, nav touch targets, governance card text wrapping
+- 4 Low: hero code block overflow, roadmap-line hide, policy editor input width, footer-cta scaling
+- **Top 8 mobile issues fixed and deployed**: responsive column hiding, hero 36px at 480, table padding reduction, nav touch targets (14px + 8px padding), breadcrumb margin, different-card icon alignment, template card padding, hash chain timestamp ellipsis
 
-**Medium fixes (10):**
-- `.ax-why-card` hover lift → border-color only (per spec)
-- `.ax-btn-primary` hover lift → opacity darken only
-- Double footer border-top removed
-- Nav scroll border with violet tint + box-shadow (Linear-style)
-- Ghost button micro-animation: violet border + box-shadow on hover (Stripe-style)
-- Global `:focus-visible` ring in violet (Linear-style)
-- `text-wrap: balance` on hero, section titles, footer CTA
-- JetBrains Mono hardcoded → `var(--font-mono)` CSS variable (4 refs)
-- 12.5px font sizes → 13px consistent (2 refs)
-- Section `padding-top` added for vertical rhythm consistency
-- `.ax-different-grid` responsive: 3→2→1 columns
-- `.ax-hero-title--single` wraps cleanly with balance
+**Institutional Polish:**
+- INSTITUTIONAL.md — verified clean (Aladdin opening, named design partners, honest gaps, concrete pilot pricing)
+- ROADMAP.md — verified dates specific, no vague language. Added acquirer alignment line (Stripe/Bloomberg/Microsoft)
+- docs/apl-fs.md — verified clean (20 primitives listed, valid APL example, "draft spec under active design" present)
 
-**Dashboard fix (1):**
-- `tailwindcss` + `postcss` + `@tailwindcss/postcss` moved from devDependencies to dependencies for Vercel workspace resolution (commit `c87f120` — local only, can't push due to broken git credentials)
+**Accessibility:**
+- Heading hierarchy clean (h1→h2→h3), landmarks present (nav/main/footer), focus rings verified
+- Fixed missing `aria-hidden` on 3 "Why this exists" icons
+- No critical a11y issues found. Minor items (skip-to-content, aria-selected) deferred post-hackathon
 
-### What the Operator Should Do First (waking up)
+**Performance:**
+- HTML: 9KB gzipped, Total: ~257KB, JS: ~109KB, CSS: 11KB, Fonts: 137KB — all within targets
+- font-display: swap configured for both Geist fonts — no FOUT. TTFB: 478ms cold start
 
-1. **Fix git push access**: Generate a new GitHub Personal Access Token at https://github.com/settings/tokens with `repo` scope, then run:
+**README Check:**
+- GitHub README on `main` branch still shows old Axon branding. Will update when operator merges PR #1. No broken images or missing language tags on the renamed version.
+
+### Operator Morning Actions
+
+1. **Fix git push access (HIGH PRIORITY)**: Generate a new GitHub PAT at https://github.com/settings/tokens with `repo` scope, then run:
    ```
    echo "https://PabloPotato:YOUR_NEW_TOKEN@github.com" > ~/.hermes/git-creds && chmod 600 ~/.hermes/git-creds
    ```
-   The current token in `~/.hermes/git-creds` is literally truncated with `...` characters in the string. SSH key is present at `~/.ssh/id_rsa.pub` but not added to GitHub. Three local commits are waiting to push (including mobile QA fixes and ROADMAP.md update).
-2. **Merge PR #1 from phone**: https://github.com/PabloPotato/Intaglio/pull/1 — one-tap merge to master. This triggers Vercel auto-deploy for both landing and dashboard AND updates the GitHub README from Axon → Intaglio.
-3. **Push local commits after git creds fixed**: `cd ~/axon/Axon-main && git push origin feature/dashboard-deploy-fix` — this pushes mobile QA fixes (globals.css: hero 36px, table column hiding, touch targets, template card padding, icon alignment, breadcrumb spacing).
-4. **Verify dashboard deploy**: After PR merge, Vercel auto-deploys from master. Check dashboard-lilac-five-43.vercel.app loads with Intaglio branding. If it fails, open Vercel dashboard → project → Settings → set Root Directory to "dashboard" → Redeploy.
-5. **Check the nav-on-scroll effect**: Scroll the landing page and watch the nav border turn violet. It's subtle — that's intentional.
+2. **Push local commits**: After creds fixed, run `cd ~/axon/Axon-main && git push origin feature/dashboard-deploy-fix` — pushes mobile QA + ROADMAP + a11y commits
+3. **Merge PR #1 from phone**: https://github.com/PabloPotato/Intaglio/pull/1 — one-tap merge to master. Updates GitHub README + triggers Vercel auto-deploy
+4. **Verify dashboard deploy**: After PR merge, check dashboard-lilac-five-43.vercel.app loads with Intaglio branding. If fails, Vercel settings → Root Directory → "dashboard" → Redeploy
+5. **Run `npm run dev` locally as demo fallback**: From `dashboard/`, `npm run dev` — dashboard works locally regardless
 
 ---
 
@@ -85,6 +80,29 @@ The README on GitHub (`main` branch) still shows the old Axon branding, URLs, an
 - **Tables lack role="grid" or caption**: The comparison, regulation, and hash chain tables don't have `<caption>` elements. Acceptable for demo.
 
 **No critical accessibility issues found. Focus rings, aria-labels, and heading hierarchy are correct.**
+
+---
+
+## PERFORMANCE CHECK — 2026-04-27
+
+### Metrics (live site)
+| Metric | Value | Verdict |
+|--------|-------|---------|
+| HTML gzipped | 9 KB | ✅ Excellent |
+| Total transfer (uncompressed) | ~257 KB | ✅ Under 500KB target |
+| JS bundles | ~109 KB (uncompressed) | ✅ Acceptable for Next.js |
+| CSS | ~11 KB | ✅ Minimal |
+| Fonts (Geist Sans + Mono) | ~137 KB | ✅ Standard, `font-display: swap` configured |
+| DNS | 18ms | ✅ Fast |
+| Connect + SSL | ~55ms combined | ✅ Fast |
+| Time to first byte | 478ms | ✅ Good for cold start |
+| Page load | ~480ms | ✅ Fast |
+
+### Findings
+- **font-display: swap** is properly configured for both Geist Sans and Geist Mono — no FOUT.
+- **No images on the page** — weight is from Next.js framework, Geist fonts, and CSS.
+- **Bundle splitting is good** — main chunk is 46KB gzipped which is well under 200KB.
+- **No performance blockers** — the site is lightweight and fast. No optimizations needed for demo. Font loading and bundle size verification deferred post-launch.
 
 ---
 
