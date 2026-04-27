@@ -49,11 +49,42 @@
    ```
    echo "https://PabloPotato:YOUR_NEW_TOKEN@github.com" > ~/.hermes/git-creds && chmod 600 ~/.hermes/git-creds
    ```
-   The current token in `~/.hermes/git-creds` is literally truncated with `...` characters in the string. SSH key is present at `~/.ssh/id_rsa.pub` but not added to GitHub. Three local commits are waiting to push.
-2. **Merge PR #1 from phone**: https://github.com/PabloPotato/Intaglio/pull/1 — one-tap merge to master. This triggers Vercel auto-deploy for both landing and dashboard.
-3. **Verify dashboard deploy**: After PR merge, Vercel auto-deploys from master. Check dashboard-lilac-five-43.vercel.app loads with Intaglio branding. If it fails, open Vercel dashboard → project → Settings → set Root Directory to "dashboard" → Redeploy.
-4. **Check the nav-on-scroll effect**: Scroll the landing page and watch the nav border turn violet. It's subtle — that's intentional.
-5. **Run `npm run dev` locally during demo** (fallback): From `dashboard/`, `npm run dev` on localhost. The dashboard works locally with Intaglio branding.
+   The current token in `~/.hermes/git-creds` is literally truncated with `...` characters in the string. SSH key is present at `~/.ssh/id_rsa.pub` but not added to GitHub. Three local commits are waiting to push (including mobile QA fixes and ROADMAP.md update).
+2. **Merge PR #1 from phone**: https://github.com/PabloPotato/Intaglio/pull/1 — one-tap merge to master. This triggers Vercel auto-deploy for both landing and dashboard AND updates the GitHub README from Axon → Intaglio.
+3. **Push local commits after git creds fixed**: `cd ~/axon/Axon-main && git push origin feature/dashboard-deploy-fix` — this pushes mobile QA fixes (globals.css: hero 36px, table column hiding, touch targets, template card padding, icon alignment, breadcrumb spacing).
+4. **Verify dashboard deploy**: After PR merge, Vercel auto-deploys from master. Check dashboard-lilac-five-43.vercel.app loads with Intaglio branding. If it fails, open Vercel dashboard → project → Settings → set Root Directory to "dashboard" → Redeploy.
+5. **Check the nav-on-scroll effect**: Scroll the landing page and watch the nav border turn violet. It's subtle — that's intentional.
+
+---
+
+## README CHECK — 2026-04-27
+
+The README on GitHub (`main` branch) still shows the old Axon branding, URLs, and comparison table. This is expected — the rename PR (#1) contains the Intaglio README but hasn't been merged yet. The README will update automatically once the operator merges PR #1 from GitHub UI. After merge, verify:
+- `main` branch README shows Intaglio (not Axon)
+- All code blocks have language tags (the renamed README uses proper tags)
+- No old Axon URLs remain
+- Badges can be added post-merge (license, build status)
+
+**Note:** No images on the README currently — adding an OG image screenshot would improve social preview but is deferred.
+
+---
+
+## ACCESSIBILITY VERIFICATION — 2026-04-27
+
+### Verified Clean
+- **Heading hierarchy**: h1 → h2 → h3 (no jumps). 1 h1, 12 h2, 3 h3 — clean semantic structure.
+- **Landmarks**: `<nav>`, `<main>`, `<footer>` — correct landmarks present.
+- **Focus rings**: `:focus-visible` rule applies globally via `*:focus-visible` in globals.css — 2px solid violet outline.
+- **`aria-hidden` on decorative icons**: All 3 "Why Intaglio is different" icons have `aria-hidden="true"`. The 3 "Why this exists" icons had missing `aria-hidden` — now fixed in commit.
+- **Link vs button usage**: Nav links use `<a>` with real `href` values (no `#` bare links). Template "View template" links are `<a>` with GitHub URLs. Code tabs use `<button>` — correct.
+- **Alt text**: No `<img>` tags on the page — no missing alt text (all icons are inline SVGs with aria-hidden).
+
+### Not Fixed (acceptable for demo — post-hackathon)
+- **Missing skip-to-content link**: Keyboard users must tab through full nav to reach main content. Not a blocker for demo but worth adding pre-launch.
+- **Code tabs aria-selected**: The `<button>` elements for Policy/Evaluation tabs don't have `aria-selected` or `role="tab"`. Minor — acceptable for demo.
+- **Tables lack role="grid" or caption**: The comparison, regulation, and hash chain tables don't have `<caption>` elements. Acceptable for demo.
+
+**No critical accessibility issues found. Focus rings, aria-labels, and heading hierarchy are correct.**
 
 ---
 

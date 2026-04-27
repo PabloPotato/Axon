@@ -452,7 +452,7 @@ export default function LandingPage() {
           <div className="ax-why-grid">
             {WHY_ITEMS.map(({ icon, heading, body }, i) => (
               <div key={heading} className={`ax-why-card ax-animate ax-delay-${i + 1}`}>
-                <div className="ax-why-icon">{icon}</div>
+                <div className="ax-why-icon" aria-hidden="true">{icon}</div>
                 <p className="ax-why-heading">{heading}</p>
                 <p className="ax-why-body">{body}</p>
               </div>
