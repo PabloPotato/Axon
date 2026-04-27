@@ -59,6 +59,39 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className={`${GeistSansFont.variable} ${GeistMonoFont.variable}`}>
       <body className={GeistSansFont.className}>
         <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@graph": [
+                {
+                  "@type": "Organization",
+                  name: "Intaglio",
+                  url: "https://landing-gules-phi.vercel.app",
+                  description:
+                    "The open policy layer for AI agents that move real money — deterministic policy enforcement and tamper-evident audit trails.",
+                  license: "https://github.com/PabloPotato/Intaglio/blob/main/LICENSE",
+                  sameAs: ["https://github.com/PabloPotato/Intaglio"],
+                },
+                {
+                  "@type": "SoftwareApplication",
+                  name: "Intaglio Engine",
+                  description:
+                    "Reference implementation of the Intaglio Policy Language (APL) — parse, evaluate, and audit autonomous AI agent actions.",
+                  applicationCategory: "DeveloperApplication",
+                  operatingSystem: "Cross-platform",
+                  license: "MIT",
+                  offers: {
+                    "@type": "Offer",
+                    price: "0",
+                    priceCurrency: "USD",
+                  },
+                },
+              ],
+            }),
+          }}
+        />
+        <script
           dangerouslySetInnerHTML={{
             __html: `document.addEventListener("scroll",()=>{document.body.dataset.scrolled=window.scrollY>10?"true":"false"},{passive:true})`,
           }}

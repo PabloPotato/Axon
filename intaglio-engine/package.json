@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "Reference implementation of the Intaglio Policy Language (APL) — parse, evaluate, and audit autonomous AI agent actions.",
   "license": "MIT",
-  "author": "Intaglio Labs <hello@intaglio.dev>",
+  "author": "Intaglio Labs <hello@intaglio.tech>",
   "repository": {
     "type": "git",
     "url": "https://github.com/PabloPotato/Axon"

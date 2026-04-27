@@ -40,7 +40,7 @@ import type { AgentAction, EvaluationContext } from "@intaglio/engine";
 const app = new Hono();
 
 // CORS: allowlist only. Comma-separated origins in INTA_CORS_ORIGINS
-// (e.g. "https://dashboard.intaglio.dev,http://localhost:3000"). If unset,
+// (e.g. "https://dashboard.intaglio.tech,http://localhost:3000"). If unset,
 // CORS is disabled — agents call this proxy server-to-server, not from
 // browsers, so a wide-open `cors()` would only benefit attackers trying
 // to ride a victim's bearer token from a malicious site.

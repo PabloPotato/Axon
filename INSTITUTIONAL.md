@@ -70,4 +70,4 @@ The Aladdin column in our comparison table reflects this honestly. Aladdin has e
 
 ## Contact
 
-For design partner inquiries: [hello@intaglio.dev](mailto:hello@intaglio.dev)
+For design partner inquiries: [hello@intaglio.tech](mailto:hello@intaglio.tech)

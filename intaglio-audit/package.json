@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "Auditor-signable PDF exporter for Intaglio — maps hash-chained action records to EU AI Act Article 12, MiCA CASP, and DORA.",
   "license": "MIT",
-  "author": "Intaglio Labs <hello@intaglio.dev>",
+  "author": "Intaglio Labs <hello@intaglio.tech>",
   "repository": {
     "type": "git",
     "url": "https://github.com/PabloPotato/Axon"

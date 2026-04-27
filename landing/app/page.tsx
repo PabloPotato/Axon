@@ -10,7 +10,7 @@ import { Lock, Zap, Globe, Play } from "lucide-react";
 import CodeTabs from "./CodeTabs";
 
 // Placeholder — operator must update after recording the 60-second demo video
-const DEMO_VIDEO_URL = "#demo-placeholder";
+const DEMO_VIDEO_URL = "#policy-editor";
 
 const HELLO_WORLD_APL = `policy marketing-agent v1.0.0
 agent  marketing-bot-01
@@ -129,7 +129,7 @@ const HASH_CHAIN_DATA = [
     prev: "sha256:a1b2...",
     curr: "sha256:5e6f7a8b9c0d...",
     prevFull: "sha256:a1b2c3d4e5f67890abcdef1234567890abcdef1234567890abcdef1234567890",
-    currFull: "sha256:5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6",
+    currFull: "sha256:5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e60", // 64 hex chars
   },
   {
     ts: "2026-04-20T14:05:47Z",
@@ -138,8 +138,8 @@ const HASH_CHAIN_DATA = [
     agent: "compliance-checker-01",
     prev: "sha256:5e6f...",
     curr: "sha256:f0e1d2c3b4a5...",
-    prevFull: "sha256:5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6",
-    currFull: "sha256:f0e1d2c3b4a5968778695a4b3c2d1e0f9a8b7c6d5e4f3a2b1c0d9e8f7a6b5c4",
+    prevFull: "sha256:5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e60", // 64 hex chars
+    currFull: "sha256:f0e1d2c3b4a5968778695a4b3c2d1e0f9a8b7c6d5e4f3a2b1c0d9e8f7a6b5c40", // 64 hex chars
   },
   {
     ts: "2026-04-21T16:22:09Z",
@@ -148,7 +148,7 @@ const HASH_CHAIN_DATA = [
     agent: "data-indexer-03",
     prev: "sha256:f0e1...",
     curr: "sha256:7a8b9c0d1e2f...",
-    prevFull: "sha256:f0e1d2c3b4a5968778695a4b3c2d1e0f9a8b7c6d5e4f3a2b1c0d9e8f7a6b5c4",
+    prevFull: "sha256:f0e1d2c3b4a5968778695a4b3c2d1e0f9a8b7c6d5e4f3a2b1c0d9e8f7a6b5c40", // 64 hex chars
     currFull: "sha256:7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b",
   },
   {
@@ -159,7 +159,7 @@ const HASH_CHAIN_DATA = [
     prev: "sha256:7a8b...",
     curr: "sha256:3c4d5e6f7a8b...",
     prevFull: "sha256:7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b",
-    currFull: "sha256:3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e",
+    currFull: "sha256:3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d", // 64 hex chars (was 66)
   },
   {
     ts: "2026-04-23T07:01:55Z",
@@ -168,19 +168,14 @@ const HASH_CHAIN_DATA = [
     agent: "analytics-bot-02",
     prev: "sha256:3c4d...",
     curr: "sha256:b8a9c0d1e2f3...",
-    prevFull: "sha256:3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e",
-    currFull: "sha256:b8a9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c",
+    prevFull: "sha256:3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d", // 64 hex chars (was 66)
+    currFull: "sha256:b8a9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9", // 64 hex chars
   },
 ];
 
 function HashChainRow({ row }: { row: typeof HASH_CHAIN_DATA[number] }) {
-  const [hovered, setHovered] = React.useState(false);
   return (
-    <tr
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      style={{ position: "relative" }}
-    >
+    <tr style={{ position: "relative" }}>
       <td><span className="ax-hashchain-time">{row.ts}</span></td>
       <td>
         <span className={`ax-hashchain-decision ax-hashchain-decision--${row.decision === "REQUIRE_APPROVAL" ? "require" : row.decision.toLowerCase()}`}>
@@ -194,16 +189,6 @@ function HashChainRow({ row }: { row: typeof HASH_CHAIN_DATA[number] }) {
           <span className="ax-hashchain-hash-prev">{row.prev}</span>
           <span className="ax-hashchain-arrow">→</span>
           <span className="ax-hashchain-hash-curr">{row.curr}</span>
-          <div className={`ax-hashchain-tooltip ${hovered ? "visible" : ""}`}>
-            <div className="ax-hashchain-tooltip-label">Previous hash</div>
-            <div style={{ fontFamily: "var(--font-mono)", fontSize: "10px", wordBreak: "break-all", marginBottom: "8px" }}>
-              {row.prevFull}
-            </div>
-            <div className="ax-hashchain-tooltip-label">Current hash</div>
-            <div style={{ fontFamily: "var(--font-mono)", fontSize: "10px", wordBreak: "break-all" }}>
-              {row.currFull}
-            </div>
-          </div>
         </span>
       </td>
     </tr>
@@ -355,10 +340,11 @@ const TEMPLATE_CARDS = [
 ];
 
 const ROADMAP = [
-  { version: "v0.1", label: "Today", desc: "Engine, APL spec, hash-chain audit, operator dashboard." },
-  { version: "v0.2", label: "May 2026", desc: "Solana anchoring, PDF audit export, DORA templates." },
-  { version: "v0.3", label: "Q3 2026", desc: "Multi-rail support (MPP, AP2), team RBAC, webhook notifications." },
-  { version: "v1.0", label: "2027", desc: "Standards donation, third-party audited, ISO 42001 mapping." },
+  { version: "v0.1", label: "Today (shipped)", desc: "Engine, APL spec, hash-chain audit, operator dashboard, 10 policy templates." },
+  { version: "v0.2", label: "May 2026", desc: "Solana anchoring, PDF audit export, DORA templates, multi-rail support (MPP, AP2)." },
+  { version: "v0.3", label: "Q3 2026", desc: "APL-FS institutional dialect, attestation chain (eIDAS), SWIFT MT/ISO 20022 read-only ingest." },
+  { version: "v1.0", label: "H1 2027", desc: "Standards foundation donation, SOC 2 Type II, BUIDL-class institutional pilots." },
+  { version: "v1.5", label: "H2 2027", desc: "Managed compliance subscription, regulator-accepted evidence, 20+ institutional clients." },
 ];
 
 const NAV_LINKS = [
@@ -419,14 +405,17 @@ export default function LandingPage() {
                 Read the spec
               </a>
             </div>
-            <div className="ax-hero-badge">
-              <span className="ax-hero-badge-dot" />
-              EU AI Act Article 12 ready
+            <div className="ax-hero-secondary">
+              <span className="ax-hero-badge">
+                <span className="ax-hero-badge-dot" />
+                EU AI Act Article 12 ready
+              </span>
+              <span className="ax-hero-secondary-bullet">·</span>
+              <a href={DEMO_VIDEO_URL} className="ax-hero-demo-link" target="_blank" rel="noopener noreferrer">
+                <Play size={12} />
+                Watch 60-second demo
+              </a>
             </div>
-            <a href={DEMO_VIDEO_URL} className="ax-hero-demo-link" target="_blank" rel="noopener noreferrer">
-              <Play size={12} />
-              Watch 60-second demo
-            </a>
           </div>
 
           {/* Static APL code block */}
@@ -544,7 +533,10 @@ export default function LandingPage() {
               Tokenized fund operations require deterministic policy enforcement, attestation chains tied to regulated signing entities, and integration with traditional rails. Intaglio's institutional dialect, APL-FS, adds these primitives.
             </p>
             <div className="ax-institutional-code">
-              <pre className="ax-institutional-code-pre">{APL_FS_POLICY}</pre>
+              <details className="ax-institutional-details">
+                <summary className="ax-institutional-summary">View tokenized money market fund policy specimen (57 lines)</summary>
+                <pre className="ax-institutional-code-pre">{APL_FS_POLICY}</pre>
+              </details>
             </div>
             <div className="ax-institutional-badges">
               <span className="ax-institutional-badge">1940 Investment Company Act compatible</span>
@@ -650,16 +642,6 @@ export default function LandingPage() {
               </div>
             ))}
           </div>
-        </section>
-
-        {/* ─── Footer CTA ────────────────────────────────────────────────── */}
-        <section id="footer-cta" className="ax-footer-cta">
-          <p className="ax-footer-cta-title">
-            Building an agent that moves money in the EU?
-          </p>
-          <a id="footer-cta-mailto" href="mailto:hello@intaglio.dev" className="ax-btn-primary">
-            Talk to us
-          </a>
         </section>
 
         {/* ─── Partner CTA ───────────────────────────────────────────────── */}

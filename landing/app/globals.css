@@ -312,6 +312,20 @@ body[data-scrolled="true"] .ax-nav {
   background: var(--color-good);
 }
 
+.ax-hero-secondary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.ax-hero-secondary-bullet {
+  color: var(--color-muted);
+  font-size: 13px;
+  opacity: 0.5;
+}
+
 .ax-hero-demo-link {
   display: inline-flex;
   align-items: center;
@@ -319,7 +333,6 @@ body[data-scrolled="true"] .ax-nav {
   font-size: 13px;
   color: var(--color-muted);
   text-decoration: none;
-  margin-top: 20px;
   transition: color 0.15s;
 }
 
@@ -675,10 +688,51 @@ body[data-scrolled="true"] .ax-nav {
   background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: 8px;
-  padding: 20px;
+  padding: 0;
   margin: 24px 0;
   text-align: left;
-  overflow-x: auto;
+  overflow: hidden;
+}
+
+.ax-institutional-details {
+  width: 100%;
+}
+
+.ax-institutional-summary {
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--color-violet);
+  padding: 16px 20px;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background 0.15s;
+  user-select: none;
+}
+
+.ax-institutional-summary:hover {
+  background: rgba(124, 92, 255, 0.04);
+}
+
+.ax-institutional-summary::-webkit-details-marker {
+  display: none;
+}
+
+.ax-institutional-summary::before {
+  content: '▶';
+  font-size: 10px;
+  color: var(--color-muted);
+  transition: transform 0.2s;
+}
+
+.ax-institutional-details[open] .ax-institutional-summary::before {
+  transform: rotate(90deg);
+}
+
+.ax-institutional-details[open] .ax-institutional-code-pre {
+  border-top: 1px solid var(--color-border);
 }
 
 .ax-institutional-code-pre {
