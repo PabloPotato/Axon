@@ -1,4 +1,4 @@
-# HANDOFF — Session Context & Rename Log
+# HANDOFF — Session Context & Polish Run
 
 ## MORNING BRIEFING — April 27, 2026
 
@@ -45,11 +45,63 @@
 
 ### What the Operator Should Do First (waking up)
 
-1. **Merge PR #1 from phone**: https://github.com/PabloPotato/Intaglio/pull/1 — one-tap merge to master. This triggers Vercel auto-deploy for both landing and dashboard.
-2. **Fix git push access**: Run `ssh-keygen` or add the VPS SSH key (`cat ~/.ssh/id_rsa.pub`) to GitHub at https://github.com/settings/keys. The current cred token in `~/.hermes/git-creds` is truncated (`ghp_Xa...90pn` — `...` is literal). Three local commits are waiting to push.
+1. **Fix git push access**: Generate a new GitHub Personal Access Token at https://github.com/settings/tokens with `repo` scope, then run:
+   ```
+   echo "https://PabloPotato:YOUR_NEW_TOKEN@github.com" > ~/.hermes/git-creds && chmod 600 ~/.hermes/git-creds
+   ```
+   The current token in `~/.hermes/git-creds` is literally truncated with `...` characters in the string. SSH key is present at `~/.ssh/id_rsa.pub` but not added to GitHub. Three local commits are waiting to push.
+2. **Merge PR #1 from phone**: https://github.com/PabloPotato/Intaglio/pull/1 — one-tap merge to master. This triggers Vercel auto-deploy for both landing and dashboard.
 3. **Verify dashboard deploy**: After PR merge, Vercel auto-deploys from master. Check dashboard-lilac-five-43.vercel.app loads with Intaglio branding. If it fails, open Vercel dashboard → project → Settings → set Root Directory to "dashboard" → Redeploy.
 4. **Check the nav-on-scroll effect**: Scroll the landing page and watch the nav border turn violet. It's subtle — that's intentional.
 5. **Run `npm run dev` locally during demo** (fallback): From `dashboard/`, `npm run dev` on localhost. The dashboard works locally with Intaglio branding.
+
+---
+
+## MOBILE QA — 2026-04-27
+
+Conducted via source-code analysis of responsive breakpoints against live site at 1280px viewport. The CSS has breakpoints at 768px, 640px, and 480px. Total tables: 3 (hash chain: 5 cols, regulatory mapping: 7 cols, comparison: 6 cols — see below for mobile issues).
+
+### High
+
+1. **HIGH — Comparison table no responsive column hiding**. The 6-column comparison table (Capability, Intaglio, Microsoft Agent 365, Ramp Treasury, Crossmint, Aladdin) wraps in `overflow-x: auto` at 600px min-width. At 375px, users must horizontally scroll through 6 columns — no column hiding at any breakpoint. Should hide columns 4+ (Crossmint, Aladdin) at ≤640px and all but "Capability" + "Intaglio" at ≤480px.
+
+2. **HIGH — Regulatory mapping table no responsive column hiding**. The 7-column regulation table (Primitive, EU AI Act, MiCA 68, MiCA 70, DORA 17, NIST AI RMF, ISO 42001) wraps in `overflow-x: auto` with no min-width set. At 375px, only ~2-3 columns are visible, users must scroll. Should hide NIST and ISO columns at ≤768px, hide individual MiCA/DORA at ≤480px.
+
+3. **HIGH — Hash chain table hides Agent + Hash at ≤768px, but Timestamp handling is rough**. At ≤768px cols 4 (Agent) and 5 (Hash chain) are hidden via `display: none`. The remaining 3 columns (Timestamp, Decision, Amount) have generous padding (14px 16px). At 375px with the table taking full width (~343px), 3 columns × ~114px each is tight. Decision pills with 10px font + padding are readable, but timestamps in `12px mono` with `white-space: nowrap` could overflow. Add `overflow: hidden; text-overflow: ellipsis` on timestamp col at ≤480px.
+
+4. **HIGH — No mobile font-size reduction for hero title below 48px**. The hero title is 72px → 48px at ≤768px, then stays 48px all the way to 375px. A 48px title on a 343px-wide viewport with `letter-spacing: -0.04em` and `text-wrap: balance` renders at approximately 3-4 lines (~70 words at 48px with line-height 1.05). Should reduce to 36px at ≤480px breakpoint for better density.
+
+5. **HIGH — All table cells use large fixed padding**. The comparison table (`ax-table`) uses `padding: 14px 20px` on th and `padding: 12px 20px` on td. The reg table (`ax-reg-table`) uses `padding: 12px 8px`. At 375px, 20px horizontal padding on each cell consumes ~40px per column. For a 5-column table at 343px, that's only ~28px of content width per column. Should reduce to `padding: 10px 8px` at ≤480px.
+
+### Medium
+
+6. **MED — Hash chain table `min-width: 600px` still present**. The `.ax-table` class has `min-width: 600px` which forces horizontal scroll on any container wider than the viewport. The `.ax-table-wrap` has `overflow-x: auto` which handles this correctly, but a user on a slow connection might see the table jutting out before CSS loads. Not a bug, but reduces perceived polish.
+
+7. **MED — Hero breadcrumb line overlaps the title on mobile**. The `.ax-hero-breadcrumb` mono text "OPEN PROTOCOL · DETERMINISTIC · MULTI-RAIL" at 11px with 0.15em letter-spacing plus the 20px bottom margin and 48px hero title — at 375px the vertical gap between breadcrumb and h1 is only 20px. Could use `margin-bottom: 12px` at ≤480px.
+
+8. **MED — `.ax-different-grid` icon boxes don't center at 1-column**. At ≤640px, the grid becomes 1 column. The `.ax-different-icon` is a 40×40px bordered box with flex center. With 24px horizontal padding on the card and full-width layout, the icon looks left-aligned above the centered text. Should use `justify-content: flex-start` on the card at single-column to align icon with text block.
+
+9. **MED — No mobile collapse for governance card items**. The `.ax-governance-list` has `gap: 14px` with 14px font items that have 10px left gap for the checkmark icon. At 375px the text "Deterministic evaluation — same policy, same action, same decision every time" (clipped to ~35 chars per line) may wrap to 3+ lines, creating uneven item heights.
+
+10. **MED — Template card inner spacing at single column**. At ≤640px, template cards stack to 1 column with 16px gap. Each card has `padding: 24px` with a 13px mono name, 14px description (potentially 3-4 lines), and 11px badges that wrap to 2 rows. At 375px, a card with 4 badges could be visually dense. No responsive padding reduction on template cards.
+
+### Low
+
+11. **LOW — No `overflow-x: auto` on the hero code block at mobile**. `.ax-hero-code-pre` has `overflow-x: auto` but is inside a `.ax-hero-code` with `max-width: 640px`. The APL code sample is a single long line (~600 chars) that wraps via line-height 1.6 at 640px but at 375px with 14px font and 24px padding, it still needs horizontal scroll for the content. Verified functional — not broken.
+
+12. **LOW — Roadmap at 480px+ missing intermediate breakpoint**. Roadmap grid goes from 4 columns → 2 columns at 640px, then stays 2 columns down to 375px. 2 cards × 2 rows on a 343px viewport is reasonable (each card is ~155px). But the roadmap-line is `display: none` at ≤640px, which means the connecting line disappears but the dots remain. Acceptable — minor visual inconsistency.
+
+13. **LOW — Policy editor input width doesn't scale at mobile**. The `.ax-policy-editor-input` has `width: 120px` fixed. At 375px in the single-column layout, the policy-editor splits into two stacked boxes, each full-width. Inside, the input row has a label + input + button in a flex row. 120px for the number input is fine — but the button text "Evaluate" at 14px may wrap if the spacing is tight.
+
+14. **LOW — Footer-cta title font goes from 22px to 18px at ≤480px, but the CTA buttons don't scale**. The two buttons ("View on GitHub", "Read the spec") stay at `14px` with `padding: 10px 20px` at all viewports. At 375px the button text in "View on GitHub" (14 chars) at 14px is fine. But `gap: 16px` with `flex-wrap: wrap` could make them stack vertically if narrow — which is acceptable behavior.
+
+### Touch Targets Check
+
+At 1280px viewport, touch targets smaller than 44px: Spec (33×21px), Engine (43×21px), GitHub (40×21px) in both nav and footer. These are secondary nav links — acceptable for desktop but worth noting if operator plans mobile-first demos.
+
+---
+
+## REGRESSION SCAN — April 27 Early Morning
 
 ---
 

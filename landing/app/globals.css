@@ -110,7 +110,10 @@ body[data-scrolled="true"] .ax-nav {
 
 @media (max-width: 640px) {
   .ax-nav-links { gap: 16px; }
-  .ax-nav-link { font-size: 13px; }
+  .ax-nav-link {
+    font-size: 14px;
+    padding: 8px 0;
+  }
 }
 
 /* ── Hero ─────────────────────────────────────────────────────────────── */
@@ -173,6 +176,12 @@ body[data-scrolled="true"] .ax-nav {
   }
 }
 
+@media (max-width: 480px) {
+  .ax-hero-title {
+    font-size: 36px;
+  }
+}
+
 .ax-hero-title-line {
   display: block;
 }
@@ -189,6 +198,90 @@ body[data-scrolled="true"] .ax-nav {
 
 @media (max-width: 480px) {
   .ax-hero-sub { font-size: 16px; }
+}
+
+/* ── Hero breadcrumb responsive ── */
+@media (max-width: 480px) {
+  .ax-hero-breadcrumb { margin-bottom: 12px; }
+}
+
+/* ── Table cell padding at mobile ── */
+@media (max-width: 480px) {
+  .ax-table th,
+  .ax-table td {
+    padding: 10px 8px;
+  }
+  .ax-reg-table th,
+  .ax-reg-table td {
+    padding: 8px 4px;
+  }
+  .ax-reg-table th {
+    font-size: 10px;
+  }
+}
+
+/* ── Responsive column hiding for comparison table ── */
+@media (max-width: 640px) {
+  .ax-table th:nth-child(5),
+  .ax-table th:nth-child(6),
+  .ax-table td:nth-child(5),
+  .ax-table td:nth-child(6) {
+    display: none;
+  }
+}
+@media (max-width: 480px) {
+  .ax-table th:nth-child(4),
+  .ax-table td:nth-child(4) {
+    display: none;
+  }
+}
+
+/* ── Responsive column hiding for regulatory mapping table ── */
+@media (max-width: 768px) {
+  .ax-reg-table th:nth-child(6),
+  .ax-reg-table th:nth-child(7),
+  .ax-reg-table td:nth-child(6),
+  .ax-reg-table td:nth-child(7) {
+    display: none;
+  }
+}
+@media (max-width: 480px) {
+  .ax-reg-table th:nth-child(4),
+  .ax-reg-table th:nth-child(5),
+  .ax-reg-table td:nth-child(4),
+  .ax-reg-table td:nth-child(5) {
+    display: none;
+  }
+}
+
+/* ── Hash chain table timestamp overflow at mobile ── */
+@media (max-width: 480px) {
+  .ax-hashchain-table th:nth-child(1),
+  .ax-hashchain-table td:nth-child(1) {
+    max-width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+/* ── Different card icon alignment at single-column ── */
+@media (max-width: 640px) {
+  .ax-different-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .ax-different-icon {
+    align-self: flex-start;
+  }
+}
+
+/* ── Template card padding at mobile ── */
+@media (max-width: 640px) {
+  .ax-template-card {
+    padding: 16px;
+  }
 }
 
 .ax-hero-ctas {
