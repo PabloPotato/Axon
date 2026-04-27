@@ -38,3 +38,4 @@
 - EU regulatory referenceability: regulator accepts Intaglio audit exports as evidence
 - 20+ institutional customers across tokenized funds, payment agents, and treasury operations
 - Standards body governance with multiple implementing vendors
+- Strategic acquirer alignment: infrastructure-stage fit for Stripe (agent policy layer for MPP), Bloomberg/LSEG (regulatory data moat), or Microsoft/Visa (enterprise compliance embed)
