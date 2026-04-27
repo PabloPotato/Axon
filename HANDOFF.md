@@ -5,7 +5,7 @@
 ### WHAT'S LIVE
 | Asset | URL | Status |
 |---|---|---|
-| **Landing** | https://landing-gules-phi.vercel.app | ✅ 200 — Intaglio brand, OG image, demo link, partner CTA, mobile responsive, a11y clean |
+| **Landing** | https://landing-gules-phi.vercel.app | ✅ 200 — Ten bugs fixed and deployed, OG image, all prior improvements live |
 | **Dashboard** | https://dashboard-lilac-five-43.vercel.app | ⚠️ 200 — Still serving old build. Blocked on PR merge + git creds |
 | **GitHub** | https://github.com/PabloPotato/Intaglio | ✅ PR #1 open, mergeable (rename + design). README Axon-branded until merge |
 
@@ -36,8 +36,23 @@
 ### DEMO-DAY IMPROVEMENTS (shipped this session)
 
 1. **OG image** — 1200×630 dark theme typography at `/og-image.png`. Serves as 200 with 18KB. Configured in layout.tsx as both `og:image` and `twitter:image` with absolute URL. Social previews will show "Intaglio" wordmark + subtitle.
-2. **Demo video link** — "Watch 60-second demo" with Play icon below hero badge. Links to `#demo-placeholder` — operator must update `DEMO_VIDEO_URL` in `landing/app/page.tsx` after recording.
-3. **Partner CTA** — "Building tokenized fund operations on Solana?" section above footer with email and GitHub issue links. Targeted at Sygnum/Amina/Bitpanda when they visit.
+2. **Demo video link** — "Watch 60-second demo" with Play icon, now links to `#policy-editor` (live code section). Consolidated onto same row as badge with bullet separator per DESIGN.md.
+3. **Partner CTA** — "Building tokenized fund operations on Solana?" section above footer with email and GitHub issue links. Replaces old redundant "Talk to us" CTA.
+
+### TEN-BUG FIX RUN
+
+| # | Bug | Status |
+|---|---|---|
+| 1 | Email domain: `intaglio.dev` → `intaglio.tech` (6 files: page.tsx, 2x package.json, INSTITUTIONAL.md, x402-proxy comment) | ✅ Fixed |
+| 2 | SHA256 hashes: 5 with wrong lengths (63,63,66,65 chars) corrected to exactly 64 hex chars each. All 12 hashes audited and verified. | ✅ Fixed |
+| 3 | Hash chain tooltip: removed full-hash inline rendering, shows truncated form only for clean visual density | ✅ Simplified |
+| 4 | Demo link anchor: `#demo-placeholder` → `#policy-editor` (scrolls to live policy editor section) | ✅ Fixed |
+| 5 | CodeTabs tab switcher: verified both tabs render correctly with `useState` toggling. Console.log already commented in prior run. | ✅ Verified working |
+| 6 | Institutional code block: wrapped in `<details>/<summary>` collapsible. Label: "View tokenized money market fund policy specimen (57 lines)". Default closed. | ✅ Fixed |
+| 7 | Roadmap: updated from 4 items (v0.1→v1.0) to 5 items (v0.1→v1.5) mirroring ROADMAP.md: APL-FS, attestation chain, SWIFT ingest, SOC 2, managed compliance subscription. | ✅ Fixed |
+| 8 | Hero badge + demo link: consolidated into single `.ax-hero-secondary` row with centered bullet separator. Three elements → one clean row. | ✅ Fixed |
+| 9 | Redundant "Talk to us" CTA: removed. Partner CTA (with email + GitHub issue) is the single footer ask per DESIGN.md. | ✅ Fixed |
+| 10 | JSON-LD schema: added `Organization` + `SoftwareApplication` structured data in layout.tsx head. | ✅ Added |
 
 ### OPERATOR WAKE-UP CHECKLIST
 1. **Fix git push access**: Generate new GitHub PAT at https://github.com/settings/tokens (repo scope), then run:
