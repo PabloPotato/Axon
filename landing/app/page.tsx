@@ -196,7 +196,7 @@ function HashChainRow({ row }: { row: typeof HASH_CHAIN_DATA[number] }) {
 }
 
 function PolicyEditor() {
-  const [limitValue, setLimitValue] = React.useState(500);
+  const [limitValue, setLimitValue] = React.useState(1000);
   const ATTEMPTED_AMOUNT = 750;
   const isApproved = limitValue >= ATTEMPTED_AMOUNT;
 
@@ -237,6 +237,7 @@ limit {
                 onChange={(e) => setLimitValue(Number(e.target.value))}
                 className="ax-policy-editor-input"
               />
+              <span className="ax-policy-editor-hint">Try lowering the limit to see DENY</span>
             </div>
           </div>
         </div>
@@ -254,7 +255,9 @@ limit {
               <span className="ax-policy-editor-target">payment to vendor.io</span>
             </div>
             <div className={`ax-policy-editor-decision ax-policy-editor-decision--${isApproved ? "approve" : "deny"}`}>
-              {isApproved ? "APPROVE" : "DENY"}
+              <span className={`ax-decision-pill ax-decision-pill--${isApproved ? "approve" : "deny"}`}>
+                {isApproved ? "APPROVE" : "DENY"}
+              </span>
             </div>
             <div className="ax-policy-editor-reason">
               {isApproved

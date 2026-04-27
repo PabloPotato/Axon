@@ -45,7 +45,7 @@ export default async function HomePage() {
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
           <Link
-            href="https://github.com/PabloPotato/Axon"
+            href="https://github.com/PabloPotato/Intaglio"
             style={{ display: "flex", alignItems: "center", gap: 6, fontSize: 13, color: "var(--color-muted-foreground)", textDecoration: "none" }}
             target="_blank"
             rel="noopener noreferrer"
@@ -102,7 +102,7 @@ export default async function HomePage() {
             <ArrowRight className="w-4 h-4" />
           </Link>
           <a
-            href="https://github.com/PabloPotato/Axon"
+            href="https://github.com/PabloPotato/Intaglio"
             target="_blank"
             rel="noopener noreferrer"
             className="ax-btn ax-btn--ghost"
